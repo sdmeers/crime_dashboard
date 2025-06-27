@@ -1,6 +1,7 @@
 import pandas as pd
 import folium
 from folium.plugins import MarkerCluster
+from fastkml import kml
 import requests
 import json
 
@@ -10,6 +11,10 @@ LATITUDE = 51.150719
 LONGITUDE = -0.973177
 DATE = "2025-04"
 RADIUS_MILES = 1.0 # The API likely uses metric, so we may need to adjust this.
+
+kml_file = 'force_kmls/hampshire_boundary.kml' 
+polygon = get_polygon_from_kml(kml_file)
+
 
 # Output file for the map
 OUTPUT_MAP_FILE = 'alton_crime_map.html'
@@ -59,6 +64,43 @@ def get_stop_and_searches(lat, lng, date):
         return df
     return pd.DataFrame()
 
+def get_polygon_from_kml(kml_file_path):
+    """
+    Parses a KML file to find the first polygon and returns its coordinates
+    in the format required by the police API.
+    """
+    try:
+        with open(kml_file_path, 'rb') as f:
+            doc = f.read()
+    except FileNotFoundError:
+        print(f"Error: KML file not found at {kml_file_path}")
+        return None
+
+    k = kml.KML()
+    k.from_string(doc)
+
+    # A KML file can have multiple features (layers). We'll navigate to the first one.
+    # You may need to adjust this if your KML is structured differently.
+    features = list(k.features())
+    if not features:
+        print("Error: No features found in KML file.")
+        return None
+        
+    # Get the first placemark's geometry (the polygon)
+    placemark = list(features[0].features())[0]
+    if not hasattr(placemark, 'geometry') or not hasattr(placemark.geometry, 'exterior'):
+        print("Error: Could not find a polygon in the KML's first feature.")
+        return None
+    
+    # KML coordinates are often (longitude, latitude, altitude)
+    # The API needs "latitude,longitude"
+    coords = placemark.geometry.exterior.coords
+    
+    # Format the coordinates into a list of "lat,lon" strings
+    formatted_coords = [f"{lat},{lon}" for lon, lat, alt in coords]
+    
+    # Join them with colons for the final API string
+    return ":".join(formatted_coords)
 
 # --- Main Script ---
 
