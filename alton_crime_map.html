@@ -1,0 +1,3070 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9af0562387b8ff1afa1d21d7f202e799 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_9af0562387b8ff1afa1d21d7f202e799" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9af0562387b8ff1afa1d21d7f202e799 = L.map(
+                "map_9af0562387b8ff1afa1d21d7f202e799",
+                {
+                    center: [51.150719, -0.973177],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 14,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_bbad5c725c37fbce7bfd5f4400b371fd = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_9af0562387b8ff1afa1d21d7f202e799);
+        
+    
+            var marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91 = L.markerClusterGroup(
+                {}
+            );
+            map_9af0562387b8ff1afa1d21d7f202e799.addLayer(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var marker_fa05e5eb4ecfd6fd7a7de972518aedb5 = L.marker(
+                [51.149247, -0.975609],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_8162b90a5c0d45d0df1bbd5430267022 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fa05e5eb4ecfd6fd7a7de972518aedb5.setIcon(icon_8162b90a5c0d45d0df1bbd5430267022);
+        
+    
+        var popup_18cdff88e2779593b57f10d3a98df991 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e98d519ed0517495b86f87f3a32fad7e = $(`<div id="html_e98d519ed0517495b86f87f3a32fad7e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_18cdff88e2779593b57f10d3a98df991.setContent(html_e98d519ed0517495b86f87f3a32fad7e);
+            
+        
+
+        marker_fa05e5eb4ecfd6fd7a7de972518aedb5.bindPopup(popup_18cdff88e2779593b57f10d3a98df991)
+        ;
+
+        
+    
+    
+            var marker_5098d24f3bca462ecf451a7541f2008c = L.marker(
+                [51.148038, -0.98034],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_4fc96a61e109fe48f0272f740852438c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_5098d24f3bca462ecf451a7541f2008c.setIcon(icon_4fc96a61e109fe48f0272f740852438c);
+        
+    
+        var popup_758098ed9a4636f5ca0d7e7e43de54c3 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_5013e0ff26fc8c549b302ea7c849dc37 = $(`<div id="html_5013e0ff26fc8c549b302ea7c849dc37" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_758098ed9a4636f5ca0d7e7e43de54c3.setContent(html_5013e0ff26fc8c549b302ea7c849dc37);
+            
+        
+
+        marker_5098d24f3bca462ecf451a7541f2008c.bindPopup(popup_758098ed9a4636f5ca0d7e7e43de54c3)
+        ;
+
+        
+    
+    
+            var marker_16b7667c4387f7d6d69ac08d2ca2ea7b = L.marker(
+                [51.162169, -0.973579],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_82b1a981c5ef7b86727d25ea2681b1cc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_16b7667c4387f7d6d69ac08d2ca2ea7b.setIcon(icon_82b1a981c5ef7b86727d25ea2681b1cc);
+        
+    
+        var popup_b2157f514c76a9749fa72b76e52424c3 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b95000d791dc04102642ae71bad131d5 = $(`<div id="html_b95000d791dc04102642ae71bad131d5" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_b2157f514c76a9749fa72b76e52424c3.setContent(html_b95000d791dc04102642ae71bad131d5);
+            
+        
+
+        marker_16b7667c4387f7d6d69ac08d2ca2ea7b.bindPopup(popup_b2157f514c76a9749fa72b76e52424c3)
+        ;
+
+        
+    
+    
+            var marker_3a6291695d17bac19ee9e1de34f8b9de = L.marker(
+                [51.150454, -0.973853],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_7ea42c950876d0b3b4c8526898fa9263 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_3a6291695d17bac19ee9e1de34f8b9de.setIcon(icon_7ea42c950876d0b3b4c8526898fa9263);
+        
+    
+        var popup_23ccba30b3038a225563e5ff07e37f1d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_53ee464fa07a9d8da98ce54cb2d9b078 = $(`<div id="html_53ee464fa07a9d8da98ce54cb2d9b078" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_23ccba30b3038a225563e5ff07e37f1d.setContent(html_53ee464fa07a9d8da98ce54cb2d9b078);
+            
+        
+
+        marker_3a6291695d17bac19ee9e1de34f8b9de.bindPopup(popup_23ccba30b3038a225563e5ff07e37f1d)
+        ;
+
+        
+    
+    
+            var marker_7a3ef359443f037e0523e87271a2fbaf = L.marker(
+                [51.138737, -0.985119],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_6855271e253f49978fe3ddc0466e46d2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_7a3ef359443f037e0523e87271a2fbaf.setIcon(icon_6855271e253f49978fe3ddc0466e46d2);
+        
+    
+        var popup_3ec6025077eba94d3eb3197534669b0d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_faec9a15d03896bd887f57e8df4ee907 = $(`<div id="html_faec9a15d03896bd887f57e8df4ee907" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3ec6025077eba94d3eb3197534669b0d.setContent(html_faec9a15d03896bd887f57e8df4ee907);
+            
+        
+
+        marker_7a3ef359443f037e0523e87271a2fbaf.bindPopup(popup_3ec6025077eba94d3eb3197534669b0d)
+        ;
+
+        
+    
+    
+            var marker_194fb3cb62c9093a748d35f7943bd5c6 = L.marker(
+                [51.148683, -0.976937],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_c7a8ed081adee2b3e48bebd8cea0f6f0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_194fb3cb62c9093a748d35f7943bd5c6.setIcon(icon_c7a8ed081adee2b3e48bebd8cea0f6f0);
+        
+    
+        var popup_b28e8c6b070a859969e870af103302a3 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_80536d6eec5f3f9abad8110782ab7bff = $(`<div id="html_80536d6eec5f3f9abad8110782ab7bff" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_b28e8c6b070a859969e870af103302a3.setContent(html_80536d6eec5f3f9abad8110782ab7bff);
+            
+        
+
+        marker_194fb3cb62c9093a748d35f7943bd5c6.bindPopup(popup_b28e8c6b070a859969e870af103302a3)
+        ;
+
+        
+    
+    
+            var marker_e10824cae94f61c9a185fc9617f5ad5e = L.marker(
+                [51.161004, -0.976136],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_5793fe0de2b89a5a836f414035d07760 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e10824cae94f61c9a185fc9617f5ad5e.setIcon(icon_5793fe0de2b89a5a836f414035d07760);
+        
+    
+        var popup_8550008d789f72c007e6e1560bef9202 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_516c558c216dea9020ca6a75e201510a = $(`<div id="html_516c558c216dea9020ca6a75e201510a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_8550008d789f72c007e6e1560bef9202.setContent(html_516c558c216dea9020ca6a75e201510a);
+            
+        
+
+        marker_e10824cae94f61c9a185fc9617f5ad5e.bindPopup(popup_8550008d789f72c007e6e1560bef9202)
+        ;
+
+        
+    
+    
+            var marker_b480c9b58231f41efd12a145e91c6fee = L.marker(
+                [51.157685, -0.966828],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_ddbe239c5e6394e27dd8c3f32c53e21f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b480c9b58231f41efd12a145e91c6fee.setIcon(icon_ddbe239c5e6394e27dd8c3f32c53e21f);
+        
+    
+        var popup_7f77e967e7df062c900539bdc09debf1 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c7f65d8d0004aaf824d5141936240eb0 = $(`<div id="html_c7f65d8d0004aaf824d5141936240eb0" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_7f77e967e7df062c900539bdc09debf1.setContent(html_c7f65d8d0004aaf824d5141936240eb0);
+            
+        
+
+        marker_b480c9b58231f41efd12a145e91c6fee.bindPopup(popup_7f77e967e7df062c900539bdc09debf1)
+        ;
+
+        
+    
+    
+            var marker_bdafb2698348f0530ffe681036a46251 = L.marker(
+                [51.157685, -0.966828],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_c969f07221baf1d09b09f19226ee6f23 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_bdafb2698348f0530ffe681036a46251.setIcon(icon_c969f07221baf1d09b09f19226ee6f23);
+        
+    
+        var popup_cda21a9996bda379b5227cf312ec2799 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8a6f02af85e5dfc64a80ba3d3ad319e2 = $(`<div id="html_8a6f02af85e5dfc64a80ba3d3ad319e2" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_cda21a9996bda379b5227cf312ec2799.setContent(html_8a6f02af85e5dfc64a80ba3d3ad319e2);
+            
+        
+
+        marker_bdafb2698348f0530ffe681036a46251.bindPopup(popup_cda21a9996bda379b5227cf312ec2799)
+        ;
+
+        
+    
+    
+            var marker_cbe22ec8a60614aa88e35b70e0910e37 = L.marker(
+                [51.161173, -0.972743],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_6e9d4e019d4869a4347462b2ebd4f4ba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_cbe22ec8a60614aa88e35b70e0910e37.setIcon(icon_6e9d4e019d4869a4347462b2ebd4f4ba);
+        
+    
+        var popup_738dc5f5a5272fd94371ac6d6f61b7f7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_91832f7b0841572b90e6e2b7e989b4de = $(`<div id="html_91832f7b0841572b90e6e2b7e989b4de" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_738dc5f5a5272fd94371ac6d6f61b7f7.setContent(html_91832f7b0841572b90e6e2b7e989b4de);
+            
+        
+
+        marker_cbe22ec8a60614aa88e35b70e0910e37.bindPopup(popup_738dc5f5a5272fd94371ac6d6f61b7f7)
+        ;
+
+        
+    
+    
+            var marker_48bd6e1c0459653280dbdeee9a252de4 = L.marker(
+                [51.156363, -0.960623],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_8b7550cf102ee007336715a1af65be4b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_48bd6e1c0459653280dbdeee9a252de4.setIcon(icon_8b7550cf102ee007336715a1af65be4b);
+        
+    
+        var popup_0639f455dcc77f8a039d9f8ea8373043 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a3959949ac95b04752a2d4da5b5ab4f5 = $(`<div id="html_a3959949ac95b04752a2d4da5b5ab4f5" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_0639f455dcc77f8a039d9f8ea8373043.setContent(html_a3959949ac95b04752a2d4da5b5ab4f5);
+            
+        
+
+        marker_48bd6e1c0459653280dbdeee9a252de4.bindPopup(popup_0639f455dcc77f8a039d9f8ea8373043)
+        ;
+
+        
+    
+    
+            var marker_e843daa5038872d7759ffab03903bd3a = L.marker(
+                [51.138737, -0.985119],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_65964d0a5cbe565213c6cf0f3422fcbb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e843daa5038872d7759ffab03903bd3a.setIcon(icon_65964d0a5cbe565213c6cf0f3422fcbb);
+        
+    
+        var popup_b13454a32c925e7fb42e3ba99c508371 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2b3fc6d4df3abe4df7c5fdece96a71f3 = $(`<div id="html_2b3fc6d4df3abe4df7c5fdece96a71f3" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_b13454a32c925e7fb42e3ba99c508371.setContent(html_2b3fc6d4df3abe4df7c5fdece96a71f3);
+            
+        
+
+        marker_e843daa5038872d7759ffab03903bd3a.bindPopup(popup_b13454a32c925e7fb42e3ba99c508371)
+        ;
+
+        
+    
+    
+            var marker_7b394f070139c7bea109123dcbf22552 = L.marker(
+                [51.155419, -0.97287],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_6f780cf768332466b54273bf710ec1c9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_7b394f070139c7bea109123dcbf22552.setIcon(icon_6f780cf768332466b54273bf710ec1c9);
+        
+    
+        var popup_3de96e2a6371524c73f550ea5774ae38 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_439d09e56336c99290c1ae58a1aa3760 = $(`<div id="html_439d09e56336c99290c1ae58a1aa3760" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3de96e2a6371524c73f550ea5774ae38.setContent(html_439d09e56336c99290c1ae58a1aa3760);
+            
+        
+
+        marker_7b394f070139c7bea109123dcbf22552.bindPopup(popup_3de96e2a6371524c73f550ea5774ae38)
+        ;
+
+        
+    
+    
+            var marker_ee50d7aa9faead7642fea1c9fb98cecb = L.marker(
+                [51.150454, -0.973853],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_58024b42932683b2f7db9f178b2c3698 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_ee50d7aa9faead7642fea1c9fb98cecb.setIcon(icon_58024b42932683b2f7db9f178b2c3698);
+        
+    
+        var popup_85d203574ccd414c3989047a9e5d6ef8 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c57ace42e8706ff62cf8bf18368c25f8 = $(`<div id="html_c57ace42e8706ff62cf8bf18368c25f8" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_85d203574ccd414c3989047a9e5d6ef8.setContent(html_c57ace42e8706ff62cf8bf18368c25f8);
+            
+        
+
+        marker_ee50d7aa9faead7642fea1c9fb98cecb.bindPopup(popup_85d203574ccd414c3989047a9e5d6ef8)
+        ;
+
+        
+    
+    
+            var marker_af27895d8c186498f30cc8b1b990550b = L.marker(
+                [51.156363, -0.960623],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_1278317c06e6e19d345831b4a030efbe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_af27895d8c186498f30cc8b1b990550b.setIcon(icon_1278317c06e6e19d345831b4a030efbe);
+        
+    
+        var popup_80d4385acd04b9ae061b96677de3307b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b2f54ca5fc758cd07d8d059d469066bf = $(`<div id="html_b2f54ca5fc758cd07d8d059d469066bf" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> anti-social-behaviour<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_80d4385acd04b9ae061b96677de3307b.setContent(html_b2f54ca5fc758cd07d8d059d469066bf);
+            
+        
+
+        marker_af27895d8c186498f30cc8b1b990550b.bindPopup(popup_80d4385acd04b9ae061b96677de3307b)
+        ;
+
+        
+    
+    
+            var marker_939f0af0b751a09eea8fe0c6a016f58f = L.marker(
+                [51.147506, -0.973932],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_d541e45a9db24e0967c3d3b27b034931 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_939f0af0b751a09eea8fe0c6a016f58f.setIcon(icon_d541e45a9db24e0967c3d3b27b034931);
+        
+    
+        var popup_8b6450927c638d95b208df13e967e933 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d803a6a01b555b0b5eae882cc6f4937a = $(`<div id="html_d803a6a01b555b0b5eae882cc6f4937a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> bicycle-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_8b6450927c638d95b208df13e967e933.setContent(html_d803a6a01b555b0b5eae882cc6f4937a);
+            
+        
+
+        marker_939f0af0b751a09eea8fe0c6a016f58f.bindPopup(popup_8b6450927c638d95b208df13e967e933)
+        ;
+
+        
+    
+    
+            var marker_8ff95a16f335c89c47de34f9db1ed970 = L.marker(
+                [51.150454, -0.973853],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_ca8e4a2f6708c75bafc4e3d3d097834d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_8ff95a16f335c89c47de34f9db1ed970.setIcon(icon_ca8e4a2f6708c75bafc4e3d3d097834d);
+        
+    
+        var popup_550172abf86767418cc17a1e465eb8bd = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_60773e36b69d06b70d00c5119e71deaa = $(`<div id="html_60773e36b69d06b70d00c5119e71deaa" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> burglary<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_550172abf86767418cc17a1e465eb8bd.setContent(html_60773e36b69d06b70d00c5119e71deaa);
+            
+        
+
+        marker_8ff95a16f335c89c47de34f9db1ed970.bindPopup(popup_550172abf86767418cc17a1e465eb8bd)
+        ;
+
+        
+    
+    
+            var marker_27511fb5fae45e3aed7575162308d2a5 = L.marker(
+                [51.149149, -0.973639],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_f2b46a478632cac9cd640edd60d51694 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_27511fb5fae45e3aed7575162308d2a5.setIcon(icon_f2b46a478632cac9cd640edd60d51694);
+        
+    
+        var popup_e80f09b7f70b461387ddb5bbdad3116d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_5a8d1c8fc9ce654bd918fd00b39fdf7e = $(`<div id="html_5a8d1c8fc9ce654bd918fd00b39fdf7e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> burglary<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e80f09b7f70b461387ddb5bbdad3116d.setContent(html_5a8d1c8fc9ce654bd918fd00b39fdf7e);
+            
+        
+
+        marker_27511fb5fae45e3aed7575162308d2a5.bindPopup(popup_e80f09b7f70b461387ddb5bbdad3116d)
+        ;
+
+        
+    
+    
+            var marker_5d6eb58e43033bcf7cfb7fa229f36249 = L.marker(
+                [51.155933, -0.971086],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_4f30ec7d5013775d722af75f8eac484e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_5d6eb58e43033bcf7cfb7fa229f36249.setIcon(icon_4f30ec7d5013775d722af75f8eac484e);
+        
+    
+        var popup_dc9abb618707c123f0f59da0f3b7cea2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_cd692f17c91f021718bd604d83399648 = $(`<div id="html_cd692f17c91f021718bd604d83399648" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> criminal-damage-arson<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_dc9abb618707c123f0f59da0f3b7cea2.setContent(html_cd692f17c91f021718bd604d83399648);
+            
+        
+
+        marker_5d6eb58e43033bcf7cfb7fa229f36249.bindPopup(popup_dc9abb618707c123f0f59da0f3b7cea2)
+        ;
+
+        
+    
+    
+            var marker_eadb7712b31a6a6d90c7c68339f7ae4f = L.marker(
+                [51.150909, -0.972413],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_72eb92f8b086896d4b56624fdf69af3d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_eadb7712b31a6a6d90c7c68339f7ae4f.setIcon(icon_72eb92f8b086896d4b56624fdf69af3d);
+        
+    
+        var popup_ae609eda0e3b22c2fa1ace48e4861a12 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1584b4cbd692f0b323b659d03f3cac2b = $(`<div id="html_1584b4cbd692f0b323b659d03f3cac2b" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> criminal-damage-arson<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_ae609eda0e3b22c2fa1ace48e4861a12.setContent(html_1584b4cbd692f0b323b659d03f3cac2b);
+            
+        
+
+        marker_eadb7712b31a6a6d90c7c68339f7ae4f.bindPopup(popup_ae609eda0e3b22c2fa1ace48e4861a12)
+        ;
+
+        
+    
+    
+            var marker_65e4a1731bfdfb8ebc893840f53e258f = L.marker(
+                [51.148038, -0.98034],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_e01d90e6e4149ee59315f07a4970099a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_65e4a1731bfdfb8ebc893840f53e258f.setIcon(icon_e01d90e6e4149ee59315f07a4970099a);
+        
+    
+        var popup_30ec06f7841afe5b95878db031e1d707 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_efd73aa7aed14571e5a75d545031a11c = $(`<div id="html_efd73aa7aed14571e5a75d545031a11c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> criminal-damage-arson<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_30ec06f7841afe5b95878db031e1d707.setContent(html_efd73aa7aed14571e5a75d545031a11c);
+            
+        
+
+        marker_65e4a1731bfdfb8ebc893840f53e258f.bindPopup(popup_30ec06f7841afe5b95878db031e1d707)
+        ;
+
+        
+    
+    
+            var marker_b937755ea947944cb204d249c326b7d2 = L.marker(
+                [51.155419, -0.97287],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_58c97da503906f90c75ea8b218da340c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b937755ea947944cb204d249c326b7d2.setIcon(icon_58c97da503906f90c75ea8b218da340c);
+        
+    
+        var popup_1da9936952e56d6c330034876ae4c690 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1ae8c854c94d5010fb07fbe7f682d53e = $(`<div id="html_1ae8c854c94d5010fb07fbe7f682d53e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> criminal-damage-arson<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_1da9936952e56d6c330034876ae4c690.setContent(html_1ae8c854c94d5010fb07fbe7f682d53e);
+            
+        
+
+        marker_b937755ea947944cb204d249c326b7d2.bindPopup(popup_1da9936952e56d6c330034876ae4c690)
+        ;
+
+        
+    
+    
+            var marker_9625cd043217787df0618c533cc5427d = L.marker(
+                [51.147551, -0.978077],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_1db9361210dbb89cae896bfb4c480297 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9625cd043217787df0618c533cc5427d.setIcon(icon_1db9361210dbb89cae896bfb4c480297);
+        
+    
+        var popup_e6ec495a7e6e226c3ac927399d9d7dd5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e0332cb4f64a218d64e71a72db08336f = $(`<div id="html_e0332cb4f64a218d64e71a72db08336f" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> criminal-damage-arson<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e6ec495a7e6e226c3ac927399d9d7dd5.setContent(html_e0332cb4f64a218d64e71a72db08336f);
+            
+        
+
+        marker_9625cd043217787df0618c533cc5427d.bindPopup(popup_e6ec495a7e6e226c3ac927399d9d7dd5)
+        ;
+
+        
+    
+    
+            var marker_dce0a2896051e686b90ecee3cae7dd83 = L.marker(
+                [51.151786, -0.974938],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_1ebbb6ecdd8430705ff7fd78615b4eef = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_dce0a2896051e686b90ecee3cae7dd83.setIcon(icon_1ebbb6ecdd8430705ff7fd78615b4eef);
+        
+    
+        var popup_221dbd5d25741b8f8b5952798b3823a2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_321662f840c5e309abb6fafd3fff416e = $(`<div id="html_321662f840c5e309abb6fafd3fff416e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_221dbd5d25741b8f8b5952798b3823a2.setContent(html_321662f840c5e309abb6fafd3fff416e);
+            
+        
+
+        marker_dce0a2896051e686b90ecee3cae7dd83.bindPopup(popup_221dbd5d25741b8f8b5952798b3823a2)
+        ;
+
+        
+    
+    
+            var marker_1d35d5e82cf4e12cb65624114e9d5b6d = L.marker(
+                [51.164813, -0.970502],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_f949978c48feadb2fedcd399ef0906ef = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_1d35d5e82cf4e12cb65624114e9d5b6d.setIcon(icon_f949978c48feadb2fedcd399ef0906ef);
+        
+    
+        var popup_4d5db079d04716fe5d7c3001387af588 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ec4f2b452c7bea183adc088ab02ffafb = $(`<div id="html_ec4f2b452c7bea183adc088ab02ffafb" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_4d5db079d04716fe5d7c3001387af588.setContent(html_ec4f2b452c7bea183adc088ab02ffafb);
+            
+        
+
+        marker_1d35d5e82cf4e12cb65624114e9d5b6d.bindPopup(popup_4d5db079d04716fe5d7c3001387af588)
+        ;
+
+        
+    
+    
+            var marker_aee8846341eb20f385212460d510360f = L.marker(
+                [51.143917, -0.982103],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_be2d6d1a4b6d2a08bce7b2cc5b32b9f5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_aee8846341eb20f385212460d510360f.setIcon(icon_be2d6d1a4b6d2a08bce7b2cc5b32b9f5);
+        
+    
+        var popup_49597348560874f658674165bd9cc1c5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7aa38d1e9b45800e770db3e8baba7bef = $(`<div id="html_7aa38d1e9b45800e770db3e8baba7bef" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_49597348560874f658674165bd9cc1c5.setContent(html_7aa38d1e9b45800e770db3e8baba7bef);
+            
+        
+
+        marker_aee8846341eb20f385212460d510360f.bindPopup(popup_49597348560874f658674165bd9cc1c5)
+        ;
+
+        
+    
+    
+            var marker_fa3e3bbfa26c1d9f20b94b3272bc1474 = L.marker(
+                [51.146586, -0.974696],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_02630ebeef302967e12e0888f4716249 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fa3e3bbfa26c1d9f20b94b3272bc1474.setIcon(icon_02630ebeef302967e12e0888f4716249);
+        
+    
+        var popup_9364ccc256f526fa51c61bfb7f5dd252 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7de7430475ba16ee0bacaa45a03938e8 = $(`<div id="html_7de7430475ba16ee0bacaa45a03938e8" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_9364ccc256f526fa51c61bfb7f5dd252.setContent(html_7de7430475ba16ee0bacaa45a03938e8);
+            
+        
+
+        marker_fa3e3bbfa26c1d9f20b94b3272bc1474.bindPopup(popup_9364ccc256f526fa51c61bfb7f5dd252)
+        ;
+
+        
+    
+    
+            var marker_0259905e9a65a3ccde10405cb91b9008 = L.marker(
+                [51.15143, -0.965181],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_2bc8d822c73992c639559f29ddd7692b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0259905e9a65a3ccde10405cb91b9008.setIcon(icon_2bc8d822c73992c639559f29ddd7692b);
+        
+    
+        var popup_99e9e5fe07a9397853e5a4b25d6ac79e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9a4de5e0f9295ab5f938c16bb7e8cf63 = $(`<div id="html_9a4de5e0f9295ab5f938c16bb7e8cf63" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_99e9e5fe07a9397853e5a4b25d6ac79e.setContent(html_9a4de5e0f9295ab5f938c16bb7e8cf63);
+            
+        
+
+        marker_0259905e9a65a3ccde10405cb91b9008.bindPopup(popup_99e9e5fe07a9397853e5a4b25d6ac79e)
+        ;
+
+        
+    
+    
+            var marker_9bb4fc12b08dfb33031895a91067012f = L.marker(
+                [51.152745, -0.967052],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_de4f57cd1dbd3c0e697841ffef1ca907 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9bb4fc12b08dfb33031895a91067012f.setIcon(icon_de4f57cd1dbd3c0e697841ffef1ca907);
+        
+    
+        var popup_cedbb50ec9e0ae147add77dee1c2575b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_76289cbbee8ee621b20771ffc8e8b79f = $(`<div id="html_76289cbbee8ee621b20771ffc8e8b79f" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_cedbb50ec9e0ae147add77dee1c2575b.setContent(html_76289cbbee8ee621b20771ffc8e8b79f);
+            
+        
+
+        marker_9bb4fc12b08dfb33031895a91067012f.bindPopup(popup_cedbb50ec9e0ae147add77dee1c2575b)
+        ;
+
+        
+    
+    
+            var marker_7395c432645952b10fbdd0b8ac89e02e = L.marker(
+                [51.157704, -0.977095],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_5e2d0a90e932f2fe3a9f4d20ed8f9a3b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_7395c432645952b10fbdd0b8ac89e02e.setIcon(icon_5e2d0a90e932f2fe3a9f4d20ed8f9a3b);
+        
+    
+        var popup_9c439c446872f4cfef29f7e89f4b47a9 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_fc4a76a758e7fa92e1c2214b00bd7a4d = $(`<div id="html_fc4a76a758e7fa92e1c2214b00bd7a4d" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> drugs<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_9c439c446872f4cfef29f7e89f4b47a9.setContent(html_fc4a76a758e7fa92e1c2214b00bd7a4d);
+            
+        
+
+        marker_7395c432645952b10fbdd0b8ac89e02e.bindPopup(popup_9c439c446872f4cfef29f7e89f4b47a9)
+        ;
+
+        
+    
+    
+            var marker_21cb8832266b516613df8cb07e94c79e = L.marker(
+                [51.150498, -0.964515],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_db009e9a26668600963b948c321ef1d0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_21cb8832266b516613df8cb07e94c79e.setIcon(icon_db009e9a26668600963b948c321ef1d0);
+        
+    
+        var popup_55f767c32d381af03ed01b329847b277 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ae87ccfcfca05e2938fbeba9cd38a8e6 = $(`<div id="html_ae87ccfcfca05e2938fbeba9cd38a8e6" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_55f767c32d381af03ed01b329847b277.setContent(html_ae87ccfcfca05e2938fbeba9cd38a8e6);
+            
+        
+
+        marker_21cb8832266b516613df8cb07e94c79e.bindPopup(popup_55f767c32d381af03ed01b329847b277)
+        ;
+
+        
+    
+    
+            var marker_f67e2de53a412c7fe71c33bbf8d283e3 = L.marker(
+                [51.150909, -0.972413],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_be137564596fee8a7bca850a9d5d4387 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f67e2de53a412c7fe71c33bbf8d283e3.setIcon(icon_be137564596fee8a7bca850a9d5d4387);
+        
+    
+        var popup_f77d012e173c8c999b9beefb992d8bb9 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4ab5e3aad57f8573788f597bc5e5cb50 = $(`<div id="html_4ab5e3aad57f8573788f597bc5e5cb50" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f77d012e173c8c999b9beefb992d8bb9.setContent(html_4ab5e3aad57f8573788f597bc5e5cb50);
+            
+        
+
+        marker_f67e2de53a412c7fe71c33bbf8d283e3.bindPopup(popup_f77d012e173c8c999b9beefb992d8bb9)
+        ;
+
+        
+    
+    
+            var marker_68049bce49913cb9a86517dbced7b8e1 = L.marker(
+                [51.148317, -0.976202],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_60cb4d202f811dbadb207a0d0493f065 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_68049bce49913cb9a86517dbced7b8e1.setIcon(icon_60cb4d202f811dbadb207a0d0493f065);
+        
+    
+        var popup_0611bbe24394405e5e29006ca6e77c61 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_5280c979a1595226f6286c650a41c357 = $(`<div id="html_5280c979a1595226f6286c650a41c357" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_0611bbe24394405e5e29006ca6e77c61.setContent(html_5280c979a1595226f6286c650a41c357);
+            
+        
+
+        marker_68049bce49913cb9a86517dbced7b8e1.bindPopup(popup_0611bbe24394405e5e29006ca6e77c61)
+        ;
+
+        
+    
+    
+            var marker_adca21be899957b1bc3e7a414f692ac4 = L.marker(
+                [51.138737, -0.985119],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_8cd8134850a8ca0e9f203f6fdd1dd869 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_adca21be899957b1bc3e7a414f692ac4.setIcon(icon_8cd8134850a8ca0e9f203f6fdd1dd869);
+        
+    
+        var popup_850f5196f715d2c6ec8709080818eabe = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_065d55282bd32528734acccf2ff8bc5e = $(`<div id="html_065d55282bd32528734acccf2ff8bc5e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_850f5196f715d2c6ec8709080818eabe.setContent(html_065d55282bd32528734acccf2ff8bc5e);
+            
+        
+
+        marker_adca21be899957b1bc3e7a414f692ac4.bindPopup(popup_850f5196f715d2c6ec8709080818eabe)
+        ;
+
+        
+    
+    
+            var marker_9923f07e5bc17fef82a3cee3c3785a8f = L.marker(
+                [51.146586, -0.974696],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_96501f30232f322990bf7352941bd848 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9923f07e5bc17fef82a3cee3c3785a8f.setIcon(icon_96501f30232f322990bf7352941bd848);
+        
+    
+        var popup_3c33b01d1b92f3f84b6575620122b366 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_37b494065982abf7ed7157c2e704742f = $(`<div id="html_37b494065982abf7ed7157c2e704742f" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3c33b01d1b92f3f84b6575620122b366.setContent(html_37b494065982abf7ed7157c2e704742f);
+            
+        
+
+        marker_9923f07e5bc17fef82a3cee3c3785a8f.bindPopup(popup_3c33b01d1b92f3f84b6575620122b366)
+        ;
+
+        
+    
+    
+            var marker_60cee2110df378a817dea5333be047e3 = L.marker(
+                [51.152919, -0.971911],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_3e6716afa3389a8402a52553f3950517 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_60cee2110df378a817dea5333be047e3.setIcon(icon_3e6716afa3389a8402a52553f3950517);
+        
+    
+        var popup_e0ab5fd5ebd0966d430695e9dfc23ce0 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2f7e0ffc37a54532aff0e69d8502ecde = $(`<div id="html_2f7e0ffc37a54532aff0e69d8502ecde" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-theft<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e0ab5fd5ebd0966d430695e9dfc23ce0.setContent(html_2f7e0ffc37a54532aff0e69d8502ecde);
+            
+        
+
+        marker_60cee2110df378a817dea5333be047e3.bindPopup(popup_e0ab5fd5ebd0966d430695e9dfc23ce0)
+        ;
+
+        
+    
+    
+            var marker_49213c162a07cec234b65514c500b01a = L.marker(
+                [51.153035, -0.984133],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_7078d3aa44e1c8d2ab8f6539379576f8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_49213c162a07cec234b65514c500b01a.setIcon(icon_7078d3aa44e1c8d2ab8f6539379576f8);
+        
+    
+        var popup_f317442b7d567002093b5c75a0c379aa = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0b017960e75cf2a252fbf73caa1efd05 = $(`<div id="html_0b017960e75cf2a252fbf73caa1efd05" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> possession-of-weapons<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f317442b7d567002093b5c75a0c379aa.setContent(html_0b017960e75cf2a252fbf73caa1efd05);
+            
+        
+
+        marker_49213c162a07cec234b65514c500b01a.bindPopup(popup_f317442b7d567002093b5c75a0c379aa)
+        ;
+
+        
+    
+    
+            var marker_c522ac603768a63f598fcca92f1826be = L.marker(
+                [51.151397, -0.967584],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_f0d68f1bc26abb10a2bb18ea7421e921 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c522ac603768a63f598fcca92f1826be.setIcon(icon_f0d68f1bc26abb10a2bb18ea7421e921);
+        
+    
+        var popup_452f4240ee5ee6d527b585ecde63db10 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dc45aa36e4dd6722b82ab0de0318a386 = $(`<div id="html_dc45aa36e4dd6722b82ab0de0318a386" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_452f4240ee5ee6d527b585ecde63db10.setContent(html_dc45aa36e4dd6722b82ab0de0318a386);
+            
+        
+
+        marker_c522ac603768a63f598fcca92f1826be.bindPopup(popup_452f4240ee5ee6d527b585ecde63db10)
+        ;
+
+        
+    
+    
+            var marker_580d6b8ad8e900b68e9d2fee67be922e = L.marker(
+                [51.157591, -0.960181],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_3eff391d84f9ee63b7c81bf042d6e2c6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_580d6b8ad8e900b68e9d2fee67be922e.setIcon(icon_3eff391d84f9ee63b7c81bf042d6e2c6);
+        
+    
+        var popup_4f8367a870830ab97a460d0a6b6d3f9b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d8b87ae1e384845ce5cda04392c459eb = $(`<div id="html_d8b87ae1e384845ce5cda04392c459eb" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_4f8367a870830ab97a460d0a6b6d3f9b.setContent(html_d8b87ae1e384845ce5cda04392c459eb);
+            
+        
+
+        marker_580d6b8ad8e900b68e9d2fee67be922e.bindPopup(popup_4f8367a870830ab97a460d0a6b6d3f9b)
+        ;
+
+        
+    
+    
+            var marker_e5e7b309687ad34009fa9111a6688566 = L.marker(
+                [51.150587, -0.973634],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_628dae2e87398dd5ce9c11d9725ad8a3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e5e7b309687ad34009fa9111a6688566.setIcon(icon_628dae2e87398dd5ce9c11d9725ad8a3);
+        
+    
+        var popup_3f612e81eda055bbac06061a3d16d35b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c26bd11da3d1bc5b40ee17f271d0f2fb = $(`<div id="html_c26bd11da3d1bc5b40ee17f271d0f2fb" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3f612e81eda055bbac06061a3d16d35b.setContent(html_c26bd11da3d1bc5b40ee17f271d0f2fb);
+            
+        
+
+        marker_e5e7b309687ad34009fa9111a6688566.bindPopup(popup_3f612e81eda055bbac06061a3d16d35b)
+        ;
+
+        
+    
+    
+            var marker_d18f4f5ea4f46804e8421dd4182dfa16 = L.marker(
+                [51.153137, -0.973178],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_51e959886b404c8a7298ce7d664ca545 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_d18f4f5ea4f46804e8421dd4182dfa16.setIcon(icon_51e959886b404c8a7298ce7d664ca545);
+        
+    
+        var popup_f7f48756344b1eae0ed873e1dbba76f0 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_527a3bc1c968eb80c8a49be8fbead85b = $(`<div id="html_527a3bc1c968eb80c8a49be8fbead85b" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f7f48756344b1eae0ed873e1dbba76f0.setContent(html_527a3bc1c968eb80c8a49be8fbead85b);
+            
+        
+
+        marker_d18f4f5ea4f46804e8421dd4182dfa16.bindPopup(popup_f7f48756344b1eae0ed873e1dbba76f0)
+        ;
+
+        
+    
+    
+            var marker_ce194c6cf57c4eaa4ee3b163fe8360e9 = L.marker(
+                [51.153353, -0.970099],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_cebf2e60491bf856321348078d18da07 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_ce194c6cf57c4eaa4ee3b163fe8360e9.setIcon(icon_cebf2e60491bf856321348078d18da07);
+        
+    
+        var popup_ffc7c96b0b9a69540fa900026f74eec4 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_48a7ec78edc92565c731187ea4f58e90 = $(`<div id="html_48a7ec78edc92565c731187ea4f58e90" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_ffc7c96b0b9a69540fa900026f74eec4.setContent(html_48a7ec78edc92565c731187ea4f58e90);
+            
+        
+
+        marker_ce194c6cf57c4eaa4ee3b163fe8360e9.bindPopup(popup_ffc7c96b0b9a69540fa900026f74eec4)
+        ;
+
+        
+    
+    
+            var marker_488574fa67092fb3525c9f8011a4bac7 = L.marker(
+                [51.142874, -0.984213],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_ed630e017ad6da9b607bc79d4382702b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_488574fa67092fb3525c9f8011a4bac7.setIcon(icon_ed630e017ad6da9b607bc79d4382702b);
+        
+    
+        var popup_edf47198d82b2382519f80de33b79aa5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4428757d34d5c5eb98ef70c050d235d7 = $(`<div id="html_4428757d34d5c5eb98ef70c050d235d7" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_edf47198d82b2382519f80de33b79aa5.setContent(html_4428757d34d5c5eb98ef70c050d235d7);
+            
+        
+
+        marker_488574fa67092fb3525c9f8011a4bac7.bindPopup(popup_edf47198d82b2382519f80de33b79aa5)
+        ;
+
+        
+    
+    
+            var marker_f609ef9b6a37d5ba3fd666dee14371b0 = L.marker(
+                [51.146109, -0.977666],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_69a391631e433966f1d846cb098759fe = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f609ef9b6a37d5ba3fd666dee14371b0.setIcon(icon_69a391631e433966f1d846cb098759fe);
+        
+    
+        var popup_9b87b52ecdec96ae3207b6ac8c861e8f = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a9aa70149a708dc460138f7baa285b20 = $(`<div id="html_a9aa70149a708dc460138f7baa285b20" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_9b87b52ecdec96ae3207b6ac8c861e8f.setContent(html_a9aa70149a708dc460138f7baa285b20);
+            
+        
+
+        marker_f609ef9b6a37d5ba3fd666dee14371b0.bindPopup(popup_9b87b52ecdec96ae3207b6ac8c861e8f)
+        ;
+
+        
+    
+    
+            var marker_3bc48d4c4e0566e133e6664bf05e4a49 = L.marker(
+                [51.151397, -0.967584],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_2e6c5b7d9cc79b7588ac80161357e588 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_3bc48d4c4e0566e133e6664bf05e4a49.setIcon(icon_2e6c5b7d9cc79b7588ac80161357e588);
+        
+    
+        var popup_186e24e0ab632f806fb8ed26bd80a2d5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ddb6c0f8fd3f5593492760c9549e971c = $(`<div id="html_ddb6c0f8fd3f5593492760c9549e971c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_186e24e0ab632f806fb8ed26bd80a2d5.setContent(html_ddb6c0f8fd3f5593492760c9549e971c);
+            
+        
+
+        marker_3bc48d4c4e0566e133e6664bf05e4a49.bindPopup(popup_186e24e0ab632f806fb8ed26bd80a2d5)
+        ;
+
+        
+    
+    
+            var marker_a7f09354794780b86a659576ca0e8f1c = L.marker(
+                [51.158804, -0.975369],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_21cbd20e3ce571ac2aef723a0a05600c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a7f09354794780b86a659576ca0e8f1c.setIcon(icon_21cbd20e3ce571ac2aef723a0a05600c);
+        
+    
+        var popup_d2de97ed1471f58aa661a11ac1ce05d4 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7f189bcaa52153c8307441083cf20e68 = $(`<div id="html_7f189bcaa52153c8307441083cf20e68" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> public-order<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_d2de97ed1471f58aa661a11ac1ce05d4.setContent(html_7f189bcaa52153c8307441083cf20e68);
+            
+        
+
+        marker_a7f09354794780b86a659576ca0e8f1c.bindPopup(popup_d2de97ed1471f58aa661a11ac1ce05d4)
+        ;
+
+        
+    
+    
+            var marker_de4e48ddfa7d2e5d2b87536a04690afb = L.marker(
+                [51.146586, -0.974696],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_0dca850188f319bed1c22fcb159a2ac3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_de4e48ddfa7d2e5d2b87536a04690afb.setIcon(icon_0dca850188f319bed1c22fcb159a2ac3);
+        
+    
+        var popup_f4ee367aca4ef016dee8ef68ad9d1203 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_fa66a343e2462309726b2ccc78059ade = $(`<div id="html_fa66a343e2462309726b2ccc78059ade" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> shoplifting<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f4ee367aca4ef016dee8ef68ad9d1203.setContent(html_fa66a343e2462309726b2ccc78059ade);
+            
+        
+
+        marker_de4e48ddfa7d2e5d2b87536a04690afb.bindPopup(popup_f4ee367aca4ef016dee8ef68ad9d1203)
+        ;
+
+        
+    
+    
+            var marker_2d6814fbf2743522724c5ca752bafe7b = L.marker(
+                [51.150587, -0.973634],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_ad92e442360023f7abcc6eec22d348c6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_2d6814fbf2743522724c5ca752bafe7b.setIcon(icon_ad92e442360023f7abcc6eec22d348c6);
+        
+    
+        var popup_3da14f1abbc95914314ccfcd2c822eb6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_89e9c556e958f03310964ab9f9a7a046 = $(`<div id="html_89e9c556e958f03310964ab9f9a7a046" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> shoplifting<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3da14f1abbc95914314ccfcd2c822eb6.setContent(html_89e9c556e958f03310964ab9f9a7a046);
+            
+        
+
+        marker_2d6814fbf2743522724c5ca752bafe7b.bindPopup(popup_3da14f1abbc95914314ccfcd2c822eb6)
+        ;
+
+        
+    
+    
+            var marker_93ae4f71c87f9fc585f62380de328d2b = L.marker(
+                [51.14522, -0.97993],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_d4eea96e1dd5f2fe050ed502763d8616 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_93ae4f71c87f9fc585f62380de328d2b.setIcon(icon_d4eea96e1dd5f2fe050ed502763d8616);
+        
+    
+        var popup_d3070e559b35f982ead05f1447bca5e2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d1cb62a3b85bdbb6ec172f2f35522735 = $(`<div id="html_d1cb62a3b85bdbb6ec172f2f35522735" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> shoplifting<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_d3070e559b35f982ead05f1447bca5e2.setContent(html_d1cb62a3b85bdbb6ec172f2f35522735);
+            
+        
+
+        marker_93ae4f71c87f9fc585f62380de328d2b.bindPopup(popup_d3070e559b35f982ead05f1447bca5e2)
+        ;
+
+        
+    
+    
+            var marker_2a257efe25ba34f3a0d385ef348a7a24 = L.marker(
+                [51.156972, -0.972664],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_186f048de955f153c210af907211f68c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_2a257efe25ba34f3a0d385ef348a7a24.setIcon(icon_186f048de955f153c210af907211f68c);
+        
+    
+        var popup_eaf3a47a41e2fd215d3bf8be2a35cc22 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_63e397179dded03805420574c8df2b1a = $(`<div id="html_63e397179dded03805420574c8df2b1a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> shoplifting<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_eaf3a47a41e2fd215d3bf8be2a35cc22.setContent(html_63e397179dded03805420574c8df2b1a);
+            
+        
+
+        marker_2a257efe25ba34f3a0d385ef348a7a24.bindPopup(popup_eaf3a47a41e2fd215d3bf8be2a35cc22)
+        ;
+
+        
+    
+    
+            var marker_86dae89a83acbc208e52e69c110dcb9a = L.marker(
+                [51.162957, -0.970143],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_b8e00d8d46e21c906398180b6e023a84 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_86dae89a83acbc208e52e69c110dcb9a.setIcon(icon_b8e00d8d46e21c906398180b6e023a84);
+        
+    
+        var popup_54350194d4b06aea26fd76beb5b59fcd = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_21ea5bae25598803958a2d530dec6335 = $(`<div id="html_21ea5bae25598803958a2d530dec6335" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> theft-from-the-person<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_54350194d4b06aea26fd76beb5b59fcd.setContent(html_21ea5bae25598803958a2d530dec6335);
+            
+        
+
+        marker_86dae89a83acbc208e52e69c110dcb9a.bindPopup(popup_54350194d4b06aea26fd76beb5b59fcd)
+        ;
+
+        
+    
+    
+            var marker_e1dcdefd3d882acd223014063df72b7a = L.marker(
+                [51.148015, -0.977624],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_c2730701dc19c605caaef4e43ebc8a5c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e1dcdefd3d882acd223014063df72b7a.setIcon(icon_c2730701dc19c605caaef4e43ebc8a5c);
+        
+    
+        var popup_84ea151273ceadf393bc5b9585a0bb88 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_0a93f0212eb1fd9e9c338afc0ef0663f = $(`<div id="html_0a93f0212eb1fd9e9c338afc0ef0663f" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> vehicle-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_84ea151273ceadf393bc5b9585a0bb88.setContent(html_0a93f0212eb1fd9e9c338afc0ef0663f);
+            
+        
+
+        marker_e1dcdefd3d882acd223014063df72b7a.bindPopup(popup_84ea151273ceadf393bc5b9585a0bb88)
+        ;
+
+        
+    
+    
+            var marker_0bd76c06ca15d454412a9cdf1674b7b2 = L.marker(
+                [51.142329, -0.982538],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_33f4f07357ec10185ed3fce6b28dd809 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0bd76c06ca15d454412a9cdf1674b7b2.setIcon(icon_33f4f07357ec10185ed3fce6b28dd809);
+        
+    
+        var popup_d7d53e8a441ea6b5f9af313c07af4a20 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9e57166b92a3096e16fe81ea86f97af2 = $(`<div id="html_9e57166b92a3096e16fe81ea86f97af2" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_d7d53e8a441ea6b5f9af313c07af4a20.setContent(html_9e57166b92a3096e16fe81ea86f97af2);
+            
+        
+
+        marker_0bd76c06ca15d454412a9cdf1674b7b2.bindPopup(popup_d7d53e8a441ea6b5f9af313c07af4a20)
+        ;
+
+        
+    
+    
+            var marker_43f5fed7e4d892648c016167cdaff83f = L.marker(
+                [51.155933, -0.971086],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_56c1ccdb1c27dc1b3e1da17f814d8276 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_43f5fed7e4d892648c016167cdaff83f.setIcon(icon_56c1ccdb1c27dc1b3e1da17f814d8276);
+        
+    
+        var popup_434aa7dc62e76df0f15efd9c03a1174c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b379e0f44bd9bf2a64ab45f59ddd8b42 = $(`<div id="html_b379e0f44bd9bf2a64ab45f59ddd8b42" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_434aa7dc62e76df0f15efd9c03a1174c.setContent(html_b379e0f44bd9bf2a64ab45f59ddd8b42);
+            
+        
+
+        marker_43f5fed7e4d892648c016167cdaff83f.bindPopup(popup_434aa7dc62e76df0f15efd9c03a1174c)
+        ;
+
+        
+    
+    
+            var marker_cc9738507915dfb8a7aafdedd59b26ec = L.marker(
+                [51.150743, -0.977006],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_238ad094b8a2c318cf84d5afcfe517bd = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_cc9738507915dfb8a7aafdedd59b26ec.setIcon(icon_238ad094b8a2c318cf84d5afcfe517bd);
+        
+    
+        var popup_271ae42114738825d078c2251a180ee7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_27785c075c783e4b4acbd70b35b1c56e = $(`<div id="html_27785c075c783e4b4acbd70b35b1c56e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_271ae42114738825d078c2251a180ee7.setContent(html_27785c075c783e4b4acbd70b35b1c56e);
+            
+        
+
+        marker_cc9738507915dfb8a7aafdedd59b26ec.bindPopup(popup_271ae42114738825d078c2251a180ee7)
+        ;
+
+        
+    
+    
+            var marker_199eae6954d92df4bfe897ddd43740b9 = L.marker(
+                [51.148638, -0.965644],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_1a5a84cd83cfa18c7e10962bc38dd01b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_199eae6954d92df4bfe897ddd43740b9.setIcon(icon_1a5a84cd83cfa18c7e10962bc38dd01b);
+        
+    
+        var popup_70cbc918f59d77584cc4583b11c8d51e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_33ce12380a5b572d91e90de3c5be2ed2 = $(`<div id="html_33ce12380a5b572d91e90de3c5be2ed2" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_70cbc918f59d77584cc4583b11c8d51e.setContent(html_33ce12380a5b572d91e90de3c5be2ed2);
+            
+        
+
+        marker_199eae6954d92df4bfe897ddd43740b9.bindPopup(popup_70cbc918f59d77584cc4583b11c8d51e)
+        ;
+
+        
+    
+    
+            var marker_b635c8d9155bca1afda01a8b1b11e12a = L.marker(
+                [51.159755, -0.97725],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_2ad2710333c82b2b4fec075c7f6f6e65 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b635c8d9155bca1afda01a8b1b11e12a.setIcon(icon_2ad2710333c82b2b4fec075c7f6f6e65);
+        
+    
+        var popup_d754d0054acf60008c23f86ae864910a = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_248e28973eea4b38804d6b11133687dd = $(`<div id="html_248e28973eea4b38804d6b11133687dd" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_d754d0054acf60008c23f86ae864910a.setContent(html_248e28973eea4b38804d6b11133687dd);
+            
+        
+
+        marker_b635c8d9155bca1afda01a8b1b11e12a.bindPopup(popup_d754d0054acf60008c23f86ae864910a)
+        ;
+
+        
+    
+    
+            var marker_a3cbed749cc4f131f7930eaa0d61ad4a = L.marker(
+                [51.160103, -0.972766],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_78c887a07d7a53d11bcd4a91c56648a0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a3cbed749cc4f131f7930eaa0d61ad4a.setIcon(icon_78c887a07d7a53d11bcd4a91c56648a0);
+        
+    
+        var popup_7dbb002ed4862a001bc8a972cfce69d4 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_035cde72f1b5cbab8b82c27b5b849f05 = $(`<div id="html_035cde72f1b5cbab8b82c27b5b849f05" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_7dbb002ed4862a001bc8a972cfce69d4.setContent(html_035cde72f1b5cbab8b82c27b5b849f05);
+            
+        
+
+        marker_a3cbed749cc4f131f7930eaa0d61ad4a.bindPopup(popup_7dbb002ed4862a001bc8a972cfce69d4)
+        ;
+
+        
+    
+    
+            var marker_5052897f4bba7b6889887ecfab5788d9 = L.marker(
+                [51.147257, -0.976283],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_a374def2cf84297093951fd0dcef3526 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_5052897f4bba7b6889887ecfab5788d9.setIcon(icon_a374def2cf84297093951fd0dcef3526);
+        
+    
+        var popup_5a7c26cb059bee0089cb5c5f297ef60c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_28eacb2845286b58cccce71204ddb3fd = $(`<div id="html_28eacb2845286b58cccce71204ddb3fd" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_5a7c26cb059bee0089cb5c5f297ef60c.setContent(html_28eacb2845286b58cccce71204ddb3fd);
+            
+        
+
+        marker_5052897f4bba7b6889887ecfab5788d9.bindPopup(popup_5a7c26cb059bee0089cb5c5f297ef60c)
+        ;
+
+        
+    
+    
+            var marker_23072e8a2bc9b287c5c691bb418c4437 = L.marker(
+                [51.145572, -0.979022],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_e740b3b0be726521ffef1bc452a4bbb0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_23072e8a2bc9b287c5c691bb418c4437.setIcon(icon_e740b3b0be726521ffef1bc452a4bbb0);
+        
+    
+        var popup_448e5fe37e129f8e590aa0d438217cab = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_02ddeab54949924aa716875865989b0c = $(`<div id="html_02ddeab54949924aa716875865989b0c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_448e5fe37e129f8e590aa0d438217cab.setContent(html_02ddeab54949924aa716875865989b0c);
+            
+        
+
+        marker_23072e8a2bc9b287c5c691bb418c4437.bindPopup(popup_448e5fe37e129f8e590aa0d438217cab)
+        ;
+
+        
+    
+    
+            var marker_71c1feb912ad29ffe79266bf6e619afd = L.marker(
+                [51.154094, -0.965393],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_7721817838241b75e7586364c2ecba71 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_71c1feb912ad29ffe79266bf6e619afd.setIcon(icon_7721817838241b75e7586364c2ecba71);
+        
+    
+        var popup_83a071f2b324fbfc78b83185d5944152 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8d5bf64a613bc5eda38a016de2bf7a2b = $(`<div id="html_8d5bf64a613bc5eda38a016de2bf7a2b" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_83a071f2b324fbfc78b83185d5944152.setContent(html_8d5bf64a613bc5eda38a016de2bf7a2b);
+            
+        
+
+        marker_71c1feb912ad29ffe79266bf6e619afd.bindPopup(popup_83a071f2b324fbfc78b83185d5944152)
+        ;
+
+        
+    
+    
+            var marker_3fe35e104a0813837504c8a40a5ef504 = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_6d2d112e63a8338863d898a1ffcc2112 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_3fe35e104a0813837504c8a40a5ef504.setIcon(icon_6d2d112e63a8338863d898a1ffcc2112);
+        
+    
+        var popup_e501ae85d1774c7607e32e82c3fb53e6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_dcb13567d0e0380864c4502e77dd9be5 = $(`<div id="html_dcb13567d0e0380864c4502e77dd9be5" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e501ae85d1774c7607e32e82c3fb53e6.setContent(html_dcb13567d0e0380864c4502e77dd9be5);
+            
+        
+
+        marker_3fe35e104a0813837504c8a40a5ef504.bindPopup(popup_e501ae85d1774c7607e32e82c3fb53e6)
+        ;
+
+        
+    
+    
+            var marker_55debbeb19e06a606b2c88f52f0b356f = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_8499da4c81d28e532985ec895d743bd4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_55debbeb19e06a606b2c88f52f0b356f.setIcon(icon_8499da4c81d28e532985ec895d743bd4);
+        
+    
+        var popup_dffce758af40679f993c455cadb8843b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_770bf1b8021b302c66b263b576ae0d79 = $(`<div id="html_770bf1b8021b302c66b263b576ae0d79" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_dffce758af40679f993c455cadb8843b.setContent(html_770bf1b8021b302c66b263b576ae0d79);
+            
+        
+
+        marker_55debbeb19e06a606b2c88f52f0b356f.bindPopup(popup_dffce758af40679f993c455cadb8843b)
+        ;
+
+        
+    
+    
+            var marker_d2f08d074381478a630981a00a7ba2d4 = L.marker(
+                [51.153353, -0.970099],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_701293dabdccdac0d405361e00a79982 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_d2f08d074381478a630981a00a7ba2d4.setIcon(icon_701293dabdccdac0d405361e00a79982);
+        
+    
+        var popup_3b65ee6c4a507fd076e1723f922f4152 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c6d108ab507b18faa8ec007b7e02db39 = $(`<div id="html_c6d108ab507b18faa8ec007b7e02db39" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3b65ee6c4a507fd076e1723f922f4152.setContent(html_c6d108ab507b18faa8ec007b7e02db39);
+            
+        
+
+        marker_d2f08d074381478a630981a00a7ba2d4.bindPopup(popup_3b65ee6c4a507fd076e1723f922f4152)
+        ;
+
+        
+    
+    
+            var marker_0ebb22d019ebf3f97ee4631da223c9e7 = L.marker(
+                [51.155933, -0.971086],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_a7a50e33d7040670220e13add72dbaba = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0ebb22d019ebf3f97ee4631da223c9e7.setIcon(icon_a7a50e33d7040670220e13add72dbaba);
+        
+    
+        var popup_6beef1365c5e0de973addaa039b4d634 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b0e2d87a18442abc309900b77b3a4f7a = $(`<div id="html_b0e2d87a18442abc309900b77b3a4f7a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_6beef1365c5e0de973addaa039b4d634.setContent(html_b0e2d87a18442abc309900b77b3a4f7a);
+            
+        
+
+        marker_0ebb22d019ebf3f97ee4631da223c9e7.bindPopup(popup_6beef1365c5e0de973addaa039b4d634)
+        ;
+
+        
+    
+    
+            var marker_a932915be857b4daf49b49c24e316095 = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_fd855ece3d13596e582b7188275121d5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a932915be857b4daf49b49c24e316095.setIcon(icon_fd855ece3d13596e582b7188275121d5);
+        
+    
+        var popup_2e6dde53b294dd93bf2085b1d6922894 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_478e0b13b53b7cafaa2105bf4a1c5b0c = $(`<div id="html_478e0b13b53b7cafaa2105bf4a1c5b0c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_2e6dde53b294dd93bf2085b1d6922894.setContent(html_478e0b13b53b7cafaa2105bf4a1c5b0c);
+            
+        
+
+        marker_a932915be857b4daf49b49c24e316095.bindPopup(popup_2e6dde53b294dd93bf2085b1d6922894)
+        ;
+
+        
+    
+    
+            var marker_fc763f07fcc2708d4ffe29d179d2236a = L.marker(
+                [51.141914, -0.987551],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_3d2b3ccf3ef739c4b2f19375004b7f8e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fc763f07fcc2708d4ffe29d179d2236a.setIcon(icon_3d2b3ccf3ef739c4b2f19375004b7f8e);
+        
+    
+        var popup_37532ed405143d8c961f9b5c735de8b5 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_943e69b22128fa9949eb84f9c04b3409 = $(`<div id="html_943e69b22128fa9949eb84f9c04b3409" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_37532ed405143d8c961f9b5c735de8b5.setContent(html_943e69b22128fa9949eb84f9c04b3409);
+            
+        
+
+        marker_fc763f07fcc2708d4ffe29d179d2236a.bindPopup(popup_37532ed405143d8c961f9b5c735de8b5)
+        ;
+
+        
+    
+    
+            var marker_da56f6251179aaf12d2b1585a817f8eb = L.marker(
+                [51.144872, -0.983312],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_01262224c579a538d41164508614968d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_da56f6251179aaf12d2b1585a817f8eb.setIcon(icon_01262224c579a538d41164508614968d);
+        
+    
+        var popup_53021cbd054c38a482251f3adbbc350b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d8a9e2d1e265d847476f3bf7daaf3e6c = $(`<div id="html_d8a9e2d1e265d847476f3bf7daaf3e6c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_53021cbd054c38a482251f3adbbc350b.setContent(html_d8a9e2d1e265d847476f3bf7daaf3e6c);
+            
+        
+
+        marker_da56f6251179aaf12d2b1585a817f8eb.bindPopup(popup_53021cbd054c38a482251f3adbbc350b)
+        ;
+
+        
+    
+    
+            var marker_07e9958f9a4172411ad0a91f22cc881b = L.marker(
+                [51.15027, -0.97227],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_dc587692e4de7668be0c6145b5ca70af = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_07e9958f9a4172411ad0a91f22cc881b.setIcon(icon_dc587692e4de7668be0c6145b5ca70af);
+        
+    
+        var popup_e0f674290526264a491d5e8ff64ae8ea = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_32ee080376cd46abeb083c184523d75a = $(`<div id="html_32ee080376cd46abeb083c184523d75a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e0f674290526264a491d5e8ff64ae8ea.setContent(html_32ee080376cd46abeb083c184523d75a);
+            
+        
+
+        marker_07e9958f9a4172411ad0a91f22cc881b.bindPopup(popup_e0f674290526264a491d5e8ff64ae8ea)
+        ;
+
+        
+    
+    
+            var marker_c72884803bb95a2909c3b6d8e313dbcd = L.marker(
+                [51.142329, -0.982538],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_2b15e28f110a7c5828378a8a0b214de1 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c72884803bb95a2909c3b6d8e313dbcd.setIcon(icon_2b15e28f110a7c5828378a8a0b214de1);
+        
+    
+        var popup_c060a12c0b291af541848965378779c2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_542a7a9098bed9e620d11f23b8c6cc5a = $(`<div id="html_542a7a9098bed9e620d11f23b8c6cc5a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_c060a12c0b291af541848965378779c2.setContent(html_542a7a9098bed9e620d11f23b8c6cc5a);
+            
+        
+
+        marker_c72884803bb95a2909c3b6d8e313dbcd.bindPopup(popup_c060a12c0b291af541848965378779c2)
+        ;
+
+        
+    
+    
+            var marker_13d64facabe5be8b08403a9258e4b3f6 = L.marker(
+                [51.157685, -0.966828],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_7809091a706b82dd3219138a16685757 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_13d64facabe5be8b08403a9258e4b3f6.setIcon(icon_7809091a706b82dd3219138a16685757);
+        
+    
+        var popup_2445af9f1570da458ffcb6c01a13758e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b124dccd17b50cf327e3e700fa69c800 = $(`<div id="html_b124dccd17b50cf327e3e700fa69c800" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_2445af9f1570da458ffcb6c01a13758e.setContent(html_b124dccd17b50cf327e3e700fa69c800);
+            
+        
+
+        marker_13d64facabe5be8b08403a9258e4b3f6.bindPopup(popup_2445af9f1570da458ffcb6c01a13758e)
+        ;
+
+        
+    
+    
+            var marker_e3fe9e40e3bca7a02a73e5ededd1c25d = L.marker(
+                [51.143743, -0.979705],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_d3661268329aa94f3fa498a2ffb1a380 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_e3fe9e40e3bca7a02a73e5ededd1c25d.setIcon(icon_d3661268329aa94f3fa498a2ffb1a380);
+        
+    
+        var popup_266861ce4371cb44e30be4b535aaf5cf = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c419076baafb3e8be81f015c4d68a9d8 = $(`<div id="html_c419076baafb3e8be81f015c4d68a9d8" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_266861ce4371cb44e30be4b535aaf5cf.setContent(html_c419076baafb3e8be81f015c4d68a9d8);
+            
+        
+
+        marker_e3fe9e40e3bca7a02a73e5ededd1c25d.bindPopup(popup_266861ce4371cb44e30be4b535aaf5cf)
+        ;
+
+        
+    
+    
+            var marker_b0bf180e413e369ad2030d698b1ddcc1 = L.marker(
+                [51.148317, -0.976202],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_8673a04231735b935de6aea336ecc6c3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b0bf180e413e369ad2030d698b1ddcc1.setIcon(icon_8673a04231735b935de6aea336ecc6c3);
+        
+    
+        var popup_8e145892c2b7fff292a8a060fe7e7798 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a978ec1e1f5b2c31e0e3c1be317648b3 = $(`<div id="html_a978ec1e1f5b2c31e0e3c1be317648b3" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_8e145892c2b7fff292a8a060fe7e7798.setContent(html_a978ec1e1f5b2c31e0e3c1be317648b3);
+            
+        
+
+        marker_b0bf180e413e369ad2030d698b1ddcc1.bindPopup(popup_8e145892c2b7fff292a8a060fe7e7798)
+        ;
+
+        
+    
+    
+            var marker_98a9fd306ed9d054885878617a5345e1 = L.marker(
+                [51.152745, -0.967052],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_76118dfdd70332da26d28e7b8ac13d17 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_98a9fd306ed9d054885878617a5345e1.setIcon(icon_76118dfdd70332da26d28e7b8ac13d17);
+        
+    
+        var popup_3c5b39fb826c222b1ab1379e7f2844b7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ac45af4992db3672522ea52adb34892a = $(`<div id="html_ac45af4992db3672522ea52adb34892a" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_3c5b39fb826c222b1ab1379e7f2844b7.setContent(html_ac45af4992db3672522ea52adb34892a);
+            
+        
+
+        marker_98a9fd306ed9d054885878617a5345e1.bindPopup(popup_3c5b39fb826c222b1ab1379e7f2844b7)
+        ;
+
+        
+    
+    
+            var marker_f32bc007656e8164b40762cf56abdf92 = L.marker(
+                [51.147551, -0.978077],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_58ada976a3a01a78c42345f41ef067b5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f32bc007656e8164b40762cf56abdf92.setIcon(icon_58ada976a3a01a78c42345f41ef067b5);
+        
+    
+        var popup_f4f7c5dc4fac56cfe15c17f0e173e1b6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_ff7ffb49a78e5851b27ab715f5d144a6 = $(`<div id="html_ff7ffb49a78e5851b27ab715f5d144a6" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f4f7c5dc4fac56cfe15c17f0e173e1b6.setContent(html_ff7ffb49a78e5851b27ab715f5d144a6);
+            
+        
+
+        marker_f32bc007656e8164b40762cf56abdf92.bindPopup(popup_f4f7c5dc4fac56cfe15c17f0e173e1b6)
+        ;
+
+        
+    
+    
+            var marker_9238b2e80cc5bc41ed47becc33d9a6af = L.marker(
+                [51.153353, -0.970099],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_08ff12c565133ca4844370cbdd31d168 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_9238b2e80cc5bc41ed47becc33d9a6af.setIcon(icon_08ff12c565133ca4844370cbdd31d168);
+        
+    
+        var popup_8f3094562070a9271ccc621af09037bf = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_a3644f5f8c6e17d724dbfbf51cd43e27 = $(`<div id="html_a3644f5f8c6e17d724dbfbf51cd43e27" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_8f3094562070a9271ccc621af09037bf.setContent(html_a3644f5f8c6e17d724dbfbf51cd43e27);
+            
+        
+
+        marker_9238b2e80cc5bc41ed47becc33d9a6af.bindPopup(popup_8f3094562070a9271ccc621af09037bf)
+        ;
+
+        
+    
+    
+            var marker_0d61e54b96f6ef25ac6fa37b0c1cac62 = L.marker(
+                [51.152745, -0.967052],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_1b0b057ff6d326ff30a8cee85ec86134 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0d61e54b96f6ef25ac6fa37b0c1cac62.setIcon(icon_1b0b057ff6d326ff30a8cee85ec86134);
+        
+    
+        var popup_c540e7799ee1b13b85cb275fbc5a22da = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4c5292740f527a74b1d736c8afdb4ff6 = $(`<div id="html_4c5292740f527a74b1d736c8afdb4ff6" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_c540e7799ee1b13b85cb275fbc5a22da.setContent(html_4c5292740f527a74b1d736c8afdb4ff6);
+            
+        
+
+        marker_0d61e54b96f6ef25ac6fa37b0c1cac62.bindPopup(popup_c540e7799ee1b13b85cb275fbc5a22da)
+        ;
+
+        
+    
+    
+            var marker_99d2430433f6f3292bb82ea5a5914ba0 = L.marker(
+                [51.160103, -0.972766],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_57cda776a6e86005d4b370108caa126f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_99d2430433f6f3292bb82ea5a5914ba0.setIcon(icon_57cda776a6e86005d4b370108caa126f);
+        
+    
+        var popup_360e174d97ec7b01bf3ee33c3baecd7e = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_48978d5537e936777c0c3cb361d664f7 = $(`<div id="html_48978d5537e936777c0c3cb361d664f7" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_360e174d97ec7b01bf3ee33c3baecd7e.setContent(html_48978d5537e936777c0c3cb361d664f7);
+            
+        
+
+        marker_99d2430433f6f3292bb82ea5a5914ba0.bindPopup(popup_360e174d97ec7b01bf3ee33c3baecd7e)
+        ;
+
+        
+    
+    
+            var marker_b83354b79ac0a1071c1588419c084058 = L.marker(
+                [51.142329, -0.982538],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_3e8d1757ec98a21f0ee8b09eaa3ac6aa = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_b83354b79ac0a1071c1588419c084058.setIcon(icon_3e8d1757ec98a21f0ee8b09eaa3ac6aa);
+        
+    
+        var popup_10e3f36bc2934e3e45c01929dc06e647 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_12ce709f8738d85a7cab366142dd32db = $(`<div id="html_12ce709f8738d85a7cab366142dd32db" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_10e3f36bc2934e3e45c01929dc06e647.setContent(html_12ce709f8738d85a7cab366142dd32db);
+            
+        
+
+        marker_b83354b79ac0a1071c1588419c084058.bindPopup(popup_10e3f36bc2934e3e45c01929dc06e647)
+        ;
+
+        
+    
+    
+            var marker_1075456a32f445b87accceb337fa974a = L.marker(
+                [51.163697, -0.972486],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_44e07e7b80d81b730c03c7ea16a227ef = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_1075456a32f445b87accceb337fa974a.setIcon(icon_44e07e7b80d81b730c03c7ea16a227ef);
+        
+    
+        var popup_e12a03a5a46a02f76ad17dc5a421c1ea = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7a86f0aa4786f9ce672e78740900b1ca = $(`<div id="html_7a86f0aa4786f9ce672e78740900b1ca" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e12a03a5a46a02f76ad17dc5a421c1ea.setContent(html_7a86f0aa4786f9ce672e78740900b1ca);
+            
+        
+
+        marker_1075456a32f445b87accceb337fa974a.bindPopup(popup_e12a03a5a46a02f76ad17dc5a421c1ea)
+        ;
+
+        
+    
+    
+            var marker_8a6962b56f9bbde835851880c1643537 = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_fb987772dde8ff52797a4ee8c71701af = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_8a6962b56f9bbde835851880c1643537.setIcon(icon_fb987772dde8ff52797a4ee8c71701af);
+        
+    
+        var popup_4216435f09b45dfa67424a50b278398c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c10b409224fb57dafc8107704deab3ac = $(`<div id="html_c10b409224fb57dafc8107704deab3ac" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_4216435f09b45dfa67424a50b278398c.setContent(html_c10b409224fb57dafc8107704deab3ac);
+            
+        
+
+        marker_8a6962b56f9bbde835851880c1643537.bindPopup(popup_4216435f09b45dfa67424a50b278398c)
+        ;
+
+        
+    
+    
+            var marker_dfeac8be88c51c00b9015145ce23be8c = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_29f54a94ca3720eb9b7d1ce12189ee34 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_dfeac8be88c51c00b9015145ce23be8c.setIcon(icon_29f54a94ca3720eb9b7d1ce12189ee34);
+        
+    
+        var popup_52122ec5bf70d6dd016a4d49321f8d4c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9838475788da81764c745ef6606cd9e6 = $(`<div id="html_9838475788da81764c745ef6606cd9e6" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_52122ec5bf70d6dd016a4d49321f8d4c.setContent(html_9838475788da81764c745ef6606cd9e6);
+            
+        
+
+        marker_dfeac8be88c51c00b9015145ce23be8c.bindPopup(popup_52122ec5bf70d6dd016a4d49321f8d4c)
+        ;
+
+        
+    
+    
+            var marker_fac3abbdee82980fb89eb55cb76c5dca = L.marker(
+                [51.155933, -0.971086],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_9381982ad6542605ff7df2ff7c685a39 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_fac3abbdee82980fb89eb55cb76c5dca.setIcon(icon_9381982ad6542605ff7df2ff7c685a39);
+        
+    
+        var popup_6377a6be1a4bb274b09e5258f833e42d = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9092a5d0ad825b75f1a6b4b38fe9aebc = $(`<div id="html_9092a5d0ad825b75f1a6b4b38fe9aebc" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_6377a6be1a4bb274b09e5258f833e42d.setContent(html_9092a5d0ad825b75f1a6b4b38fe9aebc);
+            
+        
+
+        marker_fac3abbdee82980fb89eb55cb76c5dca.bindPopup(popup_6377a6be1a4bb274b09e5258f833e42d)
+        ;
+
+        
+    
+    
+            var marker_a228fdc47a3ca472d8681f673e8dcb4c = L.marker(
+                [51.150015, -0.975021],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_84ceaeb7f79be1ba61024ea8013d1bc5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a228fdc47a3ca472d8681f673e8dcb4c.setIcon(icon_84ceaeb7f79be1ba61024ea8013d1bc5);
+        
+    
+        var popup_785ddf2f05ce79c169d73754583aab16 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_33dde89f3967f3599edb0bc966b04446 = $(`<div id="html_33dde89f3967f3599edb0bc966b04446" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_785ddf2f05ce79c169d73754583aab16.setContent(html_33dde89f3967f3599edb0bc966b04446);
+            
+        
+
+        marker_a228fdc47a3ca472d8681f673e8dcb4c.bindPopup(popup_785ddf2f05ce79c169d73754583aab16)
+        ;
+
+        
+    
+    
+            var marker_56dacb5ff590053357db653633e8fb54 = L.marker(
+                [51.148683, -0.976937],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_f289ce9c55d3a0ac7467d14cbcd4a038 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_56dacb5ff590053357db653633e8fb54.setIcon(icon_f289ce9c55d3a0ac7467d14cbcd4a038);
+        
+    
+        var popup_da7a1a6e43f1fdc6e47179be3b10ea84 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e2e2ffd847c00d1d6bf261df6680ead2 = $(`<div id="html_e2e2ffd847c00d1d6bf261df6680ead2" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_da7a1a6e43f1fdc6e47179be3b10ea84.setContent(html_e2e2ffd847c00d1d6bf261df6680ead2);
+            
+        
+
+        marker_56dacb5ff590053357db653633e8fb54.bindPopup(popup_da7a1a6e43f1fdc6e47179be3b10ea84)
+        ;
+
+        
+    
+    
+            var marker_8f6be95dcde72cda3a73929e839a1522 = L.marker(
+                [51.150015, -0.975021],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_a6b9b2f1f3401e7664a83495dc9b2c68 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_8f6be95dcde72cda3a73929e839a1522.setIcon(icon_a6b9b2f1f3401e7664a83495dc9b2c68);
+        
+    
+        var popup_f467c55c7e86cffe11d14a5bee39f6f0 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_146d0dce422742c3917811ef52860967 = $(`<div id="html_146d0dce422742c3917811ef52860967" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_f467c55c7e86cffe11d14a5bee39f6f0.setContent(html_146d0dce422742c3917811ef52860967);
+            
+        
+
+        marker_8f6be95dcde72cda3a73929e839a1522.bindPopup(popup_f467c55c7e86cffe11d14a5bee39f6f0)
+        ;
+
+        
+    
+    
+            var marker_4583f3969d0c349699eb9d89a50589ba = L.marker(
+                [51.164813, -0.970502],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_0b63afb8122e0258f6b0b0df97365e9a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_4583f3969d0c349699eb9d89a50589ba.setIcon(icon_0b63afb8122e0258f6b0b0df97365e9a);
+        
+    
+        var popup_2faa24a8c18b549c42276664930883cc = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_e6a0e92a543ad3de938c0093731b7dd9 = $(`<div id="html_e6a0e92a543ad3de938c0093731b7dd9" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_2faa24a8c18b549c42276664930883cc.setContent(html_e6a0e92a543ad3de938c0093731b7dd9);
+            
+        
+
+        marker_4583f3969d0c349699eb9d89a50589ba.bindPopup(popup_2faa24a8c18b549c42276664930883cc)
+        ;
+
+        
+    
+    
+            var marker_bc688afca93e7fd5b28494c378536e17 = L.marker(
+                [51.161617, -0.967012],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_b7c3d0f34d0ed9263393c2c3d72aab77 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_bc688afca93e7fd5b28494c378536e17.setIcon(icon_b7c3d0f34d0ed9263393c2c3d72aab77);
+        
+    
+        var popup_aa46994e489704de6b57d96277496402 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_296a80fc47b1ec91113f077358af5d09 = $(`<div id="html_296a80fc47b1ec91113f077358af5d09" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_aa46994e489704de6b57d96277496402.setContent(html_296a80fc47b1ec91113f077358af5d09);
+            
+        
+
+        marker_bc688afca93e7fd5b28494c378536e17.bindPopup(popup_aa46994e489704de6b57d96277496402)
+        ;
+
+        
+    
+    
+            var marker_a15d5e3726d0adf924ce2abfe13bd6e4 = L.marker(
+                [51.14522, -0.97993],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_5b80577071855fdd255d4ecd24e9fafc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_a15d5e3726d0adf924ce2abfe13bd6e4.setIcon(icon_5b80577071855fdd255d4ecd24e9fafc);
+        
+    
+        var popup_6894c889a67b892e9a43519b69ced4b4 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3e65b537b9699455d3928d3ee083025c = $(`<div id="html_3e65b537b9699455d3928d3ee083025c" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_6894c889a67b892e9a43519b69ced4b4.setContent(html_3e65b537b9699455d3928d3ee083025c);
+            
+        
+
+        marker_a15d5e3726d0adf924ce2abfe13bd6e4.bindPopup(popup_6894c889a67b892e9a43519b69ced4b4)
+        ;
+
+        
+    
+    
+            var marker_3bd6c57ef2bcb44efaccc33969c60164 = L.marker(
+                [51.146352, -0.982936],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_e0ca777ee511e2bbcb0433da84cad4e5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_3bd6c57ef2bcb44efaccc33969c60164.setIcon(icon_e0ca777ee511e2bbcb0433da84cad4e5);
+        
+    
+        var popup_4b1d4659dedf13f6045528054b92a5ef = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_eea2d1b76f616452378875c488c0482e = $(`<div id="html_eea2d1b76f616452378875c488c0482e" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_4b1d4659dedf13f6045528054b92a5ef.setContent(html_eea2d1b76f616452378875c488c0482e);
+            
+        
+
+        marker_3bd6c57ef2bcb44efaccc33969c60164.bindPopup(popup_4b1d4659dedf13f6045528054b92a5ef)
+        ;
+
+        
+    
+    
+            var marker_1438b405f0b49f25aafcd7f621ff6386 = L.marker(
+                [51.153353, -0.970099],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_aade8c6ac5f8572c2a2a4afbb717b72c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_1438b405f0b49f25aafcd7f621ff6386.setIcon(icon_aade8c6ac5f8572c2a2a4afbb717b72c);
+        
+    
+        var popup_9a2643082072a8a59659b8b130a4c9f6 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_c5480df713822c600e3a3657d19a9112 = $(`<div id="html_c5480df713822c600e3a3657d19a9112" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_9a2643082072a8a59659b8b130a4c9f6.setContent(html_c5480df713822c600e3a3657d19a9112);
+            
+        
+
+        marker_1438b405f0b49f25aafcd7f621ff6386.bindPopup(popup_9a2643082072a8a59659b8b130a4c9f6)
+        ;
+
+        
+    
+    
+            var marker_11b49698ea9898b8475ab675fd02cb12 = L.marker(
+                [51.147551, -0.978077],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_2dfa99bc981f456b94a8939647564646 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_11b49698ea9898b8475ab675fd02cb12.setIcon(icon_2dfa99bc981f456b94a8939647564646);
+        
+    
+        var popup_db5d6da636cbd087bbe0c942cb46c828 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_4382f9602da38d2f771b8230dcf244d9 = $(`<div id="html_4382f9602da38d2f771b8230dcf244d9" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_db5d6da636cbd087bbe0c942cb46c828.setContent(html_4382f9602da38d2f771b8230dcf244d9);
+            
+        
+
+        marker_11b49698ea9898b8475ab675fd02cb12.bindPopup(popup_db5d6da636cbd087bbe0c942cb46c828)
+        ;
+
+        
+    
+    
+            var marker_d966ab7ac0ee9529cbf6e1b84486e506 = L.marker(
+                [51.147551, -0.978077],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_f747dae3cc035578aaba64953e4dd8a7 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_d966ab7ac0ee9529cbf6e1b84486e506.setIcon(icon_f747dae3cc035578aaba64953e4dd8a7);
+        
+    
+        var popup_b6d4c05915426be8a6dd19a2effcad7b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_30a2dab79beb85ae1b88bf1f24fb8739 = $(`<div id="html_30a2dab79beb85ae1b88bf1f24fb8739" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> violent-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_b6d4c05915426be8a6dd19a2effcad7b.setContent(html_30a2dab79beb85ae1b88bf1f24fb8739);
+            
+        
+
+        marker_d966ab7ac0ee9529cbf6e1b84486e506.bindPopup(popup_b6d4c05915426be8a6dd19a2effcad7b)
+        ;
+
+        
+    
+    
+            var marker_325e7196e2bd2eeaf957394cba5bb97b = L.marker(
+                [51.151548, -0.971398],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_bf56556c8f2d806395b4d06da3c47767 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_325e7196e2bd2eeaf957394cba5bb97b.setIcon(icon_bf56556c8f2d806395b4d06da3c47767);
+        
+    
+        var popup_330fbc7e695e3b10008f9fa6b1665498 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_87e2191419fdf3b1d5081463f0e54ba7 = $(`<div id="html_87e2191419fdf3b1d5081463f0e54ba7" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_330fbc7e695e3b10008f9fa6b1665498.setContent(html_87e2191419fdf3b1d5081463f0e54ba7);
+            
+        
+
+        marker_325e7196e2bd2eeaf957394cba5bb97b.bindPopup(popup_330fbc7e695e3b10008f9fa6b1665498)
+        ;
+
+        
+    
+    
+            var marker_ca07b3d014787632fb76fede78320cfa = L.marker(
+                [51.155422, -0.968123],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_3cb5be9ddaed379e1df7ada02dbf79ca = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_ca07b3d014787632fb76fede78320cfa.setIcon(icon_3cb5be9ddaed379e1df7ada02dbf79ca);
+        
+    
+        var popup_b76e74cfa0c0755a4f550c33817bd841 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_9fade8b3d95fa0993d6ddc1d45b29d91 = $(`<div id="html_9fade8b3d95fa0993d6ddc1d45b29d91" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_b76e74cfa0c0755a4f550c33817bd841.setContent(html_9fade8b3d95fa0993d6ddc1d45b29d91);
+            
+        
+
+        marker_ca07b3d014787632fb76fede78320cfa.bindPopup(popup_b76e74cfa0c0755a4f550c33817bd841)
+        ;
+
+        
+    
+    
+            var marker_41c146d2a7f531f5feccce82de5a8f6c = L.marker(
+                [51.155422, -0.968123],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_fe66218b878ea491fcacf66771756bcb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_41c146d2a7f531f5feccce82de5a8f6c.setIcon(icon_fe66218b878ea491fcacf66771756bcb);
+        
+    
+        var popup_91eb8e6a97f4ebdd8943a6967e824954 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2a776fa6921c45317646cc0c0ee55be3 = $(`<div id="html_2a776fa6921c45317646cc0c0ee55be3" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_91eb8e6a97f4ebdd8943a6967e824954.setContent(html_2a776fa6921c45317646cc0c0ee55be3);
+            
+        
+
+        marker_41c146d2a7f531f5feccce82de5a8f6c.bindPopup(popup_91eb8e6a97f4ebdd8943a6967e824954)
+        ;
+
+        
+    
+    
+            var marker_4e1a9478fae719fe1b6b7785fa6505e9 = L.marker(
+                [51.149247, -0.975609],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_63913bba8c367e411d43a3db653f46c6 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_4e1a9478fae719fe1b6b7785fa6505e9.setIcon(icon_63913bba8c367e411d43a3db653f46c6);
+        
+    
+        var popup_c30e17065c725ca96b3f442cc90e7059 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_7f037b7abdea84236bd9028e96756659 = $(`<div id="html_7f037b7abdea84236bd9028e96756659" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_c30e17065c725ca96b3f442cc90e7059.setContent(html_7f037b7abdea84236bd9028e96756659);
+            
+        
+
+        marker_4e1a9478fae719fe1b6b7785fa6505e9.bindPopup(popup_c30e17065c725ca96b3f442cc90e7059)
+        ;
+
+        
+    
+    
+            var marker_f43cca341e0b045a50ef05bee9762955 = L.marker(
+                [51.149247, -0.975609],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_595a8ece2c9c88e9482694f7011741b8 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_f43cca341e0b045a50ef05bee9762955.setIcon(icon_595a8ece2c9c88e9482694f7011741b8);
+        
+    
+        var popup_e450b115befd293424ebd477b7c352df = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_24190d4ce8d5ce6290af7957618c71ff = $(`<div id="html_24190d4ce8d5ce6290af7957618c71ff" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_e450b115befd293424ebd477b7c352df.setContent(html_24190d4ce8d5ce6290af7957618c71ff);
+            
+        
+
+        marker_f43cca341e0b045a50ef05bee9762955.bindPopup(popup_e450b115befd293424ebd477b7c352df)
+        ;
+
+        
+    
+    
+            var marker_0fa8b23df840d92f79d85f877e88d914 = L.marker(
+                [51.149247, -0.975609],
+                {}
+            ).addTo(marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91);
+        
+    
+            var icon_acdd82bc4a747085a6e89c0e90ecf628 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_0fa8b23df840d92f79d85f877e88d914.setIcon(icon_acdd82bc4a747085a6e89c0e90ecf628);
+        
+    
+        var popup_8b60f1f56d94a0c171833be15d35d7a7 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_afcf3045767e5fb861218188ede3dbfe = $(`<div id="html_afcf3045767e5fb861218188ede3dbfe" style="width: 100.0%; height: 100.0%;">             <b>Street Crime</b><br>             <b>Type:</b> other-crime<br>             <b>Month:</b> 2025-04             </div>`)[0];
+                popup_8b60f1f56d94a0c171833be15d35d7a7.setContent(html_afcf3045767e5fb861218188ede3dbfe);
+            
+        
+
+        marker_0fa8b23df840d92f79d85f877e88d914.bindPopup(popup_8b60f1f56d94a0c171833be15d35d7a7)
+        ;
+
+        
+    
+    
+            var marker_cluster_2eae26f397b13103163c27c20aef09e3 = L.markerClusterGroup(
+                {}
+            );
+            map_9af0562387b8ff1afa1d21d7f202e799.addLayer(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var marker_00d0444bb6ad9022c8282aa40799d67d = L.marker(
+                [51.146109, -0.977666],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_b52815694192ac2aa62b35b33d74be13 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_00d0444bb6ad9022c8282aa40799d67d.setIcon(icon_b52815694192ac2aa62b35b33d74be13);
+        
+    
+        var popup_5c83e0b3802a71a6c0c691df50bd721b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_244ee5315c17f09dea7c585a7db5d09c = $(`<div id="html_244ee5315c17f09dea7c585a7db5d09c" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-02T21:30:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_5c83e0b3802a71a6c0c691df50bd721b.setContent(html_244ee5315c17f09dea7c585a7db5d09c);
+            
+        
+
+        marker_00d0444bb6ad9022c8282aa40799d67d.bindPopup(popup_5c83e0b3802a71a6c0c691df50bd721b)
+        ;
+
+        
+    
+    
+            var marker_943eb145b7288291b66d0ff9ded8daa9 = L.marker(
+                [51.146586, -0.974696],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_4edd00306e6b7411ccc1b7050796becc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_943eb145b7288291b66d0ff9ded8daa9.setIcon(icon_4edd00306e6b7411ccc1b7050796becc);
+        
+    
+        var popup_7cf9c291ddf2b163ce0931dc9255ffdb = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_855029053c5a6eecb69b4a99d215603b = $(`<div id="html_855029053c5a6eecb69b4a99d215603b" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-05T12:13:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 25-34<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_7cf9c291ddf2b163ce0931dc9255ffdb.setContent(html_855029053c5a6eecb69b4a99d215603b);
+            
+        
+
+        marker_943eb145b7288291b66d0ff9ded8daa9.bindPopup(popup_7cf9c291ddf2b163ce0931dc9255ffdb)
+        ;
+
+        
+    
+    
+            var marker_626fef2034a9f57eda5c50d614fbcca1 = L.marker(
+                [51.161471, -0.968889],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_318ed70286363a8cdb31862fd31ba48e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_626fef2034a9f57eda5c50d614fbcca1.setIcon(icon_318ed70286363a8cdb31862fd31ba48e);
+        
+    
+        var popup_0889612fc0d0b6ea5797d6c436f63e79 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_95dd8106faf2acc0520f3ad15428a56b = $(`<div id="html_95dd8106faf2acc0520f3ad15428a56b" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-07T17:02:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_0889612fc0d0b6ea5797d6c436f63e79.setContent(html_95dd8106faf2acc0520f3ad15428a56b);
+            
+        
+
+        marker_626fef2034a9f57eda5c50d614fbcca1.bindPopup(popup_0889612fc0d0b6ea5797d6c436f63e79)
+        ;
+
+        
+    
+    
+            var marker_addd5cf070a843191a3fc68ae53f98da = L.marker(
+                [51.151786, -0.974938],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_331a81580d40f9bdeec1b4ce2b196aa5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_addd5cf070a843191a3fc68ae53f98da.setIcon(icon_331a81580d40f9bdeec1b4ce2b196aa5);
+        
+    
+        var popup_c3ae5859a267d36f9bbaabff79ed7190 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3fea9720095eb92ed8fa448bdbc5028e = $(`<div id="html_3fea9720095eb92ed8fa448bdbc5028e" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-07T15:45:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_c3ae5859a267d36f9bbaabff79ed7190.setContent(html_3fea9720095eb92ed8fa448bdbc5028e);
+            
+        
+
+        marker_addd5cf070a843191a3fc68ae53f98da.bindPopup(popup_c3ae5859a267d36f9bbaabff79ed7190)
+        ;
+
+        
+    
+    
+            var marker_cae4f66a2e235bd9410dc646e1ac63b0 = L.marker(
+                [51.146586, -0.974696],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_411195be10a063860e6313d81f96bbd5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_cae4f66a2e235bd9410dc646e1ac63b0.setIcon(icon_411195be10a063860e6313d81f96bbd5);
+        
+    
+        var popup_aba8e72b3cfdb90b419fdfcf29321631 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_8fdd7ade8b30804939664786dc7d2567 = $(`<div id="html_8fdd7ade8b30804939664786dc7d2567" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-08T16:15:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 25-34<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_aba8e72b3cfdb90b419fdfcf29321631.setContent(html_8fdd7ade8b30804939664786dc7d2567);
+            
+        
+
+        marker_cae4f66a2e235bd9410dc646e1ac63b0.bindPopup(popup_aba8e72b3cfdb90b419fdfcf29321631)
+        ;
+
+        
+    
+    
+            var marker_97c3a7fbdc8e147441dbe104d97c7904 = L.marker(
+                [51.153353, -0.970099],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_7c29102d5607c71d77cec012a128e19c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_97c3a7fbdc8e147441dbe104d97c7904.setIcon(icon_7c29102d5607c71d77cec012a128e19c);
+        
+    
+        var popup_196a4c759cd084f92c9436ddf2d0d45c = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_f56e81a767d699c7565a10a558857789 = $(`<div id="html_f56e81a767d699c7565a10a558857789" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-11T18:54:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> over 34<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_196a4c759cd084f92c9436ddf2d0d45c.setContent(html_f56e81a767d699c7565a10a558857789);
+            
+        
+
+        marker_97c3a7fbdc8e147441dbe104d97c7904.bindPopup(popup_196a4c759cd084f92c9436ddf2d0d45c)
+        ;
+
+        
+    
+    
+            var marker_c9a491ff8c59fb75d2fa501dfe144a61 = L.marker(
+                [51.157685, -0.966828],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_b772c64ffec02b9c918237a1d2ecfe97 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_c9a491ff8c59fb75d2fa501dfe144a61.setIcon(icon_b772c64ffec02b9c918237a1d2ecfe97);
+        
+    
+        var popup_5648d915b6aa8932a14a4c6d1eda30b9 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_042986caea5d3f092776c9a0fe2428c1 = $(`<div id="html_042986caea5d3f092776c9a0fe2428c1" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-19T08:30:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> over 34<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_5648d915b6aa8932a14a4c6d1eda30b9.setContent(html_042986caea5d3f092776c9a0fe2428c1);
+            
+        
+
+        marker_c9a491ff8c59fb75d2fa501dfe144a61.bindPopup(popup_5648d915b6aa8932a14a4c6d1eda30b9)
+        ;
+
+        
+    
+    
+            var marker_bc3fb71f39b4b3f7ce369661ecfeaab2 = L.marker(
+                [51.146109, -0.977666],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_c5855d2865a7b6625f51ef03ee0d1078 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_bc3fb71f39b4b3f7ce369661ecfeaab2.setIcon(icon_c5855d2865a7b6625f51ef03ee0d1078);
+        
+    
+        var popup_9fd3b149adadc17bc2d4c8314fe0de5b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_26453d2ebd31d01955a0ba5541643755 = $(`<div id="html_26453d2ebd31d01955a0ba5541643755" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-19T21:00:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_9fd3b149adadc17bc2d4c8314fe0de5b.setContent(html_26453d2ebd31d01955a0ba5541643755);
+            
+        
+
+        marker_bc3fb71f39b4b3f7ce369661ecfeaab2.bindPopup(popup_9fd3b149adadc17bc2d4c8314fe0de5b)
+        ;
+
+        
+    
+    
+            var marker_4a6489861647e5ee93397ca8dc433e6b = L.marker(
+                [51.147257, -0.976283],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_1bdb6db3a9055912b8e6876edd8e58d9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_4a6489861647e5ee93397ca8dc433e6b.setIcon(icon_1bdb6db3a9055912b8e6876edd8e58d9);
+        
+    
+        var popup_4ff00c80a30ed56084a3644654b44d64 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_274f0ff183093d1bed612601f26c5eae = $(`<div id="html_274f0ff183093d1bed612601f26c5eae" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-20T22:00:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_4ff00c80a30ed56084a3644654b44d64.setContent(html_274f0ff183093d1bed612601f26c5eae);
+            
+        
+
+        marker_4a6489861647e5ee93397ca8dc433e6b.bindPopup(popup_4ff00c80a30ed56084a3644654b44d64)
+        ;
+
+        
+    
+    
+            var marker_2a9b3a690351ebb047f66b27fb1f21c6 = L.marker(
+                [51.158054, -0.978031],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_55a89aeb3173f4df444aeae519c68c90 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_2a9b3a690351ebb047f66b27fb1f21c6.setIcon(icon_55a89aeb3173f4df444aeae519c68c90);
+        
+    
+        var popup_a43fc2c968684a39c491322b23c4b31b = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_844c4331c0351780efed464ecccb4f49 = $(`<div id="html_844c4331c0351780efed464ecccb4f49" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-20T22:15:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> over 34<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_a43fc2c968684a39c491322b23c4b31b.setContent(html_844c4331c0351780efed464ecccb4f49);
+            
+        
+
+        marker_2a9b3a690351ebb047f66b27fb1f21c6.bindPopup(popup_a43fc2c968684a39c491322b23c4b31b)
+        ;
+
+        
+    
+    
+            var marker_31b59272e59d2b7ecaf1886dd7dc3932 = L.marker(
+                [51.157704, -0.977095],
+                {}
+            ).addTo(marker_cluster_2eae26f397b13103163c27c20aef09e3);
+        
+    
+            var icon_30419ce6173c99ce99e2f4a94e842e5e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "user", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_31b59272e59d2b7ecaf1886dd7dc3932.setIcon(icon_30419ce6173c99ce99e2f4a94e842e5e);
+        
+    
+        var popup_b975c0d44cc799a9efe53ffebf8cb497 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_087618912e509adf067da08c542253d1 = $(`<div id="html_087618912e509adf067da08c542253d1" style="width: 100.0%; height: 100.0%;">             <b>Stop and Search</b><br>             <b>Type:</b> Person search<br>             <b>Date:</b> 2025-04-24T17:05:00+00:00<br>             <b>Gender:</b> Male<br>             <b>Age:</b> 18-24<br>             <b>Object of search:</b> None             </div>`)[0];
+                popup_b975c0d44cc799a9efe53ffebf8cb497.setContent(html_087618912e509adf067da08c542253d1);
+            
+        
+
+        marker_31b59272e59d2b7ecaf1886dd7dc3932.bindPopup(popup_b975c0d44cc799a9efe53ffebf8cb497)
+        ;
+
+        
+    
+    
+            var layer_control_99fd527d1fe6d91d3b8722678f22b759 = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_bbad5c725c37fbce7bfd5f4400b371fd,
+                },
+                overlays :  {
+                    "Street Crimes" : marker_cluster_ba34ad78a0bfa64cc13fa13faf5eca91,
+                    "Stop and Search" : marker_cluster_2eae26f397b13103163c27c20aef09e3,
+                },
+            };
+            L.control.layers(
+                layer_control_99fd527d1fe6d91d3b8722678f22b759.base_layers,
+                layer_control_99fd527d1fe6d91d3b8722678f22b759.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_9af0562387b8ff1afa1d21d7f202e799);
+        
+</script>
+</html>
