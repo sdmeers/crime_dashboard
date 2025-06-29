@@ -4,12 +4,13 @@ from folium.plugins import MarkerCluster
 import requests
 import json
 import xml.etree.ElementTree as ET
+import os
 from typing import Optional
 
 # --- Configuration ---
 DATE = "2025-03"
-KML_FILE = '/home/sdmeers/Code/crime_data/boundaries/hampshire/8OL01.kml'
-OUTPUT_MAP_FILE = 'alton_crime_map.html'
+KML_DIR = '/home/sdmeers/Code/crime_data/boundaries/hampshire'
+OUTPUT_MAP_FILE = 'hampshire_crime_map.html'
 
 # --- API Data Fetching ---
 
@@ -152,30 +153,38 @@ def get_polygon_from_kml(kml_file_path: str) -> Optional[str]:
 
 def create_interactive_map():
     """
-    Fetches crime and stop-and-search data from the police.uk API and generates
+    Fetches crime and stop-and-search data from the police.uk API for all neighbourhoods in Hampshire and generates
     an interactive HTML map using Folium.
     """
-    print("Starting map generation...")
+    print("Starting map generation for all of Hampshire...")
 
-    print("Extracting polygon from KML file...")
-    polygon = get_polygon_from_kml(KML_FILE)
-    if not polygon:
-        print("Could not extract polygon. Exiting.")
+    all_street_crimes = []
+    all_stop_and_searches = []
+
+    neighbourhood_files = [f for f in os.listdir(KML_DIR) if f.endswith('.kml')]
+
+    for kml_file in neighbourhood_files:
+        kml_file_path = os.path.join(KML_DIR, kml_file)
+        print(f"Processing {kml_file}...")
+        polygon = get_polygon_from_kml(kml_file_path)
+        if not polygon:
+            print(f"Could not extract polygon from {kml_file}. Skipping.")
+            continue
+
+        street_crimes = get_street_crimes(polygon, DATE)
+        if not street_crimes.empty:
+            all_street_crimes.append(street_crimes)
+
+        stop_and_searches = get_stop_and_searches(polygon, DATE)
+        if not stop_and_searches.empty:
+            all_stop_and_searches.append(stop_and_searches)
+
+    if not all_street_crimes and not all_stop_and_searches:
+        print("No data was returned from the API for any neighbourhood. Exiting.")
         return
 
-    # --- Create and save the GET request URL ---
-    get_url = f"https://data.police.uk/api/crimes-street/all-crime?date={DATE}&poly={polygon}"
-    with open("api_get_request.txt", "w") as f:
-        f.write(get_url)
-    print("Saved the GET request URL to api_get_request.txt")
-
-    #print("The polygon string that will be sent to the API is:")
-    #print(polygon)
-    poly_parts = polygon.split(':')
-    #print("Last 10 polygon entries:", poly_parts[-10:])
-    #print("\nFetching data from the police.uk API...")
-    street_df = get_street_crimes(polygon, DATE)
-    stop_search_df = get_stop_and_searches(polygon, DATE)
+    street_df = pd.concat(all_street_crimes, ignore_index=True) if all_street_crimes else pd.DataFrame()
+    stop_search_df = pd.concat(all_stop_and_searches, ignore_index=True) if all_stop_and_searches else pd.DataFrame()
 
     if street_df.empty and stop_search_df.empty:
         print("No data was returned from the API. Exiting.")
