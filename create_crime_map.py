@@ -6,11 +6,13 @@ import json
 import xml.etree.ElementTree as ET
 import os
 from typing import Optional
+import time
 
 # --- Configuration ---
 DATE = "2025-03"
 KML_DIR = '/home/sdmeers/Code/crime_data/boundaries/hampshire'
 OUTPUT_MAP_FILE = 'hampshire_crime_map.html'
+CACHE_DIR = 'cached_data'
 
 # --- API Data Fetching ---
 
@@ -37,8 +39,14 @@ def get_api_data(endpoint, params):
         print(f"Error decoding JSON from {url}. Response was: {response.text}")
         return None
 
-def get_street_crimes(polygon, date):
+def get_street_crimes(polygon, date, neighbourhood_name):
     """Fetches street crime data from the API for a given polygon and returns a DataFrame."""
+    cache_file = os.path.join(CACHE_DIR, f"{neighbourhood_name}_{date}_street.pkl")
+    if os.path.exists(cache_file):
+        print(f"Loading street crimes for {neighbourhood_name} from cache...")
+        return pd.read_pickle(cache_file)
+
+    print(f"Fetching street crimes for {neighbourhood_name} from API...")
     params = {'poly': polygon, 'date': date}
     data = get_api_data('crimes-street/all-crime', params)
     if data:
@@ -46,11 +54,18 @@ def get_street_crimes(polygon, date):
         df['Latitude'] = df['location'].apply(lambda loc: float(loc['latitude']))
         df['Longitude'] = df['location'].apply(lambda loc: float(loc['longitude']))
         df.rename(columns={'category': 'Crime type'}, inplace=True)
+        df.to_pickle(cache_file)
         return df
     return pd.DataFrame()
 
-def get_stop_and_searches(polygon, date):
+def get_stop_and_searches(polygon, date, neighbourhood_name):
     """Fetches stop and search data from the API for a given polygon and returns a DataFrame."""
+    cache_file = os.path.join(CACHE_DIR, f"{neighbourhood_name}_{date}_stop_and_search.pkl")
+    if os.path.exists(cache_file):
+        print(f"Loading stop and searches for {neighbourhood_name} from cache...")
+        return pd.read_pickle(cache_file)
+
+    print(f"Fetching stop and searches for {neighbourhood_name} from API...")
     params = {'poly': polygon, 'date': date}
     data = get_api_data('stops-street', params)
     if data:
@@ -60,6 +75,7 @@ def get_stop_and_searches(polygon, date):
         df.rename(columns={'type': 'Type', 'datetime': 'Date', 'gender': 'Gender',
                            'age_range': 'Age range', 'object_of_search': 'Object of search'},
                   inplace=True)
+        df.to_pickle(cache_file)
         return df
     return pd.DataFrame()
 
@@ -158,6 +174,9 @@ def create_interactive_map():
     """
     print("Starting map generation for all of Hampshire...")
 
+    if not os.path.exists(CACHE_DIR):
+        os.makedirs(CACHE_DIR)
+
     all_street_crimes = []
     all_stop_and_searches = []
 
@@ -171,13 +190,18 @@ def create_interactive_map():
             print(f"Could not extract polygon from {kml_file}. Skipping.")
             continue
 
-        street_crimes = get_street_crimes(polygon, DATE)
+        neighbourhood_name = os.path.splitext(kml_file)[0]
+
+        street_crimes = get_street_crimes(polygon, DATE, neighbourhood_name)
         if not street_crimes.empty:
             all_street_crimes.append(street_crimes)
 
-        stop_and_searches = get_stop_and_searches(polygon, DATE)
+        stop_and_searches = get_stop_and_searches(polygon, DATE, neighbourhood_name)
         if not stop_and_searches.empty:
             all_stop_and_searches.append(stop_and_searches)
+
+        # Add a small delay to avoid overwhelming the API
+        time.sleep(0.1)
 
     if not all_street_crimes and not all_stop_and_searches:
         print("No data was returned from the API for any neighbourhood. Exiting.")
