@@ -5,7 +5,7 @@ import requests
 import json
 import xml.etree.ElementTree as ET
 import os
-from typing import Optional
+from typing import Optional, Tuple
 import time
 
 # --- Configuration ---
@@ -20,11 +20,6 @@ def get_api_data(endpoint, params):
     """A helper function to get data from the police API."""
     url = f"https://data.police.uk/api/{endpoint}"
     
-    # Log the API call details
-    with open("api_call_details.txt", "w") as f:
-        f.write(f"URL: {url}\n")
-        f.write(f"Params: {json.dumps(params, indent=2)}\n")
-
     try:
         # The API expects polygon data as POST, not GET
         response = requests.post(url, data=params)
@@ -37,12 +32,12 @@ def get_api_data(endpoint, params):
         print(f"Error decoding JSON from {url}. Response was: {response.text}")
         return None
 
-def get_street_crimes(polygon, date, neighbourhood_name):
-    """Fetches street crime data from the API for a given polygon and returns a DataFrame."""
+def get_street_crimes(polygon, date, neighbourhood_name) -> Tuple[pd.DataFrame, bool]:
+    """Fetches street crime data from the API for a given polygon and returns a DataFrame and whether it was fetched from API."""
     cache_file = os.path.join(CACHE_DIR, f"{neighbourhood_name}_{date}_street.pkl")
     if os.path.exists(cache_file):
         print(f"Loading street crimes for {neighbourhood_name} from cache...")
-        return pd.read_pickle(cache_file)
+        return pd.read_pickle(cache_file), False  # False = not from API
 
     print(f"Fetching street crimes for {neighbourhood_name} from API...")
     params = {'poly': polygon, 'date': date}
@@ -53,15 +48,15 @@ def get_street_crimes(polygon, date, neighbourhood_name):
         df['Longitude'] = df['location'].apply(lambda loc: float(loc['longitude']))
         df.rename(columns={'category': 'Crime type'}, inplace=True)
         df.to_pickle(cache_file)
-        return df
-    return pd.DataFrame()
+        return df, True  # True = from API
+    return pd.DataFrame(), True  # True = attempted API call
 
-def get_stop_and_searches(polygon, date, neighbourhood_name):
-    """Fetches stop and search data from the API for a given polygon and returns a DataFrame."""
+def get_stop_and_searches(polygon, date, neighbourhood_name) -> Tuple[pd.DataFrame, bool]:
+    """Fetches stop and search data from the API for a given polygon and returns a DataFrame and whether it was fetched from API."""
     cache_file = os.path.join(CACHE_DIR, f"{neighbourhood_name}_{date}_stop_and_search.pkl")
     if os.path.exists(cache_file):
         print(f"Loading stop and searches for {neighbourhood_name} from cache...")
-        return pd.read_pickle(cache_file)
+        return pd.read_pickle(cache_file), False  # False = not from API
 
     print(f"Fetching stop and searches for {neighbourhood_name} from API...")
     params = {'poly': polygon, 'date': date}
@@ -74,8 +69,8 @@ def get_stop_and_searches(polygon, date, neighbourhood_name):
                            'age_range': 'Age range', 'object_of_search': 'Object of search'},
                   inplace=True)
         df.to_pickle(cache_file)
-        return df
-    return pd.DataFrame()
+        return df, True  # True = from API
+    return pd.DataFrame(), True  # True = attempted API call
 
 def get_polygon_from_kml(kml_file_path: str) -> Optional[str]:
     """
@@ -191,17 +186,23 @@ def create_interactive_map():
                     continue
 
                 neighbourhood_name = os.path.splitext(kml_file)[0]
+                api_calls_made = False
 
-                street_crimes = get_street_crimes(polygon, DATE, neighbourhood_name)
+                street_crimes, from_api_street = get_street_crimes(polygon, DATE, neighbourhood_name)
                 if not street_crimes.empty:
                     all_street_crimes.append(street_crimes)
+                if from_api_street:
+                    api_calls_made = True
 
-                stop_and_searches = get_stop_and_searches(polygon, DATE, neighbourhood_name)
+                stop_and_searches, from_api_stop = get_stop_and_searches(polygon, DATE, neighbourhood_name)
                 if not stop_and_searches.empty:
                     all_stop_and_searches.append(stop_and_searches)
+                if from_api_stop:
+                    api_calls_made = True
 
-                # Add a small delay to avoid overwhelming the API
-                time.sleep(1)
+                # Only sleep if we made API calls (not cached data)
+                if api_calls_made:
+                    time.sleep(1)
 
     if not all_street_crimes and not all_stop_and_searches:
         print("No data was returned from the API for any neighbourhood. Exiting.")
