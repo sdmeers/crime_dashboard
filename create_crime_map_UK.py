@@ -1,6 +1,6 @@
 import pandas as pd
 import folium
-from folium.plugins import MarkerCluster
+from folium.plugins import FastMarkerCluster
 import requests
 import json
 import xml.etree.ElementTree as ET
@@ -10,8 +10,8 @@ import time
 
 # --- Configuration ---
 DATE = "2025-04"
-KML_DIR = '/home/sdmeers/Code/crime_data/boundaries'
-OUTPUT_MAP_FILE = 'UK_crime_map.html'
+KML_DIR = '/home/sdmeers/Code/crime_data/boundaries/'
+OUTPUT_MAP_FILE = 'UK_crime_map_clustered.html'
 CACHE_DIR = 'cached_data'   
 
 # --- API Data Fetching ---
@@ -47,9 +47,11 @@ def get_street_crimes(polygon, date, neighbourhood_name) -> Tuple[pd.DataFrame, 
         df['Latitude'] = df['location'].apply(lambda loc: float(loc['latitude']))
         df['Longitude'] = df['location'].apply(lambda loc: float(loc['longitude']))
         df.rename(columns={'category': 'Crime type'}, inplace=True)
-        df.to_pickle(cache_file)
-        return df, True  # True = from API
-    return pd.DataFrame(), True  # True = attempted API call
+    else:
+        df = pd.DataFrame()
+
+    df.to_pickle(cache_file)
+    return df, True  # True = from API
 
 def get_stop_and_searches(polygon, date, neighbourhood_name) -> Tuple[pd.DataFrame, bool]:
     """Fetches stop and search data from the API for a given polygon and returns a DataFrame and whether it was fetched from API."""
@@ -68,9 +70,11 @@ def get_stop_and_searches(polygon, date, neighbourhood_name) -> Tuple[pd.DataFra
         df.rename(columns={'type': 'Type', 'datetime': 'Date', 'gender': 'Gender',
                            'age_range': 'Age range', 'object_of_search': 'Object of search'},
                   inplace=True)
-        df.to_pickle(cache_file)
-        return df, True  # True = from API
-    return pd.DataFrame(), True  # True = attempted API call
+    else:
+        df = pd.DataFrame()
+
+    df.to_pickle(cache_file)
+    return df, True  # True = from API
 
 def get_polygon_from_kml(kml_file_path: str) -> Optional[str]:
     """
@@ -173,36 +177,50 @@ def create_interactive_map():
     all_street_crimes = []
     all_stop_and_searches = []
 
-    for police_force in os.listdir(KML_DIR):
+    # This list will hold tuples of (kml_file_path, police_force_name or None)
+    processing_queue = []
+
+    dir_contents = os.listdir(KML_DIR)
+    if not dir_contents:
+        print(f"KML directory is empty: {KML_DIR}")
+        return
+
+    print("Processing directory of police force subdirectories...")
+    for police_force in [d for d in dir_contents if os.path.isdir(os.path.join(KML_DIR, d))]:
         police_force_dir = os.path.join(KML_DIR, police_force)
-        if os.path.isdir(police_force_dir):
-            neighbourhood_files = [f for f in os.listdir(police_force_dir) if f.endswith('.kml')]
-            for kml_file in neighbourhood_files:
-                kml_file_path = os.path.join(police_force_dir, kml_file)
-                print(f"Processing {kml_file} in {police_force}...")
-                polygon = get_polygon_from_kml(kml_file_path)
-                if not polygon:
-                    print(f"Could not extract polygon from {kml_file}. Skipping.")
-                    continue
+        for kml_file in [f for f in os.listdir(police_force_dir) if f.endswith('.kml')]:
+            processing_queue.append((os.path.join(police_force_dir, kml_file), police_force))
 
-                neighbourhood_name = os.path.splitext(kml_file)[0]
-                api_calls_made = False
+    for kml_file_path, police_force in processing_queue:
+        kml_file = os.path.basename(kml_file_path)
+        if police_force:
+            print(f"Processing {kml_file} in {police_force}...")
+        else:
+            print(f"Processing {kml_file}...")
 
-                street_crimes, from_api_street = get_street_crimes(polygon, DATE, neighbourhood_name)
-                if not street_crimes.empty:
-                    all_street_crimes.append(street_crimes)
-                if from_api_street:
-                    api_calls_made = True
+        polygon = get_polygon_from_kml(kml_file_path)
+        if not polygon:
+            print(f"Could not extract polygon from {kml_file}. Skipping.")
+            continue
 
-                stop_and_searches, from_api_stop = get_stop_and_searches(polygon, DATE, neighbourhood_name)
-                if not stop_and_searches.empty:
-                    all_stop_and_searches.append(stop_and_searches)
-                if from_api_stop:
-                    api_calls_made = True
+        neighbourhood_name = os.path.splitext(kml_file)[0]
+        api_calls_made = False
 
-                # Only sleep if we made API calls (not cached data)
-                if api_calls_made:
-                    time.sleep(1)
+        street_crimes, from_api_street = get_street_crimes(polygon, DATE, neighbourhood_name)
+        if not street_crimes.empty:
+            all_street_crimes.append(street_crimes)
+        if from_api_street:
+            api_calls_made = True
+
+        stop_and_searches, from_api_stop = get_stop_and_searches(polygon, DATE, neighbourhood_name)
+        if not stop_and_searches.empty:
+            all_stop_and_searches.append(stop_and_searches)
+        if from_api_stop:
+            api_calls_made = True
+
+        # Only sleep if we made API calls (not cached data)
+        if api_calls_made:
+            time.sleep(0.1)
 
     if not all_street_crimes and not all_stop_and_searches:
         print("No data was returned from the API for any neighbourhood. Exiting.")
@@ -226,36 +244,32 @@ def create_interactive_map():
     print("Created base map centered on the UK.")
 
     if not street_df.empty:
-        street_crime_layer = MarkerCluster(name="Street Crimes").add_to(uk_map)
+        street_crime_layer = folium.plugins.MarkerCluster(name="Street Crimes").add_to(uk_map)
         print(f"Adding {len(street_df)} street crime incidents to the map...")
         for index, row in street_df.iterrows():
-            popup_html = f"""
-            <b>Street Crime</b><br>
-            <b>Type:</b> {row.get('Crime type', 'N/A')}<br>
-            <b>Month:</b> {row.get('month', 'N/A')}
+            popup_text = f"""
+            <b>Crime type:</b> {row['Crime type']}<br>
+            <b>Month:</b> {row['month']}<br>
             """
             folium.Marker(
                 location=[row['Latitude'], row['Longitude']],
-                popup=folium.Popup(popup_html, max_width=300),
-                icon=folium.Icon(color='blue', icon='info-sign')
+                popup=popup_text
             ).add_to(street_crime_layer)
 
     if not stop_search_df.empty:
-        stop_search_layer = MarkerCluster(name="Stop and Search").add_to(uk_map)
+        stop_search_layer = folium.plugins.MarkerCluster(name="Stop and Search").add_to(uk_map)
         print(f"Adding {len(stop_search_df)} stop and search incidents to the map...")
         for index, row in stop_search_df.iterrows():
-            popup_html = f"""
-            <b>Stop and Search</b><br>
-            <b>Type:</b> {row.get('Type', 'N/A')}<br>
-            <b>Date:</b> {row.get('Date', 'N/A')}<br>
-            <b>Gender:</b> {row.get('Gender', 'N/A')}<br>
-            <b>Age:</b> {row.get('Age range', 'N/A')}<br>
-            <b>Object of search:</b> {row.get('Object of search', 'N/A')}
+            popup_text = f"""
+            <b>Type:</b> {row['Type']}<br>
+            <b>Date:</b> {row['Date']}<br>
+            <b>Gender:</b> {row['Gender']}<br>
+            <b>Age range:</b> {row['Age range']}<br>
+            <b>Object of search:</b> {row['Object of search']}<br>
             """
             folium.Marker(
                 location=[row['Latitude'], row['Longitude']],
-                popup=folium.Popup(popup_html, max_width=300),
-                icon=folium.Icon(color='red', icon='user')
+                popup=popup_text
             ).add_to(stop_search_layer)
 
     folium.LayerControl().add_to(uk_map)
