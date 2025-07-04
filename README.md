@@ -10,6 +10,12 @@ This project provides a set of Python scripts to fetch, analyze, and visualize c
 *   **Data Caching**: Scripts cache data locally to avoid repeated API calls.
 *   **KML Boundary Support**: Use KML files to define geographical boundaries for data fetching.
 
+## Screenshots
+
+Below is a screenshot of the Hampshire Crime Dashboard:
+
+![Hampshire Crime Dashboard](screenshots/dashboard.jpg)
+
 ## Scripts
 
 *   `create_crime_map.py`: Creates an interactive crime map for Hampshire.
