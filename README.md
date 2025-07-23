@@ -42,7 +42,6 @@ Below is a screenshot of the Hampshire Crime Dashboard:
 3.  **Directory Structure**:
     *   `boundaries/`: Store your KML files in this directory. The scripts expect a subdirectory for each police force (e.g., `boundaries/hampshire/`).
     *   `cached_data/`: This directory is created automatically to store cached API responses.
-    *   `csv_data/`: This directory is for storing CSV files.
 
 4.  **Running the Scripts**:
     *   To generate the Hampshire crime map:
