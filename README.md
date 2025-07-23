@@ -12,7 +12,7 @@ This project provides a set of Python scripts to fetch, analyze, and visualize c
 
 ## Screenshots
 
-Below is a screenshot of the Hampshire Crime Dashboard:
+Below is a screenshot of the Crime Dashboard for Hampshire:
 
 ![Hampshire Crime Dashboard](screenshots/dashboard.jpg)
 
