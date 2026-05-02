@@ -225,11 +225,12 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
             {layers.outcomes && (
               <MarkerClusterGroup chunkedLoading>
                 {outcomes.map((outcome, idx) => {
-                  if (!outcome.location) return null;
+                  const loc = outcome.crime?.location;
+                  if (!loc) return null;
                   return (
                     <Marker 
                       key={`outcome-${idx}`} 
-                      position={[parseFloat(outcome.location.latitude), parseFloat(outcome.location.longitude)]}
+                      position={[parseFloat(loc.latitude), parseFloat(loc.longitude)]}
                       icon={greenIcon}
                     >
                       <Popup>
