@@ -351,9 +351,11 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
 
       {/* Legend Overlay */}
       {visibleLegendItems.length > 0 && (
-        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-[1000] bg-white/90 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl max-h-[40vh] md:max-h-80 overflow-y-auto w-48 md:w-64 border border-slate-200">
-          <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2 md:mb-3 sticky top-0 bg-white/90 pb-1">Visible Categories</h3>
-          <div className="space-y-1.5 md:space-y-2">
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl flex flex-col max-h-[40vh] md:max-h-80 w-48 md:w-64 border border-slate-200 overflow-hidden">
+          <div className="p-3 md:p-4 pb-2 md:pb-3 bg-white z-10 shadow-sm shrink-0">
+            <h3 className="text-xs md:text-sm font-bold text-slate-800">Visible Categories</h3>
+          </div>
+          <div className="p-3 md:p-4 pt-2 md:pt-2 overflow-y-auto space-y-1.5 md:space-y-2 flex-1">
             {visibleLegendItems.map(item => (
               <div key={`${item.type}-${item.name}`} className="flex items-center text-xs text-slate-700">
                 <div 
