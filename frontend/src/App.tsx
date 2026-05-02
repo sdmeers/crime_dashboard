@@ -132,6 +132,17 @@ export default function App() {
               <strong>Notice:</strong> Please zoom in to view detailed crime data. The map covers too large an area.
             </div>
           )}
+
+          <div className="mt-auto pt-6 pb-2 text-xs text-slate-500 text-center">
+            <a 
+              href="https://www.police.uk/pu/contact-us/what-and-how-to-report/what-report/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 underline underline-offset-2 transition-colors"
+            >
+              View Crime Definitions
+            </a>
+          </div>
         </div>
 
         {/* Map Area */}
