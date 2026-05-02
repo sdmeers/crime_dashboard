@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import L from 'leaflet';
 import '../lib/leaflet-heat.js';
 
@@ -96,6 +97,8 @@ interface MapProps {
     stops: boolean;
     outcomes: boolean;
     heatmap: boolean;
+    crimeChart: boolean;
+    outcomeChart: boolean;
   };
   selectedMonth: string;
   onBoundsChange: (bounds: string) => void;
@@ -225,9 +228,9 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
   // Derive visible legend items
   const visibleLegendItems = (() => {
     const map = new Map<string, {name: string, type: 'crime'|'stop'|'outcome', color: string, count: number}>();
-    if (layers.crimes) {
+    if (layers.crimes || layers.crimeChart) {
       crimes.forEach(c => {
-        if (!c.location) return;
+        if (!c.location && !layers.crimeChart) return;
         const cat = c.category || 'unknown';
         const key = `crime-${cat}`;
         if (!map.has(key)) map.set(key, { name: cat, type: 'crime', color: getCategoryColor(cat), count: 0 });
@@ -243,9 +246,9 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         map.get(key)!.count += 1;
       });
     }
-    if (layers.outcomes) {
+    if (layers.outcomes || layers.outcomeChart) {
       outcomes.forEach(o => {
-        if (!o.crime?.location) return;
+        if (!o.crime?.location && !layers.outcomeChart) return;
         const name = o.category?.name || 'unknown';
         const key = `outcome-${name}`;
         if (!map.has(key)) map.set(key, { name: name, type: 'outcome', color: getCategoryColor(name), count: 0 });
@@ -254,6 +257,30 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
     }
     return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
   })();
+
+  const crimeChartData = useMemo(() => {
+    if (!layers.crimeChart) return [];
+    const counts: Record<string, number> = {};
+    crimes.forEach(c => {
+      const cat = c.category || 'unknown';
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+    return Object.entries(counts)
+      .map(([name, count]) => ({ name: name.replace(/-/g, ' '), count, fill: getCategoryColor(name) }))
+      .sort((a, b) => b.count - a.count);
+  }, [crimes, layers.crimeChart]);
+
+  const outcomeChartData = useMemo(() => {
+    if (!layers.outcomeChart) return [];
+    const counts: Record<string, number> = {};
+    outcomes.forEach(o => {
+      const name = o.category?.name || 'unknown';
+      counts[name] = (counts[name] || 0) + 1;
+    });
+    return Object.entries(counts)
+      .map(([name, count]) => ({ name, count, fill: getCategoryColor(name) }))
+      .sort((a, b) => b.count - a.count);
+  }, [outcomes, layers.outcomeChart]);
 
   return (
     <div className="h-full w-full relative">
@@ -371,12 +398,60 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                 <span className="truncate flex-1" title={`${item.name} (${item.count})`}>
                   {item.name.replace(/-/g, ' ')}
                 </span>
-                <span className="text-slate-400 font-medium ml-2 shrink-0">({item.count})</span>
-              </div>
-            ))}
           </div>
         </div>
       )}
+
+      {/* Analytics Overlays */}
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[1000] flex flex-col gap-4 pointer-events-none max-w-[calc(100vw-2rem)]">
+        
+        {layers.crimeChart && crimeChartData.length > 0 && (
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto">
+            <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crime Types</h3>
+            <div className="h-48 md:h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={crimeChartData} layout="vertical" margin={{ top: 0, right: 10, left: 0, bottom: 0 }}>
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="name" type="category" width={85} tick={{fontSize: 10, fill: '#475569'}} axisLine={false} tickLine={false} />
+                  <RechartsTooltip cursor={{fill: '#f1f5f9'}} contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
+                  <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={20}>
+                    {crimeChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {layers.outcomeChart && outcomeChartData.length > 0 && (
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto">
+            <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crimes by Outcome</h3>
+            <div className="h-48 md:h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                  <Pie
+                    data={outcomeChartData}
+                    dataKey="count"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={40}
+                    outerRadius={70}
+                    paddingAngle={2}
+                  >
+                    {outcomeChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <RechartsTooltip contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
