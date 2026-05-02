@@ -224,23 +224,32 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
 
   // Derive visible legend items
   const visibleLegendItems = (() => {
-    const map = new Map<string, {name: string, type: 'crime'|'stop'|'outcome', color: string}>();
+    const map = new Map<string, {name: string, type: 'crime'|'stop'|'outcome', color: string, count: number}>();
     if (layers.crimes) {
       crimes.forEach(c => {
+        if (!c.location) return;
         const cat = c.category || 'unknown';
-        if (!map.has(`crime-${cat}`)) map.set(`crime-${cat}`, { name: cat, type: 'crime', color: getCategoryColor(cat) });
+        const key = `crime-${cat}`;
+        if (!map.has(key)) map.set(key, { name: cat, type: 'crime', color: getCategoryColor(cat), count: 0 });
+        map.get(key)!.count += 1;
       });
     }
     if (layers.stops) {
       stops.forEach(s => {
+        if (!s.location) return;
         const type = s.type || 'unknown';
-        if (!map.has(`stop-${type}`)) map.set(`stop-${type}`, { name: type, type: 'stop', color: getCategoryColor(type) });
+        const key = `stop-${type}`;
+        if (!map.has(key)) map.set(key, { name: type, type: 'stop', color: getCategoryColor(type), count: 0 });
+        map.get(key)!.count += 1;
       });
     }
     if (layers.outcomes) {
       outcomes.forEach(o => {
+        if (!o.crime?.location) return;
         const name = o.category?.name || 'unknown';
-        if (!map.has(`outcome-${name}`)) map.set(`outcome-${name}`, { name: name, type: 'outcome', color: getCategoryColor(name) });
+        const key = `outcome-${name}`;
+        if (!map.has(key)) map.set(key, { name: name, type: 'outcome', color: getCategoryColor(name), count: 0 });
+        map.get(key)!.count += 1;
       });
     }
     return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
@@ -357,7 +366,10 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                     marginLeft: item.type === 'stop' ? '2px' : '0'
                   }}
                 />
-                <span className="truncate" title={item.name}>{item.name.replace(/-/g, ' ')}</span>
+                <span className="truncate flex-1" title={`${item.name} (${item.count})`}>
+                  {item.name.replace(/-/g, ' ')}
+                </span>
+                <span className="text-slate-400 font-medium ml-2 shrink-0">({item.count})</span>
               </div>
             ))}
           </div>
