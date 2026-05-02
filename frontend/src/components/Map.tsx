@@ -90,11 +90,11 @@ function HeatmapLayer({ points }: { points: [number, number, number][] }) {
     
     // Create the heat layer
     const heatLayer = (L as any).heatLayer(points, {
-      radius: 60,
-      blur: 50,
+      radius: 35,
+      blur: 25,
       maxZoom: 14,
       max: 1.0,
-      minOpacity: 0.3
+      minOpacity: 0.1
     }).addTo(map);
 
     return () => {
