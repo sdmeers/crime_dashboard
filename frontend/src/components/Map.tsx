@@ -83,16 +83,26 @@ function ChangeView({ searchLocation }: { searchLocation: any }) {
   return null;
 }
 
-function HeatmapLayer({ points }: { points: [number, number, number][] }) {
+function HeatmapLayer({ points, zoom }: { points: [number, number, number][], zoom: number }) {
   const map = useMap();
+  
   useEffect(() => {
     if (!points || points.length === 0) return;
     
-    // Create the heat layer
+    // Scale pixel radius by zoom to maintain rough geographical consistency
+    const getRadius = (z: number) => {
+      const baseZoom = 13;
+      const baseRadius = 15;
+      // Double the pixel size for each zoom level, capped to avoid performance issues
+      const multiplier = Math.min(Math.pow(2, Math.max(0, z - baseZoom)), 8);
+      return baseRadius * multiplier;
+    };
+
+    const r = getRadius(zoom);
     const heatLayer = (L as any).heatLayer(points, {
-      radius: 35,
-      blur: 25,
-      maxZoom: 14,
+      radius: r,
+      blur: r * 0.8,
+      maxZoom: 15,
       max: 1.0,
       minOpacity: 0.1
     }).addTo(map);
@@ -100,7 +110,7 @@ function HeatmapLayer({ points }: { points: [number, number, number][] }) {
     return () => {
       map.removeLayer(heatLayer);
     };
-  }, [points, map]);
+  }, [points, map, zoom]);
 
   return null;
 }
@@ -239,6 +249,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                   parseFloat(c.location.longitude), 
                   0.5 // default intensity
                 ])} 
+                zoom={zoom}
               />
             )}
           </>
