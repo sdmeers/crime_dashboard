@@ -41,18 +41,18 @@ export default function HistoricalTrendsScreen({ bounds, onClose }: HistoricalTr
 
   return (
     <div className="absolute inset-0 z-[2000] bg-white flex flex-col">
-      <div className="bg-slate-900 text-white p-4 flex justify-between items-center">
-        <h2 className="text-xl font-bold">Historical Crime Trends (Last 12 Months)</h2>
-        <button onClick={onClose} className="text-slate-300 hover:text-white transition-colors">
+      <div className="bg-slate-900 text-white p-3 md:p-4 flex justify-between items-center">
+        <h2 className="text-base md:text-xl font-bold truncate pr-4">Historical Crime Trends (Last 12 Months)</h2>
+        <button onClick={onClose} className="text-slate-300 hover:text-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center shrink-0">
           <X className="h-6 w-6" />
         </button>
       </div>
       
-      <div className="p-4 bg-blue-50 text-blue-800 text-sm border-b border-blue-200">
+      <div className="p-3 md:p-4 bg-blue-50 text-blue-800 text-xs md:text-sm border-b border-blue-200">
         <strong>Note:</strong> This data reflects the crime trends strictly within the <strong>four corners of the previously visible map area</strong>.
       </div>
 
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-2 md:p-8 min-h-0">
         {loading ? (
           <div className="flex h-full items-center justify-center text-slate-500">
             Loading historical data...
