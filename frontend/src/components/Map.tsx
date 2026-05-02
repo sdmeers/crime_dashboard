@@ -398,6 +398,9 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                 <span className="truncate flex-1" title={`${item.name} (${item.count})`}>
                   {item.name.replace(/-/g, ' ')}
                 </span>
+                <span className="text-slate-400 font-medium ml-2 shrink-0">({item.count})</span>
+              </div>
+            ))}
           </div>
         </div>
       )}
