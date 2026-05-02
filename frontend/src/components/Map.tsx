@@ -89,13 +89,14 @@ function HeatmapLayer({ points, zoom }: { points: [number, number, number][], zo
   useEffect(() => {
     if (!points || points.length === 0) return;
     
-    // Scale pixel radius by zoom to maintain rough geographical consistency
+    // Gentle linear scaling to prevent canvas shadow clipping bugs
+    // Large radii (> 40) cause browser rendering artifacts (quarter circles)
     const getRadius = (z: number) => {
       const baseZoom = 13;
       const baseRadius = 15;
-      // Double the pixel size for each zoom level, capped to avoid performance issues
-      const multiplier = Math.min(Math.pow(2, Math.max(0, z - baseZoom)), 8);
-      return baseRadius * multiplier;
+      const step = 4;
+      // Cap at 35 to prevent the canvas artifact while still providing zoom scaling
+      return Math.min(baseRadius + Math.max(0, z - baseZoom) * step, 35);
     };
 
     const r = getRadius(zoom);
