@@ -90,17 +90,30 @@ async def get_historical_crimes(poly: str):
     # Generate last 12 months
     months = [(latest_date - relativedelta(months=i)).strftime("%Y-%m") for i in range(11, -1, -1)]
     
-    # Fetch data concurrently for all 12 months
-    tasks = [fetch_police_data("crimes-street/all-crime", {"poly": poly, "date": month}) for month in months]
+    # Fetch data concurrently for all 12 months with a semaphore to prevent 503s
+    sem = asyncio.Semaphore(3)
     
+    async def fetch_with_sem(month):
+        # Retry up to 3 times for transient 503s or timeouts
+        for attempt in range(3):
+            async with sem:
+                try:
+                    return await fetch_police_data("crimes-street/all-crime", {"poly": poly, "date": month})
+                except Exception as e:
+                    if attempt == 2:
+                        return e
+                    await asyncio.sleep(1 * (attempt + 1))
+    
+    tasks = [fetch_with_sem(month) for month in months]
     results = await asyncio.gather(*tasks, return_exceptions=True)
     
     historical_data = []
     for i, res in enumerate(results):
         month = months[i]
         if isinstance(res, Exception):
-            # If a month fails (e.g. data not available or limits hit), skip or add empty
-            historical_data.append({"month": month, "total": 0, "antiSocial": 0, "violent": 0})
+            # If a month fails after retries, return None so the chart doesn't plunge to 0
+            print(f"Failed to fetch historical data for {month}: {res}")
+            historical_data.append({"month": month, "total": None, "antiSocial": None, "violent": None})
             continue
             
         crimes = res if isinstance(res, list) else []
