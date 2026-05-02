@@ -52,11 +52,14 @@ const createCustomIcon = (category: string, type: 'crime' | 'stop' | 'outcome') 
   let svgPath = '';
   
   if (type === 'crime') {
-    svgPath = `<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" fill="white" />`;
+    // Circle
+    svgPath = `<circle cx="12" cy="12" r="10" />`;
   } else if (type === 'stop') {
-    svgPath = `<polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" /><line x1="12" y1="8" x2="12" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="16" x2="12.01" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"/>`;
+    // Diamond
+    svgPath = `<polygon points="12 2 22 12 12 22 2 12 12 2" />`;
   } else if (type === 'outcome') {
-    svgPath = `<rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><path d="M9 12l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" />`;
+    // Square
+    svgPath = `<rect x="3" y="3" width="18" height="18" rx="2" ry="2" />`;
   }
 
   const html = `
@@ -71,8 +74,8 @@ const createCustomIcon = (category: string, type: 'crime' | 'stop' | 'outcome') 
     html,
     className: 'custom-leaflet-icon',
     iconSize: [24, 24],
-    iconAnchor: [12, type === 'crime' ? 24 : 12],
-    popupAnchor: [0, type === 'crime' ? -24 : -12]
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12]
   });
 };
 
@@ -345,8 +348,14 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
             {visibleLegendItems.map(item => (
               <div key={`${item.type}-${item.name}`} className="flex items-center text-xs text-slate-700">
                 <div 
-                  className="w-4 h-4 rounded-sm mr-2 flex-shrink-0 border border-black/10"
-                  style={{ backgroundColor: item.color, borderRadius: item.type === 'crime' ? '50%' : item.type === 'outcome' ? '2px' : '0' }}
+                  className="w-4 h-4 mr-2 flex-shrink-0 border border-black/20"
+                  style={{ 
+                    backgroundColor: item.color, 
+                    borderRadius: item.type === 'crime' ? '50%' : '0',
+                    transform: item.type === 'stop' ? 'rotate(45deg) scale(0.8)' : 'none',
+                    marginRight: item.type === 'stop' ? '10px' : '8px',
+                    marginLeft: item.type === 'stop' ? '2px' : '0'
+                  }}
                 />
                 <span className="truncate" title={item.name}>{item.name.replace(/-/g, ' ')}</span>
               </div>
