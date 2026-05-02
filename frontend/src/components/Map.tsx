@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import L from 'leaflet';
 import '../lib/leaflet-heat.js';
 
@@ -189,7 +189,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
     
     try {
       const promises = [];
-      if (layers.crimes || layers.heatmap) {
+      if (layers.crimes || layers.heatmap || layers.crimeChart) {
         promises.push(fetch(`http://localhost:8000/api/crimes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
       
@@ -197,7 +197,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         promises.push(fetch(`http://localhost:8000/api/stops?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
-      if (layers.outcomes) {
+      if (layers.outcomes || layers.outcomeChart) {
         promises.push(fetch(`http://localhost:8000/api/outcomes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
@@ -406,16 +406,16 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
       )}
 
       {/* Analytics Overlays */}
-      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[1000] flex flex-col gap-4 pointer-events-none max-w-[calc(100vw-2rem)]">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[1000] flex flex-col gap-4 pointer-events-none max-w-[calc(100vw-2rem)] max-h-[calc(100vh-8rem)] overflow-y-auto">
         
         {layers.crimeChart && crimeChartData.length > 0 && (
-          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto">
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto shrink-0">
             <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crime Types</h3>
-            <div className="h-48 md:h-64">
+            <div className="h-64 md:h-80 -ml-4">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={crimeChartData} layout="vertical" margin={{ top: 0, right: 10, left: 0, bottom: 0 }}>
+                <BarChart data={crimeChartData} layout="vertical" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
                   <XAxis type="number" hide />
-                  <YAxis dataKey="name" type="category" width={85} tick={{fontSize: 10, fill: '#475569'}} axisLine={false} tickLine={false} />
+                  <YAxis dataKey="name" type="category" width={100} interval={0} tick={{fontSize: 10, fill: '#475569'}} axisLine={false} tickLine={false} />
                   <RechartsTooltip cursor={{fill: '#f1f5f9'}} contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
                   <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={20}>
                     {crimeChartData.map((entry, index) => (
@@ -429,9 +429,9 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         )}
 
         {layers.outcomeChart && outcomeChartData.length > 0 && (
-          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto">
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto shrink-0">
             <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crimes by Outcome</h3>
-            <div className="h-48 md:h-64">
+            <div className="h-64 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                   <Pie
@@ -439,9 +439,9 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                     dataKey="count"
                     nameKey="name"
                     cx="50%"
-                    cy="50%"
-                    innerRadius={40}
-                    outerRadius={70}
+                    cy="45%"
+                    innerRadius={45}
+                    outerRadius={75}
                     paddingAngle={2}
                   >
                     {outcomeChartData.map((entry, index) => (
@@ -449,6 +449,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                     ))}
                   </Pie>
                   <RechartsTooltip contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
+                  <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
