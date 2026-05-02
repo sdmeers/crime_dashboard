@@ -18,7 +18,7 @@ export default function App() {
   const [bounds, setBounds] = useState<any>(null);
   const [zoom, setZoom] = useState(6);
   const [showTrends, setShowTrends] = useState(false);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([54.5, -2.5]);
+  const [searchLocation, setSearchLocation] = useState<{center: [number, number], zoom: number, timestamp: number} | null>(null);
 
   useEffect(() => {
     // Fetch last updated month
@@ -40,8 +40,11 @@ export default function App() {
       const res = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
       const data = await res.json();
       if (data.status === 200) {
-        setMapCenter([data.result.latitude, data.result.longitude]);
-        setZoom(14); // Zoom in on the postcode
+        setSearchLocation({
+          center: [data.result.latitude, data.result.longitude],
+          zoom: 14,
+          timestamp: Date.now()
+        });
       } else {
         alert("Postcode not found");
       }
@@ -105,7 +108,7 @@ export default function App() {
         {/* Map Area */}
         <div className="flex-1 relative">
           <MapComponent 
-            center={mapCenter}
+            searchLocation={searchLocation}
             zoom={zoom}
             layers={layers}
             selectedMonth={selectedMonth}

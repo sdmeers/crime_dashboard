@@ -31,7 +31,7 @@ const greenIcon = new L.Icon({
 });
 
 interface MapProps {
-  center: [number, number];
+  searchLocation: { center: [number, number], zoom: number, timestamp: number } | null;
   zoom: number;
   layers: {
     crimes: boolean;
@@ -73,11 +73,13 @@ function MapEvents({ onBoundsChange, onZoomChange, isReadyToFetch }: any) {
   return null;
 }
 
-function ChangeView({ center, zoom }: { center: [number, number]; zoom: number }) {
+function ChangeView({ searchLocation }: { searchLocation: any }) {
   const map = useMapEvents({});
   useEffect(() => {
-    map.setView(center, zoom);
-  }, [center, zoom, map]);
+    if (searchLocation) {
+      map.flyTo(searchLocation.center, searchLocation.zoom);
+    }
+  }, [searchLocation?.timestamp, map]);
   return null;
 }
 
@@ -102,7 +104,7 @@ function HeatmapLayer({ points }: { points: [number, number, number][] }) {
   return null;
 }
 
-export default function MapComponent({ center, zoom, layers, selectedMonth, onBoundsChange, onZoomChange }: MapProps) {
+export default function MapComponent({ searchLocation, zoom, layers, selectedMonth, onBoundsChange, onZoomChange }: MapProps) {
   const [crimes, setCrimes] = useState<any[]>([]);
   const [stops, setStops] = useState<any[]>([]);
   const [outcomes, setOutcomes] = useState<any[]>([]);
@@ -158,8 +160,8 @@ export default function MapComponent({ center, zoom, layers, selectedMonth, onBo
           Loading Data...
         </div>
       )}
-      <MapContainer center={center} zoom={zoom} style={{ height: '100%', width: '100%' }}>
-        <ChangeView center={center} zoom={zoom} />
+      <MapContainer center={[54.5, -2.5]} zoom={6} style={{ height: '100%', width: '100%' }}>
+        <ChangeView searchLocation={searchLocation} />
         <MapEvents onBoundsChange={handleBoundsChange} onZoomChange={onZoomChange} />
         
         <TileLayer
