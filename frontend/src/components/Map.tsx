@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
-import 'leaflet.heat';
+import '../lib/leaflet-heat.js';
 
 // Fix Leaflet's default icon issue in React
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -89,14 +89,13 @@ function HeatmapLayer({ points, zoom }: { points: [number, number, number][], zo
   useEffect(() => {
     if (!points || points.length === 0) return;
     
-    // Gentle linear scaling to prevent canvas shadow clipping bugs
-    // Large radii (> 40) cause browser rendering artifacts (quarter circles)
+    // Scale pixel radius by zoom to maintain rough geographical consistency
     const getRadius = (z: number) => {
       const baseZoom = 13;
       const baseRadius = 15;
-      const step = 4;
-      // Cap at 35 to prevent the canvas artifact while still providing zoom scaling
-      return Math.min(baseRadius + Math.max(0, z - baseZoom) * step, 35);
+      // Double the pixel size for each zoom level to keep hotspots consistent geographically
+      const multiplier = Math.min(Math.pow(2, Math.max(0, z - baseZoom)), 8);
+      return baseRadius * multiplier;
     };
 
     const r = getRadius(zoom);
