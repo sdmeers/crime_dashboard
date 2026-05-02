@@ -69,9 +69,9 @@ export default function HistoricalTrendsScreen({ bounds, onClose }: HistoricalTr
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="total" stroke="#3b82f6" activeDot={{ r: 8 }} name="Total Crimes" />
-              <Line type="monotone" dataKey="antiSocial" stroke="#ef4444" name="Anti-social behaviour" />
-              <Line type="monotone" dataKey="violent" stroke="#8b5cf6" name="Violent crime" />
+              <Line type="monotone" dataKey="total" stroke="#3b82f6" activeDot={{ r: 8 }} name="Total Crimes" connectNulls={true} />
+              <Line type="monotone" dataKey="antiSocial" stroke="#ef4444" name="Anti-social behaviour" connectNulls={true} />
+              <Line type="monotone" dataKey="violent" stroke="#8b5cf6" name="Violent crime" connectNulls={true} />
             </LineChart>
           </ResponsiveContainer>
         )}
