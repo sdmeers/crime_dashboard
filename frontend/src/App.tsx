@@ -13,7 +13,9 @@ export default function App() {
     crimes: true,
     stops: false,
     outcomes: false,
-    heatmap: false
+    heatmap: false,
+    crimeChart: false,
+    outcomeChart: false
   });
   const [bounds, setBounds] = useState<any>(null);
   const [zoom, setZoom] = useState(6);

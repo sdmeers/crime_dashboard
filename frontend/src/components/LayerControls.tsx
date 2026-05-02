@@ -4,6 +4,8 @@ interface LayerControlsProps {
     stops: boolean;
     outcomes: boolean;
     heatmap: boolean;
+    crimeChart: boolean;
+    outcomeChart: boolean;
   };
   onChange: (layers: any) => void;
 }
@@ -55,6 +57,29 @@ export default function LayerControls({ layers, onChange }: LayerControlsProps) 
             className="h-4 w-4 rounded border-slate-300 text-purple-600 focus:ring-purple-600"
           />
           <span className="text-sm font-medium text-slate-900">Crime Heatmap</span>
+        </label>
+      </div>
+
+      <label className="block text-sm font-medium text-slate-700 mb-3 mt-6">Analytics Overlays</label>
+      <div className="space-y-3">
+        <label className="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="checkbox" 
+            checked={layers.crimeChart}
+            onChange={() => toggleLayer('crimeChart')}
+            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
+          />
+          <span className="text-sm font-medium text-slate-900">Crime Types Chart</span>
+        </label>
+        
+        <label className="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="checkbox" 
+            checked={layers.outcomeChart}
+            onChange={() => toggleLayer('outcomeChart')}
+            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
+          />
+          <span className="text-sm font-medium text-slate-900">Crimes by Outcome</span>
         </label>
       </div>
     </div>
