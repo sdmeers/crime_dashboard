@@ -1,0 +1,302 @@
+{
+  "month": "2026-03",
+  "total_crimes": 17849542,
+  "crime_types": [
+    {
+      "name": "Violence and sexual offences",
+      "count": 6180176
+    },
+    {
+      "name": "Anti-social behaviour",
+      "count": 2864743
+    },
+    {
+      "name": "Shoplifting",
+      "count": 1410346
+    },
+    {
+      "name": "Criminal damage and arson",
+      "count": 1341228
+    },
+    {
+      "name": "Other theft",
+      "count": 1270767
+    },
+    {
+      "name": "Public order",
+      "count": 1248045
+    },
+    {
+      "name": "Vehicle crime",
+      "count": 983004
+    },
+    {
+      "name": "Burglary",
+      "count": 695483
+    },
+    {
+      "name": "Drugs",
+      "count": 566402
+    },
+    {
+      "name": "Other crime",
+      "count": 370871
+    },
+    {
+      "name": "Theft from the person",
+      "count": 357947
+    },
+    {
+      "name": "Robbery",
+      "count": 227365
+    },
+    {
+      "name": "Bicycle theft",
+      "count": 167353
+    },
+    {
+      "name": "Possession of weapons",
+      "count": 165812
+    }
+  ],
+  "outcomes": [
+    {
+      "name": "Investigation complete; no suspect identified",
+      "count": 5681182
+    },
+    {
+      "name": "Unable to prosecute suspect",
+      "count": 5369117
+    },
+    {
+      "name": "Status update unavailable",
+      "count": 1003163
+    },
+    {
+      "name": "Court result unavailable",
+      "count": 831783
+    },
+    {
+      "name": "Under investigation",
+      "count": 473886
+    },
+    {
+      "name": "Local resolution",
+      "count": 417817
+    },
+    {
+      "name": "Awaiting court outcome",
+      "count": 284622
+    },
+    {
+      "name": "Action to be taken by another organisation",
+      "count": 200236
+    },
+    {
+      "name": "Offender given a caution",
+      "count": 113312
+    },
+    {
+      "name": "Further investigation is not in the public interest",
+      "count": 103651
+    },
+    {
+      "name": "Formal action is not in the public interest",
+      "count": 61271
+    },
+    {
+      "name": "Further action is not in the public interest",
+      "count": 55977
+    },
+    {
+      "name": "Suspect charged as part of another case",
+      "count": 10977
+    },
+    {
+      "name": "Offender given penalty notice",
+      "count": 10588
+    },
+    {
+      "name": "Offender given a drugs possession warning",
+      "count": 1891
+    }
+  ],
+  "force_counts": [
+    {
+      "name": "Metropolitan",
+      "count": 3415820
+    },
+    {
+      "name": "West Midlands",
+      "count": 1011509
+    },
+    {
+      "name": "West Yorkshire",
+      "count": 926624
+    },
+    {
+      "name": "Thames Valley",
+      "count": 593125
+    },
+    {
+      "name": "Avon And Somerset",
+      "count": 569250
+    },
+    {
+      "name": "Kent",
+      "count": 554257
+    },
+    {
+      "name": "Lancashire",
+      "count": 543553
+    },
+    {
+      "name": "South Yorkshire",
+      "count": 529538
+    },
+    {
+      "name": "Northumbria",
+      "count": 520784
+    },
+    {
+      "name": "Hampshire",
+      "count": 507633
+    },
+    {
+      "name": "Essex",
+      "count": 483498
+    },
+    {
+      "name": "Sussex",
+      "count": 482927
+    },
+    {
+      "name": "Merseyside",
+      "count": 463933
+    },
+    {
+      "name": "Northern Ireland",
+      "count": 424108
+    },
+    {
+      "name": "Devon And Cornwall",
+      "count": 403660
+    },
+    {
+      "name": "South Wales",
+      "count": 397104
+    },
+    {
+      "name": "Nottinghamshire",
+      "count": 377311
+    },
+    {
+      "name": "Leicestershire",
+      "count": 321531
+    },
+    {
+      "name": "Derbyshire",
+      "count": 318786
+    },
+    {
+      "name": "Hertfordshire",
+      "count": 316361
+    },
+    {
+      "name": "West Mercia",
+      "count": 308966
+    },
+    {
+      "name": "Staffordshire",
+      "count": 304792
+    },
+    {
+      "name": "Humberside",
+      "count": 296029
+    },
+    {
+      "name": "Cleveland",
+      "count": 274400
+    },
+    {
+      "name": "Surrey",
+      "count": 262112
+    },
+    {
+      "name": "Cheshire",
+      "count": 252363
+    },
+    {
+      "name": "Cambridgeshire",
+      "count": 251107
+    },
+    {
+      "name": "Durham",
+      "count": 225230
+    },
+    {
+      "name": "Northamptonshire",
+      "count": 220356
+    },
+    {
+      "name": "Lincolnshire",
+      "count": 205884
+    },
+    {
+      "name": "Norfolk",
+      "count": 205267
+    },
+    {
+      "name": "North Wales",
+      "count": 196484
+    },
+    {
+      "name": "Bedfordshire",
+      "count": 186488
+    },
+    {
+      "name": "North Yorkshire",
+      "count": 186209
+    },
+    {
+      "name": "Dorset",
+      "count": 177499
+    },
+    {
+      "name": "Gloucestershire",
+      "count": 170373
+    },
+    {
+      "name": "Gwent",
+      "count": 169335
+    },
+    {
+      "name": "Wiltshire",
+      "count": 154122
+    },
+    {
+      "name": "Suffolk",
+      "count": 150287
+    },
+    {
+      "name": "Warwickshire",
+      "count": 149077
+    },
+    {
+      "name": "Cumbria",
+      "count": 119746
+    },
+    {
+      "name": "Dyfed Powys",
+      "count": 118539
+    },
+    {
+      "name": "Btp",
+      "count": 75470
+    },
+    {
+      "name": "City Of London",
+      "count": 28095
+    }
+  ]
+}
