@@ -4,7 +4,8 @@ import SearchBar from './components/SearchBar';
 import TimeSlider from './components/TimeSlider';
 import LayerControls from './components/LayerControls';
 import HistoricalTrendsScreen from './components/HistoricalTrendsScreen';
-import { Shield, Menu, X } from 'lucide-react';
+import Overview from './components/Overview';
+import { Shield, Menu, X, Map as MapIcon, BarChart3 } from 'lucide-react';
 
 export default function App() {
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -22,6 +23,7 @@ export default function App() {
   const [showTrends, setShowTrends] = useState(false);
   const [searchLocation, setSearchLocation] = useState<{center: [number, number], zoom: number, timestamp: number} | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'map' | 'overview'>('overview');
 
   useEffect(() => {
     // Fetch last updated month
@@ -71,10 +73,35 @@ export default function App() {
             <Menu className="h-6 w-6" />
           </button>
           <Shield className="h-5 w-5 md:h-6 md:w-6 text-blue-400 shrink-0" />
-          <h1 className="text-base md:text-xl font-bold tracking-tight hidden sm:block truncate">UK Crime Dashboard</h1>
+          <h1 className="text-base md:text-xl font-bold tracking-tight hidden lg:block truncate mr-4">UK Crime Dashboard</h1>
+          
+          {/* Tabs */}
+          <div className="flex bg-slate-800 rounded-md p-1 ml-2 md:ml-4">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`flex items-center px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-md transition-colors ${
+                activeTab === 'overview' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-700'
+              }`}
+            >
+              <BarChart3 className="w-4 h-4 mr-1.5 md:mr-2" />
+              <span className="hidden sm:inline">National Overview</span>
+              <span className="sm:hidden">Overview</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('map')}
+              className={`flex items-center px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-md transition-colors ${
+                activeTab === 'map' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-700'
+              }`}
+            >
+              <MapIcon className="w-4 h-4 mr-1.5 md:mr-2" />
+              <span className="hidden sm:inline">Interactive Map</span>
+              <span className="sm:hidden">Map</span>
+            </button>
+          </div>
         </div>
         <div className="flex items-center space-x-2 md:space-x-4 flex-1 justify-end ml-2">
-          <SearchBar onSearch={handleSearch} />
+          {activeTab === 'map' && <SearchBar onSearch={handleSearch} />}
+          {activeTab === 'map' && (
           <button 
             className={`min-h-[44px] px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition-colors whitespace-nowrap ${
               isZoomedIn ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-slate-700 text-slate-400 cursor-not-allowed'
@@ -85,79 +112,86 @@ export default function App() {
             <span className="hidden sm:inline">Historical Trends</span>
             <span className="sm:hidden">Trends</span>
           </button>
+          )}
         </div>
       </header>
 
       {/* Main Content */}
       <div className="flex-1 relative flex overflow-hidden">
         
-        {/* Mobile Sidebar Overlay */}
-        {isMobileMenuOpen && (
-          <div 
-            className="fixed inset-0 bg-slate-900/50 z-[2010] md:hidden backdrop-blur-sm"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
+        {activeTab === 'overview' ? (
+          <Overview />
+        ) : (
+          <>
+            {/* Mobile Sidebar Overlay */}
+            {isMobileMenuOpen && (
+              <div 
+                className="fixed inset-0 bg-slate-900/50 z-[2010] md:hidden backdrop-blur-sm"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+            )}
 
-        {/* Sidebar */}
-        <div className={`
-          absolute md:relative inset-y-0 left-0 w-80 max-w-[85vw] bg-white shadow-xl z-[2020] md:z-10 flex flex-col p-4 border-r border-slate-200 transition-transform duration-300 ease-in-out
-          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        `}>
-          <div className="flex items-center justify-between mb-4 border-b pb-2">
-            <h2 className="text-lg font-semibold text-slate-800">Filters & Controls</h2>
-            <button 
-              className="md:hidden text-slate-500 hover:text-slate-800 p-2 -mr-2" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-          
-          <div className="mb-6">
-            <TimeSlider 
-              selectedMonth={selectedMonth} 
-              latestMonth={latestMonth} 
-              onChange={setSelectedMonth} 
-            />
-          </div>
+            {/* Sidebar */}
+            <div className={`
+              absolute md:relative inset-y-0 left-0 w-80 max-w-[85vw] bg-white shadow-xl z-[2020] md:z-10 flex flex-col p-4 border-r border-slate-200 transition-transform duration-300 ease-in-out
+              ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            `}>
+              <div className="flex items-center justify-between mb-4 border-b pb-2">
+                <h2 className="text-lg font-semibold text-slate-800">Filters & Controls</h2>
+                <button 
+                  className="md:hidden text-slate-500 hover:text-slate-800 p-2 -mr-2" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+              
+              <div className="mb-6">
+                <TimeSlider 
+                  selectedMonth={selectedMonth} 
+                  latestMonth={latestMonth} 
+                  onChange={setSelectedMonth} 
+                />
+              </div>
 
-          <div>
-            <LayerControls 
-              layers={layers} 
-              onChange={setLayers} 
-            />
-          </div>
+              <div>
+                <LayerControls 
+                  layers={layers} 
+                  onChange={setLayers} 
+                />
+              </div>
 
-          {!isZoomedIn && (
-            <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-md text-amber-800 text-sm">
-              <strong>Notice:</strong> Please zoom in to view detailed crime data. The map covers too large an area.
+              {!isZoomedIn && (
+                <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-md text-amber-800 text-sm">
+                  <strong>Notice:</strong> Please zoom in to view detailed crime data. The map covers too large an area.
+                </div>
+              )}
+
+              <div className="mt-auto pt-6 pb-2 text-xs text-slate-500 text-center">
+                <a 
+                  href="https://www.police.uk/pu/contact-us/what-and-how-to-report/what-report/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 underline underline-offset-2 transition-colors"
+                >
+                  View Crime Definitions
+                </a>
+              </div>
             </div>
-          )}
 
-          <div className="mt-auto pt-6 pb-2 text-xs text-slate-500 text-center">
-            <a 
-              href="https://www.police.uk/pu/contact-us/what-and-how-to-report/what-report/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 underline underline-offset-2 transition-colors"
-            >
-              View Crime Definitions
-            </a>
-          </div>
-        </div>
-
-        {/* Map Area */}
-        <div className="flex-1 relative">
-          <MapComponent 
-            searchLocation={searchLocation}
-            zoom={zoom}
-            layers={layers}
-            selectedMonth={selectedMonth}
-            onBoundsChange={setBounds}
-            onZoomChange={setZoom}
-          />
-        </div>
+            {/* Map Area */}
+            <div className="flex-1 relative">
+              <MapComponent 
+                searchLocation={searchLocation}
+                zoom={zoom}
+                layers={layers}
+                selectedMonth={selectedMonth}
+                onBoundsChange={setBounds}
+                onZoomChange={setZoom}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       {showTrends && bounds && (

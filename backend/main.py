@@ -130,6 +130,14 @@ async def get_historical_crimes(poly: str):
         
     return historical_data
 
+@app.get("/api/overview-stats")
+async def get_overview_stats():
+    import os
+    if not os.path.exists("stats.json"):
+        raise HTTPException(status_code=404, detail="Stats file not generated yet")
+    with open("stats.json", "r") as f:
+        return json.load(f)
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
