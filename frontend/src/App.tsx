@@ -197,6 +197,7 @@ export default function App() {
       {showTrends && bounds && (
         <HistoricalTrendsScreen 
           bounds={bounds} 
+          selectedMonth={selectedMonth}
           onClose={() => setShowTrends(false)} 
         />
       )}
