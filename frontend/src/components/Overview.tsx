@@ -274,8 +274,9 @@ export default function Overview() {
                   {selectedMonth && (
                     <ReferenceLine 
                       x={selectedMonth} 
-                      stroke="#10b981" 
-                      strokeOpacity={0.5} 
+                      stroke="#f59e0b" 
+                      strokeWidth={2}
+                      strokeOpacity={0.8} 
                       strokeDasharray="3 3" 
                     />
                   )}
@@ -294,10 +295,10 @@ export default function Overview() {
                         <circle 
                           cx={cx} 
                           cy={cy} 
-                          r={isSelected ? 7 : 5} 
-                          stroke="#10b981" 
+                          r={isSelected ? 8 : 5} 
+                          stroke={isSelected ? '#f59e0b' : '#10b981'} 
                           strokeWidth={isSelected ? 4 : 2} 
-                          fill={isSelected ? '#fff' : '#fff'} 
+                          fill="#fff" 
                           key={`dot-${payload.month}`} 
                         />
                       );
