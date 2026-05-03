@@ -31,18 +31,41 @@ def download_and_process_month(month: str):
     # We will aggregate data
     total_crimes = 0
     crime_types = defaultdict(int)
-    outcomes = defaultdict(int)
     force_counts = defaultdict(int)
     
+    # Funnel Stages (preserving logical order)
+    funnel_stages = {
+        "Under Investigation (Active)": 0,
+        "No Suspect Identified (Case Closed)": 0,
+        "Prosecution Not Possible": 0,
+        "Out-of-Court Resolution": 0,
+        "Formal Court Action": 0
+    }
+    
+    def map_outcome(outcome_str: str) -> str:
+        if not outcome_str or pd.isna(outcome_str):
+            return None
+        
+        o = outcome_str.strip()
+        if o in ['Under investigation', 'Status update unavailable']:
+            return "Under Investigation (Active)"
+        elif o == 'Investigation complete; no suspect identified':
+            return "No Suspect Identified (Case Closed)"
+        elif o in ['Unable to prosecute suspect', 'Formal action is not in the public interest', 'Further investigation is not in the public interest', 'Further action is not in the public interest', 'Action to be taken by another organisation']:
+            return "Prosecution Not Possible"
+        elif o in ['Local resolution', 'Offender given a caution', 'Offender given a penalty notice', 'Offender given a drugs possession warning']:
+            return "Out-of-Court Resolution"
+        else:
+            # Everything else (charged, court outcomes, etc.)
+            return "Formal Court Action"
+
     with zipfile.ZipFile(zip_path, 'r') as z:
         # Get all street CSVs
         street_csvs = [f for f in z.namelist() if f.endswith('-street.csv')]
         
         for file in street_csvs:
             # e.g., '2024-04/2024-04-metropolitan-street.csv'
-            # Extract force name from filename
             parts = file.split('/')[-1].split('-')
-            # '2024', '04', 'metropolitan', 'street.csv'
             force_name = "-".join(parts[2:-1]).replace('-street.csv', '')
             
             with z.open(file) as f:
@@ -57,20 +80,29 @@ def download_and_process_month(month: str):
                     for c_type, count in type_counts.items():
                         crime_types[c_type] += int(count)
                 
-                # Aggregate outcomes
+                # Aggregate outcomes into funnel stages
                 if 'Last outcome category' in df.columns:
                     outcome_counts = df['Last outcome category'].value_counts()
                     for out, count in outcome_counts.items():
-                        if pd.notna(out):
-                            outcomes[out] += int(count)
+                        mapped = map_outcome(out)
+                        if mapped:
+                            funnel_stages[mapped] += int(count)
                             
     # Clean up zip
     os.remove(zip_path)
     
     # Prepare JSON output
-    # Convert dictionaries to sorted lists for easy frontend parsing
     crime_types_list = [{"name": k, "count": v} for k, v in sorted(crime_types.items(), key=lambda item: item[1], reverse=True)]
-    outcomes_list = [{"name": k, "count": v} for k, v in sorted(outcomes.items(), key=lambda item: item[1], reverse=True)]
+    
+    # We want outcomes to be exactly in the chronological funnel order, not sorted by count!
+    outcomes_list = [
+        {"name": "Under Investigation (Active)", "count": funnel_stages["Under Investigation (Active)"]},
+        {"name": "No Suspect Identified (Case Closed)", "count": funnel_stages["No Suspect Identified (Case Closed)"]},
+        {"name": "Prosecution Not Possible", "count": funnel_stages["Prosecution Not Possible"]},
+        {"name": "Out-of-Court Resolution", "count": funnel_stages["Out-of-Court Resolution"]},
+        {"name": "Formal Court Action", "count": funnel_stages["Formal Court Action"]}
+    ]
+    
     force_counts_list = [{"name": k.replace('-', ' ').title(), "count": v} for k, v in sorted(force_counts.items(), key=lambda item: item[1], reverse=True)]
     
     stats = {

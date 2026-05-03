@@ -51,12 +51,16 @@ export default function Overview() {
   }
 
   // Prepare Funnel Data
-  // We'll take the top 5 outcome categories to make the funnel readable
-  const funnelData = stats.outcomes.slice(0, 6).map((o, idx) => ({
-    name: o.name,
-    value: o.count,
-    fill: ['#3b82f6', '#06b6d4', '#14b8a6', '#f59e0b', '#ef4444', '#64748b'][idx % 6]
-  }));
+  const totalOutcomes = stats.outcomes.reduce((acc, o) => acc + o.count, 0);
+  const funnelData = stats.outcomes.map((o, idx) => {
+    const percent = totalOutcomes > 0 ? ((o.count / totalOutcomes) * 100).toFixed(1) : "0";
+    return {
+      name: o.name,
+      labelName: `${o.name} (${percent}%)`,
+      value: o.count,
+      fill: ['#3b82f6', '#64748b', '#f59e0b', '#14b8a6', '#ef4444'][idx] || '#cbd5e1'
+    };
+  });
 
   // Prepare Force Leaderboard
   const forceData = stats.force_counts.slice(0, 15); // Top 15 forces
@@ -104,12 +108,12 @@ export default function Overview() {
                 <FunnelChart>
                   <Tooltip formatter={(value: number) => value.toLocaleString()} />
                   <Funnel dataKey="value" data={funnelData} isAnimationActive>
-                    <LabelList position="right" fill="#475569" stroke="none" dataKey="name" fontSize={12} />
+                    <LabelList position="right" fill="#475569" stroke="none" dataKey="labelName" fontSize={12} />
                   </Funnel>
                 </FunnelChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-xs text-slate-500 mt-4 text-center">Shows the most common recorded outcomes for crimes across the network.</p>
+            <p className="text-xs text-slate-500 mt-4 text-center">Shows the chronological progression of outcomes for reported crimes.</p>
           </div>
 
           {/* Force Leaderboard */}

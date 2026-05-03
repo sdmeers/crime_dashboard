@@ -61,64 +61,24 @@
   ],
   "outcomes": [
     {
-      "name": "Investigation complete; no suspect identified",
+      "name": "Under Investigation (Active)",
+      "count": 1477049
+    },
+    {
+      "name": "No Suspect Identified (Case Closed)",
       "count": 5681182
     },
     {
-      "name": "Unable to prosecute suspect",
-      "count": 5369117
+      "name": "Prosecution Not Possible",
+      "count": 5790252
     },
     {
-      "name": "Status update unavailable",
-      "count": 1003163
+      "name": "Out-of-Court Resolution",
+      "count": 533020
     },
     {
-      "name": "Court result unavailable",
-      "count": 831783
-    },
-    {
-      "name": "Under investigation",
-      "count": 473886
-    },
-    {
-      "name": "Local resolution",
-      "count": 417817
-    },
-    {
-      "name": "Awaiting court outcome",
-      "count": 284622
-    },
-    {
-      "name": "Action to be taken by another organisation",
-      "count": 200236
-    },
-    {
-      "name": "Offender given a caution",
-      "count": 113312
-    },
-    {
-      "name": "Further investigation is not in the public interest",
-      "count": 103651
-    },
-    {
-      "name": "Formal action is not in the public interest",
-      "count": 61271
-    },
-    {
-      "name": "Further action is not in the public interest",
-      "count": 55977
-    },
-    {
-      "name": "Suspect charged as part of another case",
-      "count": 10977
-    },
-    {
-      "name": "Offender given penalty notice",
-      "count": 10588
-    },
-    {
-      "name": "Offender given a drugs possession warning",
-      "count": 1891
+      "name": "Formal Court Action",
+      "count": 1137970
     }
   ],
   "force_counts": [
