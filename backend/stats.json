@@ -1,262 +1,468 @@
 {
   "month": "2026-03",
-  "total_crimes": 17849542,
+  "total_crimes": 485157,
   "crime_types": [
     {
       "name": "Violence and sexual offences",
-      "count": 6180176
+      "count": 172227
     },
     {
       "name": "Anti-social behaviour",
-      "count": 2864743
+      "count": 75597
     },
     {
       "name": "Shoplifting",
-      "count": 1410346
+      "count": 43450
     },
     {
       "name": "Criminal damage and arson",
-      "count": 1341228
-    },
-    {
-      "name": "Other theft",
-      "count": 1270767
+      "count": 35622
     },
     {
       "name": "Public order",
-      "count": 1248045
+      "count": 32765
+    },
+    {
+      "name": "Other theft",
+      "count": 31161
     },
     {
       "name": "Vehicle crime",
-      "count": 983004
-    },
-    {
-      "name": "Burglary",
-      "count": 695483
+      "count": 24237
     },
     {
       "name": "Drugs",
-      "count": 566402
+      "count": 17435
+    },
+    {
+      "name": "Burglary",
+      "count": 17377
     },
     {
       "name": "Other crime",
-      "count": 370871
+      "count": 11447
     },
     {
       "name": "Theft from the person",
-      "count": 357947
+      "count": 8419
     },
     {
       "name": "Robbery",
-      "count": 227365
-    },
-    {
-      "name": "Bicycle theft",
-      "count": 167353
+      "count": 6609
     },
     {
       "name": "Possession of weapons",
-      "count": 165812
+      "count": 5034
+    },
+    {
+      "name": "Bicycle theft",
+      "count": 3777
     }
   ],
   "outcomes": [
     {
       "name": "Under Investigation (Active)",
-      "count": 1477049
+      "count": 201766
     },
     {
       "name": "No Suspect Identified (Case Closed)",
-      "count": 5681182
+      "count": 101439
     },
     {
       "name": "Prosecution Not Possible",
-      "count": 5790252
+      "count": 74853
     },
     {
       "name": "Out-of-Court Resolution",
-      "count": 533020
+      "count": 7683
     },
     {
       "name": "Formal Court Action",
-      "count": 1137970
+      "count": 15930
     }
   ],
   "force_counts": [
     {
       "name": "Metropolitan",
-      "count": 3415820
+      "count": 92801
     },
     {
       "name": "West Midlands",
-      "count": 1011509
+      "count": 27190
     },
     {
       "name": "West Yorkshire",
-      "count": 926624
-    },
-    {
-      "name": "Thames Valley",
-      "count": 593125
+      "count": 24244
     },
     {
       "name": "Avon And Somerset",
-      "count": 569250
+      "count": 17352
     },
     {
-      "name": "Kent",
-      "count": 554257
-    },
-    {
-      "name": "Lancashire",
-      "count": 543553
+      "name": "Thames Valley",
+      "count": 16547
     },
     {
       "name": "South Yorkshire",
-      "count": 529538
+      "count": 15313
     },
     {
-      "name": "Northumbria",
-      "count": 520784
-    },
-    {
-      "name": "Hampshire",
-      "count": 507633
-    },
-    {
-      "name": "Essex",
-      "count": 483498
+      "name": "Kent",
+      "count": 15290
     },
     {
       "name": "Sussex",
-      "count": 482927
+      "count": 14229
+    },
+    {
+      "name": "Hampshire",
+      "count": 14017
+    },
+    {
+      "name": "Essex",
+      "count": 13982
+    },
+    {
+      "name": "Lancashire",
+      "count": 13590
     },
     {
       "name": "Merseyside",
-      "count": 463933
+      "count": 13356
     },
     {
-      "name": "Northern Ireland",
-      "count": 424108
+      "name": "Northumbria",
+      "count": 12415
     },
     {
       "name": "Devon And Cornwall",
-      "count": 403660
+      "count": 12130
     },
     {
-      "name": "South Wales",
-      "count": 397104
+      "name": "Northern Ireland",
+      "count": 11804
     },
     {
       "name": "Nottinghamshire",
-      "count": 377311
+      "count": 11158
     },
     {
-      "name": "Leicestershire",
-      "count": 321531
+      "name": "South Wales",
+      "count": 10347
     },
     {
       "name": "Derbyshire",
-      "count": 318786
-    },
-    {
-      "name": "Hertfordshire",
-      "count": 316361
-    },
-    {
-      "name": "West Mercia",
-      "count": 308966
+      "count": 9462
     },
     {
       "name": "Staffordshire",
-      "count": 304792
+      "count": 9461
+    },
+    {
+      "name": "Hertfordshire",
+      "count": 9190
+    },
+    {
+      "name": "Leicestershire",
+      "count": 8892
+    },
+    {
+      "name": "West Mercia",
+      "count": 8576
     },
     {
       "name": "Humberside",
-      "count": 296029
+      "count": 8290
     },
     {
       "name": "Cleveland",
-      "count": 274400
+      "count": 7959
     },
     {
       "name": "Surrey",
-      "count": 262112
+      "count": 7197
     },
     {
       "name": "Cheshire",
-      "count": 252363
+      "count": 7155
     },
     {
       "name": "Cambridgeshire",
-      "count": 251107
+      "count": 7071
     },
     {
       "name": "Durham",
-      "count": 225230
-    },
-    {
-      "name": "Northamptonshire",
-      "count": 220356
+      "count": 6823
     },
     {
       "name": "Lincolnshire",
-      "count": 205884
+      "count": 6283
+    },
+    {
+      "name": "Northamptonshire",
+      "count": 6073
     },
     {
       "name": "Norfolk",
-      "count": 205267
+      "count": 5789
     },
     {
       "name": "North Wales",
-      "count": 196484
-    },
-    {
-      "name": "Bedfordshire",
-      "count": 186488
+      "count": 5341
     },
     {
       "name": "North Yorkshire",
-      "count": 186209
+      "count": 5074
     },
     {
-      "name": "Dorset",
-      "count": 177499
-    },
-    {
-      "name": "Gloucestershire",
-      "count": 170373
-    },
-    {
-      "name": "Gwent",
-      "count": 169335
+      "name": "Bedfordshire",
+      "count": 5059
     },
     {
       "name": "Wiltshire",
-      "count": 154122
+      "count": 4565
     },
     {
-      "name": "Suffolk",
-      "count": 150287
+      "name": "Dorset",
+      "count": 4552
     },
     {
       "name": "Warwickshire",
-      "count": 149077
+      "count": 4430
     },
     {
-      "name": "Cumbria",
-      "count": 119746
+      "name": "Suffolk",
+      "count": 4154
     },
     {
       "name": "Dyfed Powys",
-      "count": 118539
+      "count": 3983
     },
     {
-      "name": "Btp",
-      "count": 75470
+      "name": "Cumbria",
+      "count": 3270
     },
     {
       "name": "City Of London",
-      "count": 28095
+      "count": 743
+    }
+  ],
+  "trends": [
+    {
+      "month": "2025-04",
+      "Total": 494657,
+      "Vehicle Crime": 24138,
+      "Anti Social Behaviour": 86492,
+      "Criminal Damage And Arson": 36986,
+      "Violence And Sexual Offences": 167921,
+      "Burglary": 16882,
+      "Other Theft": 32595,
+      "Public Order": 33963,
+      "Shoplifting": 41709,
+      "Drugs": 17666,
+      "Other Crime": 11179,
+      "Robbery": 6350,
+      "Possession Of Weapons": 4754,
+      "Bicycle Theft": 4239,
+      "Theft From The Person": 9783
+    },
+    {
+      "month": "2025-05",
+      "Total": 523788,
+      "Criminal Damage And Arson": 38962,
+      "Other Theft": 34115,
+      "Vehicle Crime": 25085,
+      "Violence And Sexual Offences": 181820,
+      "Burglary": 17662,
+      "Public Order": 37101,
+      "Shoplifting": 42403,
+      "Anti Social Behaviour": 91992,
+      "Drugs": 18089,
+      "Theft From The Person": 9513,
+      "Robbery": 6836,
+      "Bicycle Theft": 4776,
+      "Possession Of Weapons": 4892,
+      "Other Crime": 10542
+    },
+    {
+      "month": "2025-06",
+      "Total": 519810,
+      "Other Crime": 10599,
+      "Anti Social Behaviour": 91840,
+      "Criminal Damage And Arson": 37714,
+      "Public Order": 37298,
+      "Violence And Sexual Offences": 183915,
+      "Burglary": 17525,
+      "Other Theft": 33342,
+      "Shoplifting": 40380,
+      "Vehicle Crime": 23774,
+      "Drugs": 17453,
+      "Possession Of Weapons": 4936,
+      "Bicycle Theft": 4674,
+      "Robbery": 7068,
+      "Theft From The Person": 9292
+    },
+    {
+      "month": "2025-07",
+      "Total": 550909,
+      "Other Theft": 35633,
+      "Anti Social Behaviour": 100550,
+      "Criminal Damage And Arson": 39213,
+      "Vehicle Crime": 24602,
+      "Violence And Sexual Offences": 195187,
+      "Public Order": 40588,
+      "Robbery": 7232,
+      "Other Crime": 11131,
+      "Burglary": 17495,
+      "Shoplifting": 41206,
+      "Drugs": 18355,
+      "Bicycle Theft": 5036,
+      "Possession Of Weapons": 5235,
+      "Theft From The Person": 9446
+    },
+    {
+      "month": "2025-08",
+      "Total": 521168,
+      "Anti Social Behaviour": 94512,
+      "Criminal Damage And Arson": 38291,
+      "Public Order": 36709,
+      "Vehicle Crime": 24322,
+      "Violence And Sexual Offences": 183383,
+      "Other Theft": 33145,
+      "Shoplifting": 39961,
+      "Drugs": 17660,
+      "Burglary": 17338,
+      "Other Crime": 10176,
+      "Bicycle Theft": 4605,
+      "Robbery": 6880,
+      "Possession Of Weapons": 5588,
+      "Theft From The Person": 8598
+    },
+    {
+      "month": "2025-09",
+      "Total": 474338,
+      "Violence And Sexual Offences": 165492,
+      "Anti Social Behaviour": 75857,
+      "Criminal Damage And Arson": 34440,
+      "Other Theft": 32210,
+      "Public Order": 33727,
+      "Vehicle Crime": 25093,
+      "Burglary": 17427,
+      "Shoplifting": 39122,
+      "Robbery": 6536,
+      "Other Crime": 10515,
+      "Possession Of Weapons": 4575,
+      "Drugs": 16748,
+      "Bicycle Theft": 4487,
+      "Theft From The Person": 8109
+    },
+    {
+      "month": "2025-10",
+      "Total": 494406,
+      "Anti Social Behaviour": 81788,
+      "Burglary": 18799,
+      "Criminal Damage And Arson": 36048,
+      "Drugs": 18260,
+      "Other Theft": 33315,
+      "Public Order": 33333,
+      "Violence And Sexual Offences": 170574,
+      "Robbery": 6716,
+      "Shoplifting": 40091,
+      "Vehicle Crime": 26259,
+      "Possession Of Weapons": 4570,
+      "Other Crime": 11092,
+      "Bicycle Theft": 4913,
+      "Theft From The Person": 8648
+    },
+    {
+      "month": "2025-11",
+      "Total": 466564,
+      "Anti Social Behaviour": 68352,
+      "Burglary": 19043,
+      "Criminal Damage And Arson": 34183,
+      "Possession Of Weapons": 4534,
+      "Public Order": 29705,
+      "Violence And Sexual Offences": 164768,
+      "Drugs": 17809,
+      "Other Theft": 32362,
+      "Shoplifting": 39797,
+      "Vehicle Crime": 25063,
+      "Other Crime": 10520,
+      "Robbery": 6764,
+      "Bicycle Theft": 3953,
+      "Theft From The Person": 9711
+    },
+    {
+      "month": "2025-12",
+      "Total": 448696,
+      "Violence And Sexual Offences": 164616,
+      "Anti Social Behaviour": 60794,
+      "Criminal Damage And Arson": 33456,
+      "Burglary": 18010,
+      "Other Theft": 32914,
+      "Public Order": 27589,
+      "Shoplifting": 36622,
+      "Vehicle Crime": 23033,
+      "Other Crime": 10274,
+      "Robbery": 6346,
+      "Drugs": 17760,
+      "Theft From The Person": 9518,
+      "Bicycle Theft": 3187,
+      "Possession Of Weapons": 4577
+    },
+    {
+      "month": "2026-01",
+      "Total": 434417,
+      "Anti Social Behaviour": 60911,
+      "Other Theft": 29269,
+      "Violence And Sexual Offences": 159751,
+      "Other Crime": 10653,
+      "Criminal Damage And Arson": 31044,
+      "Drugs": 18157,
+      "Possession Of Weapons": 4477,
+      "Public Order": 26255,
+      "Shoplifting": 36205,
+      "Burglary": 17812,
+      "Theft From The Person": 7550,
+      "Robbery": 6179,
+      "Vehicle Crime": 23258,
+      "Bicycle Theft": 2896
+    },
+    {
+      "month": "2026-02",
+      "Total": 420909,
+      "Public Order": 26750,
+      "Vehicle Crime": 22137,
+      "Violence And Sexual Offences": 152189,
+      "Anti Social Behaviour": 61240,
+      "Burglary": 16485,
+      "Criminal Damage And Arson": 30055,
+      "Drugs": 15448,
+      "Other Theft": 27697,
+      "Shoplifting": 37821,
+      "Other Crime": 10322,
+      "Robbery": 5802,
+      "Possession Of Weapons": 4348,
+      "Bicycle Theft": 2854,
+      "Theft From The Person": 7761
+    },
+    {
+      "month": "2026-03",
+      "Total": 485157,
+      "Anti Social Behaviour": 75597,
+      "Burglary": 17377,
+      "Criminal Damage And Arson": 35622,
+      "Vehicle Crime": 24237,
+      "Violence And Sexual Offences": 172227,
+      "Other Crime": 11447,
+      "Possession Of Weapons": 5034,
+      "Public Order": 32765,
+      "Robbery": 6609,
+      "Shoplifting": 43450,
+      "Theft From The Person": 8419,
+      "Drugs": 17435,
+      "Other Theft": 31161,
+      "Bicycle Theft": 3777
     }
   ]
 }
