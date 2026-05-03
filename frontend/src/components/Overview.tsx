@@ -56,7 +56,7 @@ export default function Overview() {
     const percent = totalOutcomes > 0 ? ((o.count / totalOutcomes) * 100).toFixed(1) : "0";
     return {
       name: o.name,
-      labelName: `${o.name} (${percent}%)`,
+      percentLabel: `${percent}%`,
       value: o.count,
       fill: ['#3b82f6', '#64748b', '#f59e0b', '#14b8a6', '#ef4444'][idx] || '#cbd5e1'
     };
@@ -113,7 +113,7 @@ export default function Overview() {
                     {funnelData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />
                     ))}
-                    <LabelList dataKey="labelName" position="right" fontSize={11} fill="#64748b" />
+                    <LabelList dataKey="percentLabel" position="right" fontSize={12} fill="#64748b" fontWeight="bold" />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
