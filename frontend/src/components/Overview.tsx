@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList, Cell, AreaChart, Area, CartesianGrid } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList, Cell, AreaChart, Area, CartesianGrid, ReferenceLine } from 'recharts';
 
 interface OverviewStats {
   month: string;
@@ -54,8 +54,8 @@ export default function Overview() {
     );
   }
 
-  // Get available months from trends
-  const availableMonths = stats.trends.map(t => t.month as string);
+  // Get available months from trends (newest to oldest)
+  const availableMonths = [...stats.trends].reverse().map(t => t.month as string);
 
   const formatMonthLabel = (val: any) => {
     if (!val || typeof val !== 'string') return val;
@@ -67,7 +67,7 @@ export default function Overview() {
   const formatMonthAxis = (val: string) => {
     const [y, m] = val.split('-');
     const date = new Date(parseInt(y), parseInt(m) - 1);
-    return date.toLocaleString('default', { month: 'short', year: 'numeric' }).replace(' ', '\n');
+    return `${date.toLocaleString('default', { month: 'short' })} '${y.slice(2)}`;
   };
 
   // Find the currently selected month data
@@ -124,7 +124,7 @@ export default function Overview() {
             <h1 className="text-2xl md:text-3xl font-bold text-slate-800 flex items-center flex-wrap">
               UK Crime Overview - 
               <select 
-                className="ml-2 bg-transparent text-blue-600 font-bold border-b-2 border-blue-200 focus:border-blue-600 outline-none cursor-pointer"
+                className="ml-2 bg-transparent text-slate-800 font-bold outline-none cursor-pointer"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
               >
@@ -271,6 +271,14 @@ export default function Overview() {
                     contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
                     cursor={{ stroke: '#10b981', strokeWidth: 2, strokeDasharray: '5 5' }}
                   />
+                  {selectedMonth && (
+                    <ReferenceLine 
+                      x={selectedMonth} 
+                      stroke="#10b981" 
+                      strokeOpacity={0.5} 
+                      strokeDasharray="3 3" 
+                    />
+                  )}
                   <Area 
                     type="linear" 
                     dataKey={selectedTrend} 
@@ -286,10 +294,10 @@ export default function Overview() {
                         <circle 
                           cx={cx} 
                           cy={cy} 
-                          r={isSelected ? 6 : 4} 
+                          r={isSelected ? 7 : 5} 
                           stroke="#10b981" 
-                          strokeWidth={2} 
-                          fill={isSelected ? '#059669' : '#fff'} 
+                          strokeWidth={isSelected ? 4 : 2} 
+                          fill={isSelected ? '#fff' : '#fff'} 
                           key={`dot-${payload.month}`} 
                         />
                       );
