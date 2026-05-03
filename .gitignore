@@ -4,3 +4,4 @@ cached_data
 *.html
 *.txt
 no_share/
+implementation_plans/**

@@ -105,7 +105,7 @@ interface MapProps {
   onZoomChange: (zoom: number) => void;
 }
 
-function MapEvents({ onBoundsChange, onZoomChange, isReadyToFetch }: any) {
+function MapEvents({ onBoundsChange, onZoomChange }: any) {
   const map = useMapEvents({
     moveend: () => {
       const bounds = map.getBounds();
