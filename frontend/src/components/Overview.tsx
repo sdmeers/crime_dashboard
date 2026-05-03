@@ -62,6 +62,16 @@ export default function Overview() {
     };
   });
 
+  // Prepare Crime Types Data
+  const crimeTypeData = stats.crime_types.slice(0, 15).map(c => {
+    const percent = stats.total_crimes > 0 ? ((c.count / stats.total_crimes) * 100).toFixed(1) : "0";
+    return {
+      name: c.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+      percentLabel: `${percent}%`,
+      count: c.count
+    };
+  });
+
   // Prepare Force Leaderboard
   const forceData = stats.force_counts.slice(0, 15); // Top 15 forces
 
@@ -121,10 +131,27 @@ export default function Overview() {
             <p className="text-xs text-slate-500 mt-4 text-center">Shows the final recorded outcomes for crimes across the network.</p>
           </div>
 
-          {/* Force Leaderboard */}
+          {/* Crime Types Breakdown */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h2 className="text-lg font-bold text-slate-800 mb-4">Force Volume Leaderboard (Top 15)</h2>
+            <h2 className="text-lg font-bold text-slate-800 mb-4">Crime Types Breakdown</h2>
             <div className="h-80 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={crimeTypeData} layout="vertical" margin={{ top: 0, right: 30, left: 10, bottom: 0 }}>
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="name" type="category" width={140} interval={0} tick={{fontSize: 11, fill: '#475569'}} axisLine={false} tickLine={false} />
+                  <Tooltip cursor={{fill: '#f1f5f9'}} formatter={(val: number) => val.toLocaleString()} contentStyle={{fontSize: '12px', borderRadius: '8px'}} />
+                  <Bar dataKey="count" fill="#8b5cf6" radius={[0, 4, 4, 0]} maxBarSize={24}>
+                    <LabelList dataKey="percentLabel" position="right" fontSize={12} fill="#64748b" fontWeight="bold" />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Force Leaderboard */}
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 lg:col-span-2">
+            <h2 className="text-lg font-bold text-slate-800 mb-4">Force Volume Leaderboard (Top 15)</h2>
+            <div className="h-96 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={forceData} layout="vertical" margin={{ top: 0, right: 20, left: 0, bottom: 0 }}>
                   <XAxis type="number" hide />
