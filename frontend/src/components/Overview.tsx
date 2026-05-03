@@ -105,15 +105,20 @@ export default function Overview() {
             <h2 className="text-lg font-bold text-slate-800 mb-4">The "Justice Funnel" (Outcomes)</h2>
             <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <FunnelChart>
-                  <Tooltip formatter={(value: number) => value.toLocaleString()} />
-                  <Funnel dataKey="value" data={funnelData} isAnimationActive>
-                    <LabelList position="right" fill="#475569" stroke="none" dataKey="labelName" fontSize={12} />
-                  </Funnel>
-                </FunnelChart>
+                <BarChart data={funnelData} layout="vertical" margin={{ top: 0, right: 30, left: 10, bottom: 0 }}>
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="name" type="category" width={140} interval={0} tick={{fontSize: 11, fill: '#475569'}} axisLine={false} tickLine={false} />
+                  <Tooltip cursor={{fill: '#f1f5f9'}} formatter={(val: number) => val.toLocaleString()} contentStyle={{fontSize: '12px', borderRadius: '8px'}} />
+                  <Bar dataKey="value" radius={[0, 4, 4, 0]} maxBarSize={32}>
+                    {funnelData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                    <LabelList dataKey="labelName" position="right" fontSize={11} fill="#64748b" />
+                  </Bar>
+                </BarChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-xs text-slate-500 mt-4 text-center">Shows the chronological progression of outcomes for reported crimes.</p>
+            <p className="text-xs text-slate-500 mt-4 text-center">Shows the final recorded outcomes for crimes across the network.</p>
           </div>
 
           {/* Force Leaderboard */}
