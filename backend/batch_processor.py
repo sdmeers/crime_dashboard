@@ -26,11 +26,11 @@ def download_and_process_month(month: str):
     print(f"Aggregating trend data for {len(twelve_months)} months: {twelve_months[0]} to {twelve_months[-1]}")
     
     # We download to a temporary file
-    zip_path = f"{month}_bulk.zip"
-    if not os.path.exists(zip_path):
+    zip_path_persistent = f"{month}_bulk.zip"
+    if not os.path.exists(zip_path_persistent):
         with requests.get(url, stream=True) as r:
             r.raise_for_status()
-            with open(zip_path, 'wb') as f:
+            with open(zip_path_persistent, 'wb') as f:
                 for chunk in r.iter_content(chunk_size=8192):
                     f.write(chunk)
     
@@ -68,7 +68,7 @@ def download_and_process_month(month: str):
         else:
             return "Formal Court Action"
 
-    with zipfile.ZipFile(zip_path, 'r') as z:
+    with zipfile.ZipFile(zip_path_persistent, 'r') as z:
         # Get all street CSVs
         street_csvs = [f for f in z.namelist() if f.endswith('-street.csv')]
         
@@ -100,6 +100,7 @@ def download_and_process_month(month: str):
                 
                 for row in reader:
                     trends_data[file_month]['Total'] += 1
+                    trends_data[file_month][f"force:{force_name}"] += 1
                     
                     if has_crime_type:
                         c_type = row.get('Crime type')
@@ -120,9 +121,6 @@ def download_and_process_month(month: str):
                             if mapped:
                                 latest_funnel_stages[mapped] += 1
                             
-    # Clean up zip
-    os.remove(zip_path)
-    
     # Prepare JSON output
     crime_types_list = [{"name": k, "count": v} for k, v in sorted(latest_crime_types.items(), key=lambda item: item[1], reverse=True)]
     
@@ -134,14 +132,35 @@ def download_and_process_month(month: str):
         {"name": "Formal Court Action", "count": latest_funnel_stages["Formal Court Action"]}
     ]
     
-    force_counts_list = [{"name": k.replace('-', ' ').title(), "count": v} for k, v in sorted(latest_force_counts.items(), key=lambda item: item[1], reverse=True)]
+    # Load populations
+    populations = {}
+    if os.path.exists("populations.json"):
+        with open("populations.json", "r") as f:
+            populations = json.load(f)
+
+    force_counts_list = []
+    for k, v in sorted(latest_force_counts.items(), key=lambda item: item[1], reverse=True):
+        rate = None
+        if k in populations and k != 'city-of-london':
+            rate = round((v / populations[k]) * 1000, 2)
+            
+        force_counts_list.append({
+            "id": k,
+            "name": k.replace('-', ' ').title(),
+            "count": v,
+            "rate_per_1000": rate
+        })
     
-    # Prepare Trends array
+    # Trends array
     trends_array = []
     for m in twelve_months:
         trend_obj = {"month": m}
         trend_obj.update(trends_data[m])
         trends_array.append(trend_obj)
+
+    # Clean up zip
+    if os.path.exists(zip_path_persistent):
+        os.remove(zip_path_persistent)
     
     stats = {
         "month": month,
@@ -149,8 +168,12 @@ def download_and_process_month(month: str):
         "crime_types": crime_types_list,
         "outcomes": outcomes_list,
         "force_counts": force_counts_list,
-        "trends": trends_array
+        "trends": trends_array,
+        "populations": populations
     }
+    
+    with open("stats.json", "w") as f:
+        json.dump(stats, f, indent=2)
     
     with open("stats.json", "w") as f:
         json.dump(stats, f, indent=2)

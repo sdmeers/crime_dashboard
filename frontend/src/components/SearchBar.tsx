@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         placeholder="Enter postcode..."
         value={postcode}
         onChange={(e) => setPostcode(e.target.value)}
-        className="w-full sm:w-32 md:w-48 pl-3 pr-10 py-2 min-h-[44px] bg-slate-800 border border-slate-700 rounded-md text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-[120px] sm:w-32 md:w-48 pl-3 pr-10 py-2 min-h-[44px] bg-slate-800 border border-slate-700 rounded-md text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button 
         type="submit" 

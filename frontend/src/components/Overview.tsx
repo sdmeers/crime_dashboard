@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList, Cell, AreaChart, Area, CartesianGrid, ReferenceLine } from 'recharts';
 
 interface OverviewStats {
@@ -6,8 +6,9 @@ interface OverviewStats {
   total_crimes: number;
   crime_types: { name: string; count: number }[];
   outcomes: { name: string; count: number }[];
-  force_counts: { name: string; count: number }[];
-  trends: Record<string, string | number>[];
+  force_counts: { id: string; name: string; count: number; rate_per_1000?: number | null }[];
+  trends: Record<string, any>[];
+  populations: Record<string, number>;
 }
 
 export default function Overview() {
@@ -16,6 +17,7 @@ export default function Overview() {
   const [error, setError] = useState<string | null>(null);
   const [selectedTrend, setSelectedTrend] = useState<string>('Total');
   const [selectedMonth, setSelectedMonth] = useState<string>('');
+  const [leaderboardMode, setLeaderboardMode] = useState<'volume' | 'rate'>('volume');
 
   useEffect(() => {
     fetch('http://localhost:8000/api/overview-stats')
@@ -33,6 +35,61 @@ export default function Overview() {
         setLoading(false);
       });
   }, []);
+
+  // Calculate dynamic stats based on selectedMonth
+  const activeData = useMemo(() => {
+    if (!stats || !selectedMonth) return null;
+    const index = stats.trends.findIndex(t => t.month === selectedMonth);
+    const current = stats.trends[index];
+    const previous = index > 0 ? stats.trends[index - 1] : null;
+
+    if (!current) return null;
+
+    // Crime Type Shifts
+    const crimeShifts = Object.entries(current)
+      .filter(([k]) => k !== 'month' && !k.startsWith('force:') && k !== 'Total')
+      .map(([name, count]) => {
+        const prevCount = previous ? (previous[name] || 0) : 0;
+        const pct = prevCount > 100 ? round(((count - prevCount) / prevCount) * 100, 1) : null;
+        return { name, pct };
+      })
+      .filter(s => s.pct !== null)
+      .sort((a, b) => Math.abs(b.pct!) - Math.abs(a.pct!));
+
+    // Force Shifts
+    const forceShifts = Object.entries(current)
+      .filter(([k]) => k.startsWith('force:'))
+      .map(([key, count]) => {
+        const name = key.replace('force:', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const prevCount = previous ? (previous[key] || 0) : 0;
+        const pct = prevCount > 100 ? round(((count - prevCount) / prevCount) * 100, 1) : null;
+        return { name, pct };
+      })
+      .filter(s => s.pct !== null)
+      .sort((a, b) => Math.abs(b.pct!) - Math.abs(a.pct!));
+
+    // Force Leaderboard Data
+    const forceLeaderboard = Object.entries(current)
+      .filter(([k]) => k.startsWith('force:'))
+      .map(([key, count]) => {
+        const id = key.replace('force:', '');
+        const name = id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const pop = stats.populations[id];
+        const rate = (pop && id !== 'city-of-london') ? round((count / pop) * 1000, 2) : null;
+        return { id, name, count, rate_per_1000: rate };
+      });
+
+    return {
+      crimeTypeShift: crimeShifts[0] || null,
+      forceShift: forceShifts[0] || null,
+      leaderboard: forceLeaderboard
+    };
+  }, [stats, selectedMonth]);
+
+  function round(value: number, precision: number) {
+    const multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
 
   if (loading) {
     return (
@@ -90,17 +147,32 @@ export default function Overview() {
   });
 
   // Prepare Crime Types Data
-  const crimeTypeData = stats.crime_types.slice(0, 15).map(c => {
-    const percent = stats.total_crimes > 0 ? ((c.count / stats.total_crimes) * 100).toFixed(1) : "0";
-    return {
-      name: c.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-      percentLabel: `${percent}%`,
-      count: c.count
-    };
-  });
+  const crimeTypeData = Object.entries(currentMonthData)
+    .filter(([k]) => k !== 'month' && !k.startsWith('force:') && k !== 'Total')
+    .map(([name, count]) => {
+      const total = (currentMonthData['Total'] as number) || 1;
+      const percent = ((count / total) * 100).toFixed(1);
+      return {
+        name: name,
+        percentLabel: `${percent}%`,
+        count: count
+      };
+    })
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 15);
 
   // Prepare Force Leaderboard
-  const forceData = stats.force_counts.slice(0, 15); // Top 15 forces
+  let forceData = activeData?.leaderboard || [];
+  if (leaderboardMode === 'rate') {
+    forceData = [...forceData].filter(d => d.rate_per_1000 != null).sort((a, b) => (b.rate_per_1000 || 0) - (a.rate_per_1000 || 0));
+  } else {
+    forceData = [...forceData].sort((a, b) => b.count - a.count);
+  }
+  forceData = forceData.slice(0, 15).map(d => ({
+    ...d,
+    displayValue: leaderboardMode === 'rate' ? d.rate_per_1000 : d.count,
+    formattedValue: leaderboardMode === 'rate' ? d.rate_per_1000 : d.count?.toLocaleString()
+  }));
 
   // Get available trend categories (exclude 'month')
   const trendCategories = stats.trends.length > 0 
@@ -138,6 +210,7 @@ export default function Overview() {
             Aggregated statistics from the official <a href="https://data.police.uk/about/" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">Police.uk API</a>. 
             Data covers England, Wales, and Northern Ireland. Scottish data is not provided by the API. 
             For exact definitions of crime types, see the <a href="https://www.police.uk/pu/contact-us/what-and-how-to-report/what-report/" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">official definitions</a>.
+            Per capita figures are calculated using <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">ONS Mid-Year Population Estimates (2024)</a>.
           </p>
         </div>
 
@@ -150,15 +223,35 @@ export default function Overview() {
               {((currentMonthData['Total'] as number) || 0).toLocaleString()}
             </div>
           </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center items-center opacity-75">
-            <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Most Common Crime (Latest Month)</h3>
-            <div className="text-2xl font-bold text-rose-600 text-center">{stats.crime_types[0]?.name.replace(/-/g, ' ')}</div>
-            <div className="text-sm text-slate-500 mt-1">{stats.crime_types[0]?.count.toLocaleString()} cases</div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center items-center">
+            <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Biggest Crime Type Shift (MoM)</h3>
+            {activeData?.crimeTypeShift ? (
+              <>
+                <div className={`text-2xl font-bold text-center ${activeData.crimeTypeShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.crimeTypeShift.name}
+                </div>
+                <div className={`text-lg font-black mt-1 ${activeData.crimeTypeShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.crimeTypeShift.pct > 0 ? '+' : ''}{activeData.crimeTypeShift.pct}%
+                </div>
+              </>
+            ) : (
+              <div className="text-slate-400">N/A</div>
+            )}
           </div>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center items-center opacity-75">
-            <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Most Active Force (Latest Month)</h3>
-            <div className="text-2xl font-bold text-blue-600 text-center">{stats.force_counts[0]?.name}</div>
-            <div className="text-sm text-slate-500 mt-1">{stats.force_counts[0]?.count.toLocaleString()} cases</div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center items-center">
+            <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Force with Biggest Shift (MoM)</h3>
+            {activeData?.forceShift ? (
+              <>
+                <div className={`text-2xl font-bold text-center ${activeData.forceShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.forceShift.name}
+                </div>
+                <div className={`text-lg font-black mt-1 ${activeData.forceShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.forceShift.pct > 0 ? '+' : ''}{activeData.forceShift.pct}%
+                </div>
+              </>
+            ) : (
+              <div className="text-slate-400">N/A</div>
+            )}
           </div>
         </div>
 
@@ -167,7 +260,7 @@ export default function Overview() {
           
           {/* Crime Types Breakdown (Top Left) */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h2 className="text-lg font-bold text-slate-800 mb-4">Crime Types Breakdown (Latest Month)</h2>
+            <h2 className="text-lg font-bold text-slate-800 mb-4">Crime Types Breakdown ({formatMonthLabel(selectedMonth)})</h2>
             <div className="h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={crimeTypeData} layout="vertical" margin={{ top: 0, right: 30, left: 10, bottom: 0 }}>
@@ -203,16 +296,28 @@ export default function Overview() {
             <p className="text-xs text-slate-500 mt-4 text-center">Shows the final recorded outcomes for crimes across the network.</p>
           </div>
 
-          {/* Force Leaderboard (Bottom Left) */}
+          {/* Force Crime Rates (Bottom Left) */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-            <h2 className="text-lg font-bold text-slate-800 mb-4">Force Volume Leaderboard (Top 15 - Latest Month)</h2>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-bold text-slate-800">Force Crime Rates (Top 15)</h2>
+              <select 
+                className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-md p-1 outline-none cursor-pointer"
+                value={leaderboardMode}
+                onChange={(e) => setLeaderboardMode(e.target.value as 'volume' | 'rate')}
+              >
+                <option value="volume">Total Volume</option>
+                <option value="rate">Rate per 1,000</option>
+              </select>
+            </div>
             <div className="h-96 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={forceData} layout="vertical" margin={{ top: 0, right: 20, left: 0, bottom: 0 }}>
                   <XAxis type="number" hide />
                   <YAxis dataKey="name" type="category" width={140} interval={0} tick={{fontSize: 11, fill: '#475569'}} axisLine={false} tickLine={false} />
                   <Tooltip cursor={{fill: '#f1f5f9'}} formatter={(val: any) => typeof val === 'number' ? val.toLocaleString() : val} contentStyle={{fontSize: '12px', borderRadius: '8px'}} />
-                  <Bar dataKey="count" fill="#3b82f6" radius={[0, 4, 4, 0]} maxBarSize={24} />
+                  <Bar dataKey="displayValue" fill="#3b82f6" radius={[0, 4, 4, 0]} maxBarSize={24}>
+                    <LabelList dataKey="formattedValue" position="right" fontSize={11} fill="#64748b" fontWeight="bold" />
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
