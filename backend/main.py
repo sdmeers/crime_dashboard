@@ -118,15 +118,20 @@ async def get_historical_crimes(poly: str):
             
         crimes = res if isinstance(res, list) else []
         total = len(crimes)
-        anti_social = sum(1 for c in crimes if c.get("category") == "anti-social-behaviour")
-        violent = sum(1 for c in crimes if c.get("category") in ["violent-crime", "public-order"])
         
-        historical_data.append({
+        category_counts = {}
+        for c in crimes:
+            cat = c.get("category")
+            if cat:
+                # Format to match frontend stringToColour logic if needed, but returning raw category is fine.
+                category_counts[cat] = category_counts.get(cat, 0) + 1
+        
+        month_data = {
             "month": month,
-            "total": total,
-            "antiSocial": anti_social,
-            "violent": violent
-        })
+            "total": total
+        }
+        month_data.update(category_counts)
+        historical_data.append(month_data)
         
     return historical_data
 

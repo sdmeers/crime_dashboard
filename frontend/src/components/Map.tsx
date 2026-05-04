@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line, CartesianGrid, ReferenceLine, LabelList } from 'recharts';
 import L from 'leaflet';
 import '../lib/leaflet-heat.js';
 
@@ -40,10 +40,11 @@ const getCategoryColor = (category: string) => {
     'shoplifting': '#ec4899', // pink
     'Person search': '#14b8a6', // teal
     'Person and Vehicle search': '#0ea5e9', // sky
-    'Investigation complete; no suspect identified': '#64748b', // slate
-    'Unable to prosecute suspect': '#334155', // slate-700
-    'Awaiting court outcome': '#f59e0b', // amber
-    'Local resolution': '#22c55e', // green
+    'Under Investigation (Active)': '#3b82f6',
+    'No Suspect Identified (Case Closed)': '#64748b',
+    'Prosecution Not Possible': '#f59e0b',
+    'Out-of-Court Resolution': '#14b8a6',
+    'Formal Court Action': '#ef4444',
   };
   return predefined[category] || stringToColour(category);
 };
@@ -97,8 +98,7 @@ interface MapProps {
     stops: boolean;
     outcomes: boolean;
     heatmap: boolean;
-    crimeChart: boolean;
-    outcomeChart: boolean;
+    activeAnalytic: string;
   };
   selectedMonth: string;
   onBoundsChange: (bounds: string) => void;
@@ -182,6 +182,8 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
   const [outcomes, setOutcomes] = useState<any[]>([]);
   const [currentPoly, setCurrentPoly] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const [historicalData, setHistoricalData] = useState<any[]>([]);
+  const [historicalLoading, setHistoricalLoading] = useState(false);
 
   const fetchPolyData = async (poly: string) => {
     if (!selectedMonth || zoom < 13) return;
@@ -189,7 +191,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
     
     try {
       const promises = [];
-      if (layers.crimes || layers.heatmap || layers.crimeChart) {
+      if (layers.crimes || layers.heatmap || layers.activeAnalytic === 'crimeChart') {
         promises.push(fetch(`http://localhost:8000/api/crimes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
       
@@ -197,7 +199,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         promises.push(fetch(`http://localhost:8000/api/stops?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
-      if (layers.outcomes || layers.outcomeChart) {
+      if (layers.outcomes || layers.activeAnalytic === 'outcomeChart') {
         promises.push(fetch(`http://localhost:8000/api/outcomes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
@@ -218,19 +220,46 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
     if (currentPoly) {
       fetchPolyData(currentPoly);
     }
-  }, [layers, selectedMonth, currentPoly]);
+  }, [layers.crimes, layers.heatmap, layers.stops, layers.outcomes, layers.activeAnalytic, selectedMonth, currentPoly]);
+
+  useEffect(() => {
+    if (layers.activeAnalytic === 'historicalTrends' && currentPoly) {
+      setHistoricalLoading(true);
+      fetch(`http://localhost:8000/api/historical-crimes?poly=${currentPoly}`)
+        .then(res => res.json())
+        .then(data => {
+          setHistoricalData(data);
+          setHistoricalLoading(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setHistoricalLoading(false);
+        });
+    }
+  }, [layers.activeAnalytic, currentPoly]);
 
   const handleBoundsChange = (poly: string) => {
     setCurrentPoly(poly);
     onBoundsChange(poly);
   };
 
+  // Maps backend outcome strings to grouped outcome categories
+  const mapOutcome = (outcome_str: string) => {
+      if (!outcome_str) return null;
+      const o = outcome_str.trim();
+      if (['Under investigation', 'Status update unavailable'].includes(o)) return "Under Investigation (Active)";
+      if (o === 'Investigation complete; no suspect identified') return "No Suspect Identified (Case Closed)";
+      if (['Unable to prosecute suspect', 'Formal action is not in the public interest', 'Further investigation is not in the public interest', 'Further action is not in the public interest', 'Action to be taken by another organisation'].includes(o)) return "Prosecution Not Possible";
+      if (['Local resolution', 'Offender given a caution', 'Offender given a penalty notice', 'Offender given a drugs possession warning'].includes(o)) return "Out-of-Court Resolution";
+      return "Formal Court Action";
+  };
+
   // Derive visible legend items
   const visibleLegendItems = (() => {
     const map = new Map<string, {name: string, type: 'crime'|'stop'|'outcome', color: string, count: number}>();
-    if (layers.crimes || layers.crimeChart) {
+    if (layers.crimes || layers.activeAnalytic === 'crimeChart') {
       crimes.forEach(c => {
-        if (!c.location && !layers.crimeChart) return;
+        if (!c.location && layers.activeAnalytic !== 'crimeChart') return;
         const cat = c.category || 'unknown';
         const key = `crime-${cat}`;
         if (!map.has(key)) map.set(key, { name: cat, type: 'crime', color: getCategoryColor(cat), count: 0 });
@@ -246,10 +275,10 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         map.get(key)!.count += 1;
       });
     }
-    if (layers.outcomes || layers.outcomeChart) {
+    if (layers.outcomes || layers.activeAnalytic === 'outcomeChart') {
       outcomes.forEach(o => {
-        if (!o.crime?.location && !layers.outcomeChart) return;
-        const name = o.category?.name || 'unknown';
+        if (!o.crime?.location && layers.activeAnalytic !== 'outcomeChart') return;
+        const name = mapOutcome(o.category?.name) || 'unknown';
         const key = `outcome-${name}`;
         if (!map.has(key)) map.set(key, { name: name, type: 'outcome', color: getCategoryColor(name), count: 0 });
         map.get(key)!.count += 1;
@@ -262,28 +291,53 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
   })();
 
   const crimeChartData = useMemo(() => {
-    if (!layers.crimeChart) return [];
+    if (layers.activeAnalytic !== 'crimeChart') return [];
     const counts: Record<string, number> = {};
+    let totalCrimes = 0;
     crimes.forEach(c => {
       const cat = c.category || 'unknown';
       counts[cat] = (counts[cat] || 0) + 1;
+      totalCrimes++;
     });
     return Object.entries(counts)
-      .map(([name, count]) => ({ name: name.replace(/-/g, ' '), count, fill: getCategoryColor(name) }))
+      .map(([name, count]) => ({ 
+        name: name.replace(/-/g, ' '), 
+        count, 
+        percentLabel: totalCrimes > 0 ? `${((count / totalCrimes) * 100).toFixed(1)}%` : "0%",
+        fill: getCategoryColor(name) 
+      }))
       .sort((a, b) => b.count - a.count);
-  }, [crimes, layers.crimeChart]);
+  }, [crimes, layers.activeAnalytic]);
 
   const outcomeChartData = useMemo(() => {
-    if (!layers.outcomeChart) return [];
+    if (layers.activeAnalytic !== 'outcomeChart') return [];
     const counts: Record<string, number> = {};
+    let totalOutcomes = 0;
     outcomes.forEach(o => {
-      const name = o.category?.name || 'unknown';
+      const name = mapOutcome(o.category?.name) || 'unknown';
       counts[name] = (counts[name] || 0) + 1;
+      totalOutcomes++;
     });
     return Object.entries(counts)
-      .map(([name, count]) => ({ name, count, fill: getCategoryColor(name) }))
+      .map(([name, count]) => ({ 
+        name, 
+        count, 
+        percentLabel: totalOutcomes > 0 ? `${((count / totalOutcomes) * 100).toFixed(1)}%` : "0%",
+        fill: getCategoryColor(name) 
+      }))
       .sort((a, b) => b.count - a.count);
-  }, [outcomes, layers.outcomeChart]);
+  }, [outcomes, layers.activeAnalytic]);
+
+  const historicalCategories = useMemo(() => {
+    if (!historicalData || historicalData.length === 0) return [];
+    const keys = new Set<string>();
+    historicalData.forEach(d => {
+      Object.keys(d).forEach(k => {
+        if (k !== 'month' && k !== 'total') keys.add(k);
+      });
+    });
+    return Array.from(keys);
+  }, [historicalData]);
 
   return (
     <div className="h-full w-full relative">
@@ -353,11 +407,11 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                     <Marker 
                       key={`outcome-${idx}`} 
                       position={[parseFloat(loc.latitude), parseFloat(loc.longitude)]}
-                      icon={getIcon(outcome.category?.name, 'outcome')}
+                      icon={getIcon(mapOutcome(outcome.category?.name) || 'unknown', 'outcome')}
                     >
                       <Popup>
                         <strong>Outcome</strong><br/>
-                        {outcome.category?.name}
+                        {mapOutcome(outcome.category?.name) || outcome.category?.name}
                       </Popup>
                     </Marker>
                   );
@@ -408,57 +462,152 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         </div>
       )}
 
-      {/* Analytics Overlays */}
-      <div className="absolute top-4 right-4 md:top-6 md:right-6 z-[1000] flex flex-col gap-4 pointer-events-none max-w-[calc(100vw-2rem)] max-h-[calc(100vh-8rem)] overflow-y-auto">
-        
-        {layers.crimeChart && crimeChartData.length > 0 && (
-          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto shrink-0">
-            <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crime Types</h3>
-            <div className="h-64 md:h-80 -ml-4">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={crimeChartData} layout="vertical" margin={{ top: 0, right: 10, left: 10, bottom: 0 }}>
-                  <XAxis type="number" hide />
-                  <YAxis dataKey="name" type="category" width={100} interval={0} tick={{fontSize: 10, fill: '#475569'}} axisLine={false} tickLine={false} />
-                  <RechartsTooltip cursor={{fill: '#f1f5f9'}} contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
-                  <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={20}>
-                    {crimeChartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+      {/* Analytics Overlays Container (80% height, Left aligned) */}
+      {layers.activeAnalytic !== 'none' && layers.activeAnalytic !== undefined && (
+        <div className={`absolute top-4 left-4 md:top-6 md:left-6 z-[1000] flex flex-col pointer-events-none h-[80vh] w-[90vw] transition-[width] duration-300 ${
+          layers.activeAnalytic === 'historicalTrends' ? 'md:w-[900px]' : 'md:w-[500px]'
+        }`}>
+          
+          {layers.activeAnalytic === 'crimeChart' && crimeChartData.length > 0 && (
+            <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-full h-full pointer-events-auto flex flex-col">
+              <h3 className="text-sm md:text-base font-bold text-slate-800 mb-2 shrink-0">Crime Types</h3>
+              <div className="flex-1 -ml-4 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={crimeChartData} layout="vertical" margin={{ top: 0, right: 60, left: 10, bottom: 0 }}>
+                    <XAxis type="number" hide />
+                    <YAxis dataKey="name" type="category" width={180} interval={0} tick={{fontSize: 13, fill: '#475569'}} axisLine={false} tickLine={false} />
+                    <RechartsTooltip cursor={{fill: '#f1f5f9'}} contentStyle={{fontSize: '14px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
+                    <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={20}>
+                      {crimeChartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                      <LabelList dataKey="percentLabel" position="right" fontSize={13} fill="#64748b" fontWeight="bold" offset={10} />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {layers.outcomeChart && outcomeChartData.length > 0 && (
-          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-64 md:w-80 pointer-events-auto shrink-0">
-            <h3 className="text-xs md:text-sm font-bold text-slate-800 mb-2">Crimes by Outcome</h3>
-            <div className="h-64 md:h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                  <Pie
-                    data={outcomeChartData}
-                    dataKey="count"
-                    nameKey="name"
-                    cx="50%"
-                    cy="45%"
-                    innerRadius={45}
-                    outerRadius={75}
-                    paddingAngle={2}
-                  >
-                    {outcomeChartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                  <RechartsTooltip contentStyle={{fontSize: '12px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
-                  <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
-                </PieChart>
-              </ResponsiveContainer>
+          {layers.activeAnalytic === 'outcomeChart' && outcomeChartData.length > 0 && (
+            <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-full h-full pointer-events-auto flex flex-col">
+              <h3 className="text-sm md:text-base font-bold text-slate-800 mb-2 shrink-0">Crimes by Outcome</h3>
+              <div className="flex-1 min-h-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart margin={{ top: 0, right: 0, left: 0, bottom: 40 }}>
+                    <Pie
+                      data={outcomeChartData}
+                      dataKey="count"
+                      nameKey="name"
+                      cx="50%"
+                      cy="45%"
+                      innerRadius={70}
+                      outerRadius={120}
+                      paddingAngle={2}
+                      label={(props: any) => props.percentLabel || props.payload?.percentLabel}
+                      labelLine={false}
+                    >
+                      {outcomeChartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                    <RechartsTooltip contentStyle={{fontSize: '14px', borderRadius: '8px', border: '1px solid #e2e8f0'}} />
+                    <Legend layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: '13px', paddingTop: '20px', paddingBottom: '20px' }} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+
+          {layers.activeAnalytic === 'historicalTrends' && (
+            <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-lg shadow-xl border border-slate-200 w-full h-full pointer-events-auto flex flex-col">
+              <h3 className="text-sm md:text-base font-bold text-slate-800 mb-2 shrink-0">Historical Crime Trends</h3>
+              <p className="text-xs text-slate-500 mb-2 shrink-0 border-b border-slate-200 pb-2">For currently visible map area</p>
+              
+              <div className="flex-1 -ml-4 min-h-0">
+                {historicalLoading ? (
+                  <div className="flex h-full items-center justify-center text-slate-500 text-sm">
+                    Loading historical data...
+                  </div>
+                ) : historicalData.length === 0 ? (
+                  <div className="flex h-full items-center justify-center text-slate-500 text-sm">
+                    No historical data available.
+                  </div>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={historicalData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="#e2e8f0" />
+                      <XAxis 
+                        dataKey="month" 
+                        tickFormatter={(val) => {
+                          if (!val) return '';
+                          const [y, m] = val.split('-');
+                          const date = new Date(parseInt(y), parseInt(m) - 1);
+                          return `${date.toLocaleString('default', { month: 'short' })} '${y.slice(2)}`;
+                        }}
+                        tick={{fontSize: 12, fill: '#64748b'}} 
+                        axisLine={{stroke: '#cbd5e1'}} 
+                        tickLine={false}
+                        dy={10}
+                      />
+                      <YAxis 
+                        tickFormatter={(val) => val >= 1000 ? `${(val/1000).toFixed(0)}k` : val}
+                        tick={{fontSize: 12, fill: '#64748b'}} 
+                        axisLine={false} 
+                        tickLine={false}
+                      />
+                      <RechartsTooltip 
+                        labelFormatter={(val) => {
+                          if (!val || typeof val !== 'string') return val;
+                          const [y, m] = val.split('-');
+                          const date = new Date(parseInt(y), parseInt(m) - 1);
+                          return date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                        }}
+                        itemSorter={(item) => -(item.value as number)}
+                        contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '13px'}}
+                        cursor={{ stroke: '#f59e0b', strokeWidth: 2, strokeDasharray: '5 5' }}
+                      />
+                      <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                      {selectedMonth && (
+                        <ReferenceLine 
+                          x={selectedMonth} 
+                          stroke="#f59e0b" 
+                          strokeWidth={2}
+                          strokeOpacity={0.8} 
+                          strokeDasharray="3 3" 
+                        />
+                      )}
+                      {/* Thinner lines for all individual crime types */}
+                      {historicalCategories.map(cat => (
+                        <Line 
+                          key={cat} 
+                          type="linear" 
+                          dataKey={cat} 
+                          stroke={getCategoryColor(cat)} 
+                          strokeWidth={1.5}
+                          name={cat.replace(/-/g, ' ')} 
+                          dot={false}
+                          activeDot={{ r: 4 }}
+                        />
+                      ))}
+                      {/* Bold line for Total */}
+                      <Line 
+                        type="linear" 
+                        dataKey="total" 
+                        stroke="#0f172a" 
+                        strokeWidth={3}
+                        name="Total Crimes" 
+                        dot={false}
+                        activeDot={{ r: 6, strokeWidth: 2, stroke: '#fff', fill: '#0f172a' }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

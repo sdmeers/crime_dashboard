@@ -227,11 +227,11 @@ export default function Overview() {
             <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Biggest Crime Type Shift (MoM)</h3>
             {activeData?.crimeTypeShift ? (
               <>
-                <div className={`text-2xl font-bold text-center ${activeData.crimeTypeShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                <div className={`text-2xl font-bold text-center ${activeData.crimeTypeShift.pct! > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                   {activeData.crimeTypeShift.name}
                 </div>
-                <div className={`text-lg font-black mt-1 ${activeData.crimeTypeShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
-                  {activeData.crimeTypeShift.pct > 0 ? '+' : ''}{activeData.crimeTypeShift.pct}%
+                <div className={`text-lg font-black mt-1 ${activeData.crimeTypeShift.pct! > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.crimeTypeShift.pct! > 0 ? '+' : ''}{activeData.crimeTypeShift.pct}%
                 </div>
               </>
             ) : (
@@ -242,11 +242,11 @@ export default function Overview() {
             <h3 className="text-slate-500 font-medium uppercase tracking-wider text-xs mb-1 text-center">Force with Biggest Shift (MoM)</h3>
             {activeData?.forceShift ? (
               <>
-                <div className={`text-2xl font-bold text-center ${activeData.forceShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                <div className={`text-2xl font-bold text-center ${activeData.forceShift.pct! > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                   {activeData.forceShift.name}
                 </div>
-                <div className={`text-lg font-black mt-1 ${activeData.forceShift.pct > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
-                  {activeData.forceShift.pct > 0 ? '+' : ''}{activeData.forceShift.pct}%
+                <div className={`text-lg font-black mt-1 ${activeData.forceShift.pct! > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {activeData.forceShift.pct! > 0 ? '+' : ''}{activeData.forceShift.pct}%
                 </div>
               </>
             ) : (
