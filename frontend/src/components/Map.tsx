@@ -255,7 +255,10 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
         map.get(key)!.count += 1;
       });
     }
-    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+    return Array.from(map.values()).sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return a.name.localeCompare(b.name);
+    });
   })();
 
   const crimeChartData = useMemo(() => {
@@ -378,7 +381,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
 
       {/* Legend Overlay */}
       {visibleLegendItems.length > 0 && (
-        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl flex flex-col max-h-[40vh] md:max-h-80 w-48 md:w-64 border border-slate-200 overflow-hidden">
+        <div className="absolute bottom-6 left-2 md:bottom-6 md:left-auto md:right-6 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg shadow-xl flex flex-col max-h-[40vh] md:max-h-80 w-48 md:w-64 border border-slate-200 overflow-hidden">
           <div className="p-3 md:p-4 pb-2 md:pb-3 bg-white z-10 shadow-sm shrink-0">
             <h3 className="text-xs md:text-sm font-bold text-slate-800">Visible Categories</h3>
           </div>

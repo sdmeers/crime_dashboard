@@ -65,15 +65,17 @@ export default function App() {
       {/* Header */}
       <header className="bg-slate-900 text-white p-3 md:p-4 shadow-md flex items-center justify-between z-[2000]">
         <div className="flex items-center space-x-2">
-          <button 
-            className="md:hidden p-1 mr-1 text-slate-300 hover:text-white"
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          {activeTab === 'map' && (
+            <button 
+              className="md:hidden p-1 mr-1 text-slate-300 hover:text-white"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          )}
           <Shield className="h-5 w-5 md:h-6 md:w-6 text-blue-400 shrink-0" />
-          <h1 className="text-base md:text-xl font-bold tracking-tight hidden lg:block truncate mr-4">UK Crime Dashboard</h1>
+          <h1 className="text-base md:text-xl font-bold tracking-tight hidden md:block truncate mr-4">UK Crime Dashboard</h1>
           
           {/* Tabs */}
           <div className="flex bg-slate-800 rounded-md p-1 ml-2 md:ml-4">
