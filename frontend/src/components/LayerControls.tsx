@@ -4,8 +4,7 @@ interface LayerControlsProps {
     stops: boolean;
     outcomes: boolean;
     heatmap: boolean;
-    crimeChart: boolean;
-    outcomeChart: boolean;
+    activeAnalytic: string;
   };
   onChange: (layers: any) => void;
 }
@@ -13,6 +12,10 @@ interface LayerControlsProps {
 export default function LayerControls({ layers, onChange }: LayerControlsProps) {
   const toggleLayer = (key: string) => {
     onChange({ ...layers, [key]: !layers[key as keyof typeof layers] });
+  };
+
+  const setAnalytic = (analytic: string) => {
+    onChange({ ...layers, activeAnalytic: analytic });
   };
 
   return (
@@ -64,22 +67,46 @@ export default function LayerControls({ layers, onChange }: LayerControlsProps) 
       <div className="space-y-3">
         <label className="flex items-center space-x-3 cursor-pointer">
           <input 
-            type="checkbox" 
-            checked={layers.crimeChart}
-            onChange={() => toggleLayer('crimeChart')}
-            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
+            type="radio" 
+            name="analytic"
+            checked={layers.activeAnalytic === 'none'}
+            onChange={() => setAnalytic('none')}
+            className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-600"
+          />
+          <span className="text-sm font-medium text-slate-900">None</span>
+        </label>
+        
+        <label className="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="radio" 
+            name="analytic"
+            checked={layers.activeAnalytic === 'crimeChart'}
+            onChange={() => setAnalytic('crimeChart')}
+            className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-600"
           />
           <span className="text-sm font-medium text-slate-900">Crime Types Chart</span>
         </label>
         
         <label className="flex items-center space-x-3 cursor-pointer">
           <input 
-            type="checkbox" 
-            checked={layers.outcomeChart}
-            onChange={() => toggleLayer('outcomeChart')}
-            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600"
+            type="radio" 
+            name="analytic"
+            checked={layers.activeAnalytic === 'outcomeChart'}
+            onChange={() => setAnalytic('outcomeChart')}
+            className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-600"
           />
           <span className="text-sm font-medium text-slate-900">Crimes by Outcome</span>
+        </label>
+
+        <label className="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="radio" 
+            name="analytic"
+            checked={layers.activeAnalytic === 'historicalTrends'}
+            onChange={() => setAnalytic('historicalTrends')}
+            className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-600"
+          />
+          <span className="text-sm font-medium text-slate-900">Historical Trends</span>
         </label>
       </div>
     </div>

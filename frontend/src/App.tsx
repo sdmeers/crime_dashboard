@@ -3,7 +3,6 @@ import MapComponent from './components/Map';
 import SearchBar from './components/SearchBar';
 import TimeSlider from './components/TimeSlider';
 import LayerControls from './components/LayerControls';
-import HistoricalTrendsScreen from './components/HistoricalTrendsScreen';
 import Overview from './components/Overview';
 import { Shield, Menu, X, Map as MapIcon, BarChart3 } from 'lucide-react';
 
@@ -15,12 +14,9 @@ export default function App() {
     stops: false,
     outcomes: false,
     heatmap: false,
-    crimeChart: false,
-    outcomeChart: false
+    activeAnalytic: 'none'
   });
-  const [bounds, setBounds] = useState<any>(null);
   const [zoom, setZoom] = useState(6);
-  const [showTrends, setShowTrends] = useState(false);
   const [searchLocation, setSearchLocation] = useState<{center: [number, number], zoom: number, timestamp: number} | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'map' | 'overview'>('overview');
@@ -63,8 +59,8 @@ export default function App() {
   return (
     <div className="flex h-screen bg-slate-100 flex-col overflow-hidden">
       {/* Header */}
-      <header className="bg-slate-900 text-white p-3 md:p-4 shadow-md flex items-center justify-between z-[2000]">
-        <div className="flex items-center space-x-2">
+      <header className="bg-slate-900 text-white pt-3 md:pt-4 px-3 md:px-4 shadow-md flex items-end justify-between z-[2000] border-b border-slate-200">
+        <div className="flex items-center pb-2 md:pb-3">
           {activeTab === 'map' && (
             <button 
               className="md:hidden p-1 mr-1 text-slate-300 hover:text-white"
@@ -75,46 +71,36 @@ export default function App() {
             </button>
           )}
           <Shield className="h-5 w-5 md:h-6 md:w-6 text-blue-400 shrink-0" />
-          <h1 className="text-base md:text-xl font-bold tracking-tight hidden md:block truncate mr-4">UK Crime Dashboard</h1>
-          
-          {/* Tabs */}
-          <div className="flex bg-slate-800 rounded-md p-1 ml-2 md:ml-4">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`flex items-center px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-md transition-colors ${
-                activeTab === 'overview' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-700'
-              }`}
-            >
-              <BarChart3 className="w-4 h-4 mr-1.5 md:mr-2" />
-              <span className="hidden sm:inline">National Overview</span>
-              <span className="sm:hidden">Overview</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('map')}
-              className={`flex items-center px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium rounded-md transition-colors ${
-                activeTab === 'map' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white hover:bg-slate-700'
-              }`}
-            >
-              <MapIcon className="w-4 h-4 mr-1.5 md:mr-2" />
-              <span className="hidden sm:inline">Interactive Map</span>
-              <span className="sm:hidden">Map</span>
-            </button>
-          </div>
+          <h1 className="text-base md:text-xl font-bold tracking-tight hidden md:block mr-8">UK Crime Dashboard</h1>
         </div>
-        <div className="flex items-center space-x-2 md:space-x-4 flex-1 justify-end ml-2">
-          {activeTab === 'map' && <SearchBar onSearch={handleSearch} />}
-          {activeTab === 'map' && (
-          <button 
-            className={`min-h-[44px] px-3 md:px-4 py-2 rounded-md text-xs md:text-sm font-medium transition-colors whitespace-nowrap ${
-              isZoomedIn ? 'bg-blue-600 hover:bg-blue-500 text-white' : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+          
+        {/* Tabs */}
+        <div className="flex space-x-1 flex-1">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-t-lg transition-colors border-t border-x ${
+              activeTab === 'overview' ? 'bg-slate-100 text-slate-900 border-slate-200 z-10' : 'bg-slate-800 text-slate-400 border-transparent hover:bg-slate-700 hover:text-white'
             }`}
-            onClick={() => isZoomedIn && setShowTrends(true)}
-            title={!isZoomedIn ? "Zoom in to view historical trends" : "View historical trends for this area"}
+            style={{ marginBottom: activeTab === 'overview' ? '-1px' : '0' }}
           >
-            <span className="hidden sm:inline">Historical Trends</span>
-            <span className="sm:hidden">Trends</span>
+            <BarChart3 className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">National Overview</span>
+            <span className="sm:hidden">Overview</span>
           </button>
-          )}
+          <button
+            onClick={() => setActiveTab('map')}
+            className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-t-lg transition-colors border-t border-x ${
+              activeTab === 'map' ? 'bg-slate-100 text-slate-900 border-slate-200 z-10' : 'bg-slate-800 text-slate-400 border-transparent hover:bg-slate-700 hover:text-white'
+            }`}
+            style={{ marginBottom: activeTab === 'map' ? '-1px' : '0' }}
+          >
+            <MapIcon className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Interactive Map</span>
+            <span className="sm:hidden">Map</span>
+          </button>
+        </div>
+        <div className="flex items-center space-x-2 md:space-x-4 justify-end pb-2 md:pb-3 ml-2">
+          {activeTab === 'map' ? <SearchBar onSearch={handleSearch} /> : <div className="min-h-[44px]"></div>}
         </div>
       </header>
 
@@ -188,21 +174,13 @@ export default function App() {
                 zoom={zoom}
                 layers={layers}
                 selectedMonth={selectedMonth}
-                onBoundsChange={setBounds}
+                onBoundsChange={() => {}}
                 onZoomChange={setZoom}
               />
             </div>
           </>
         )}
       </div>
-
-      {showTrends && bounds && (
-        <HistoricalTrendsScreen 
-          bounds={bounds} 
-          selectedMonth={selectedMonth}
-          onClose={() => setShowTrends(false)} 
-        />
-      )}
     </div>
   );
 }
