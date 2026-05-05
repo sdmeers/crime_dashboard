@@ -4,20 +4,30 @@ import httpx
 import json
 import hashlib
 from typing import Optional
-from cache.sqlite_cache import SQLiteCache
+import os
+from cache import cache
 
 app = FastAPI(title="UK Crime Dashboard API")
 
 # Setup CORS
+allowed_origins = [
+    "http://localhost:5173", # Vite default
+    "http://127.0.0.1:5173",
+    "*" # Allow all by default for easy development
+]
+
+firebase_url = os.environ.get("FIREBASE_HOSTING_URL")
+if firebase_url:
+    allowed_origins = ["http://localhost:5173", "http://127.0.0.1:5173", firebase_url]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # For development
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-cache = SQLiteCache()
 POLICE_API_BASE = "https://data.police.uk/api"
 
 async def fetch_police_data(endpoint: str, params: dict) -> list | dict:
@@ -135,9 +145,19 @@ async def get_historical_crimes(poly: str):
         
     return historical_data
 
+from fastapi.responses import RedirectResponse
+
 @app.get("/api/overview-stats")
 async def get_overview_stats():
     import os
+    app_env = os.environ.get("APP_ENV", "local")
+    
+    if app_env == "production":
+        gcs_url = os.environ.get("PUBLIC_STATS_URL")
+        if not gcs_url:
+            raise HTTPException(status_code=500, detail="PUBLIC_STATS_URL not configured for production")
+        return RedirectResponse(url=gcs_url)
+
     if not os.path.exists("stats.json"):
         raise HTTPException(status_code=404, detail="Stats file not generated yet")
     with open("stats.json", "r") as f:

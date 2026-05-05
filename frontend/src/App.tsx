@@ -23,7 +23,7 @@ export default function App() {
 
   useEffect(() => {
     // Fetch last updated month
-    fetch('http://localhost:8000/api/last-updated')
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/last-updated`)
       .then(res => res.json())
       .then(data => {
         if (data && data.date) {

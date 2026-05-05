@@ -1,0 +1,11 @@
+[Unit]
+Description=Run UK Crime Data Batch Processor on the 28th of each month
+
+[Timer]
+# Run on the 28th of every month at 10:00 AM
+OnCalendar=*-*-28 10:00:00
+# If the laptop was off at the scheduled time, run it as soon as it boots/wakes up
+Persistent=true
+
+[Install]
+WantedBy=timers.target

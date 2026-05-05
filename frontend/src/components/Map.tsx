@@ -192,15 +192,15 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
     try {
       const promises = [];
       if (layers.crimes || layers.heatmap || layers.activeAnalytic === 'crimeChart') {
-        promises.push(fetch(`http://localhost:8000/api/crimes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
+        promises.push(fetch(`${import.meta.env.VITE_API_BASE_URL}/api/crimes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
       
       if (layers.stops) {
-        promises.push(fetch(`http://localhost:8000/api/stops?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
+        promises.push(fetch(`${import.meta.env.VITE_API_BASE_URL}/api/stops?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
       if (layers.outcomes || layers.activeAnalytic === 'outcomeChart') {
-        promises.push(fetch(`http://localhost:8000/api/outcomes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
+        promises.push(fetch(`${import.meta.env.VITE_API_BASE_URL}/api/outcomes?poly=${poly}&date=${selectedMonth}`).then(res => res.json()));
       } else promises.push(Promise.resolve([]));
 
       const [crimesData, stopsData, outcomesData] = await Promise.all(promises);
@@ -225,7 +225,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
   useEffect(() => {
     if (layers.activeAnalytic === 'historicalTrends' && currentPoly) {
       setHistoricalLoading(true);
-      fetch(`http://localhost:8000/api/historical-crimes?poly=${currentPoly}`)
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/historical-crimes?poly=${currentPoly}`)
         .then(res => res.json())
         .then(data => {
           setHistoricalData(data);
@@ -588,6 +588,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                           name={cat.replace(/-/g, ' ')} 
                           dot={false}
                           activeDot={{ r: 4 }}
+                          connectNulls={true}
                         />
                       ))}
                       {/* Bold line for Total */}
@@ -599,6 +600,7 @@ export default function MapComponent({ searchLocation, zoom, layers, selectedMon
                         name="Total Crimes" 
                         dot={false}
                         activeDot={{ r: 6, strokeWidth: 2, stroke: '#fff', fill: '#0f172a' }}
+                        connectNulls={true}
                       />
                     </LineChart>
                   </ResponsiveContainer>

@@ -20,7 +20,7 @@ export default function Overview() {
   const [leaderboardMode, setLeaderboardMode] = useState<'volume' | 'rate'>('volume');
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/overview-stats')
+    fetch(import.meta.env.VITE_STATS_URL)
       .then(res => {
         if (!res.ok) throw new Error("Stats not generated yet");
         return res.json();
