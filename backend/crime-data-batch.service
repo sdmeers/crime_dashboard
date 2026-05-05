@@ -1,0 +1,8 @@
+[Unit]
+Description=UK Crime Data Monthly Batch Processor
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/sdmeers/OneDrive/Steve/Code/crime_data/backend/run_monthly_batch.fish
+WorkingDirectory=/home/sdmeers/OneDrive/Steve/Code/crime_data/backend

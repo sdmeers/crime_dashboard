@@ -174,12 +174,35 @@ def download_and_process_month(month: str):
     
     with open("stats.json", "w") as f:
         json.dump(stats, f, indent=2)
-    
-    with open("stats.json", "w") as f:
-        json.dump(stats, f, indent=2)
         
     print("Done! Saved to stats.json")
+
+def upload_to_gcs(file_path: str, bucket_name: str, destination_blob_name: str):
+    """Uploads a file to the bucket."""
+    from google.cloud import storage
+    
+    print(f"Uploading {file_path} to gs://{bucket_name}/{destination_blob_name}...")
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    
+    # Set cache control to a short duration or no-cache since this updates monthly
+    blob.cache_control = "public, max-age=3600" 
+    blob.upload_from_filename(file_path)
+
+    print(f"File {file_path} uploaded to {destination_blob_name}.")
 
 if __name__ == "__main__":
     latest = get_latest_month()
     download_and_process_month(latest)
+    
+    app_env = os.environ.get("APP_ENV", "local")
+    gcs_bucket = os.environ.get("GCS_BUCKET_NAME")
+    
+    if app_env == "production" and gcs_bucket:
+        upload_to_gcs("stats.json", gcs_bucket, "stats.json")
+    elif app_env == "production" and not gcs_bucket:
+        print("Warning: APP_ENV is production but GCS_BUCKET_NAME is not set. Skipping upload.")
+    else:
+        print("Running in local mode. Skipping GCS upload.")
+

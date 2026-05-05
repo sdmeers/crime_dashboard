@@ -1,0 +1,7 @@
+__pycache__
+.venv
+cache.db
+stats.json
+.python-version
+.git
+*.md

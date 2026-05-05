@@ -28,7 +28,7 @@ export default function HistoricalTrendsScreen({ bounds, selectedMonth, onClose 
     const fetchHistoricalData = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:8000/api/historical-crimes?poly=${bounds}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/historical-crimes?poly=${bounds}`);
         const result = await res.json();
         setData(result);
       } catch (err) {
