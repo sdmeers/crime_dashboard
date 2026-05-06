@@ -5,3 +5,5 @@ cached_data
 *.txt
 no_share/
 implementation_plans/**
+backend/cache.db
+backend/__pycache__/
