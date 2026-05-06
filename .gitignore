@@ -1,9 +1,25 @@
+# Data & Cache
 boundaries
 csv_data
 cached_data
+backend/cache.db
+backend/stats.json
+backend/__pycache__/
+backend/cache/__pycache__/
+backend/.python-version
+
+# Frontend Build & Firebase
+frontend/dist/
+frontend/node_modules/
+frontend/.firebase/
+frontend/.env*.local
+
+# Logs & Temp
+*.log
 *.html
 *.txt
 no_share/
 implementation_plans/**
-backend/cache.db
-backend/__pycache__/
+
+# System Files
+.DS_Store
