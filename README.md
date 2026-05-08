@@ -1,70 +1,135 @@
-# UK Crime Data Analysis and Visualization
+# UK Crime Data Dashboard
 
-This project provides a set of Python scripts to fetch, analyze, and visualize crime data from the police.uk API. It includes tools to generate interactive maps, heatmaps, and dashboards for crime data in the UK.
+An interactive, high-performance dashboard for visualizing and analyzing UK police crime data. This project leverages a modern hybrid-cloud architecture to provide deep insights into crime trends while maintaining a "Zero-to-Low Cost" operating model.
 
-## Features
+## 🏛️ System Architecture
 
-*   **Interactive Crime Maps**: Generate HTML maps with markers for individual crime and stop-and-search incidents.
-*   **UK-Wide Heatmap**: Create a heatmap to visualize crime density across the entire UK.
-*   **Hampshire Crime Dashboard**: A detailed, interactive dashboard for Hampshire, including analytics, charts, and a map.
-*   **Data Caching**: Scripts cache data locally to avoid repeated API calls.
-*   **KML Boundary Support**: Use KML files to define geographical boundaries for data fetching.
+The application is built on a hybrid model that offloads heavy data processing to local hardware while using serverless cloud components for low-latency delivery.
 
-## Screenshots
+```mermaid
+flowchart TD
+    subgraph LocalEnv ["Local Environment (Fedora)"]
+        BP[Batch Processor]
+        ST[systemd Timer]
+        ST --> BP
+    end
 
-Below is a screenshot of the Crime Dashboard for Hampshire:
+    subgraph External ["External Sources"]
+        PAPI["Police.uk API"]
+    end
 
-![Hampshire Crime Dashboard](screenshots/dashboard.jpg)
+    subgraph GCP ["Google Cloud Platform (Free Tier)"]
+        GCS[(Cloud Storage: stats.json)]
+        CR["Cloud Run: FastAPI Backend"]
+        FS[(Firestore Cache)]
+        FH["Firebase Hosting: React Frontend"]
+    end
 
-## Scripts
+    BP -- "Step 1: Process CSVs" --> GCS
+    BP -- "Download Raw Data" --> PAPI
+    
+    CR -- "Step 2: Fetch/Cache Data" --> PAPI
+    CR <--> FS
 
-*   `create_crime_map.py`: Creates an interactive crime map for Hampshire.
-*   `create_crime_map_UK.py`: Creates a clustered crime map for the entire UK.
-*   `create_heatmap.py`: Generates a UK-wide crime heatmap from cached data.
-*   `hampshire_crime_dashboard.py`: Generates an interactive HTML dashboard for Hampshire.
-*   `crime_dashboard.py`: A simple script for a basic crime breakdown in a specific area.
-*   `get_polygon_from_kml.py`: A utility to extract coordinates from KML files.
+    FH -- "Step 3: Fetch Stats" --> GCS
+    FH -- "Step 4: Area Details" --> CR
+    
+    User["Web Browser"] -- "Access Dashboard" --> FH
+```
 
-## How to Use
+### Design Principles
+- **Zero-to-Low Cost:** Optimized to stay within the Google Cloud Platform (GCP) "Always Free" tier.
+- **Compute Offloading:** Heavy monthly data processing (gigabytes of CSVs) is done locally to avoid cloud compute costs.
+- **Serverless Scaling:** The backend (Cloud Run) and frontend (Firebase) scale to zero when not in use.
+- **Hybrid Caching:** High-frequency API requests are cached in Firestore with a TTL index.
 
-1.  **Prerequisites**:
-    *   Python 3
-    *   `pandas`
-    *   `folium`
-    *   `requests`
-    *   `matplotlib`
+---
 
-2.  **Installation**:
-    ```bash
-    pip install pandas folium requests matplotlib
-    ```
+## 📂 Project Structure
 
-3.  **Directory Structure**:
-    *   `boundaries/`: Store your KML files in this directory. The scripts expect a subdirectory for each police force (e.g., `boundaries/hampshire/`).
-    *   `cached_data/`: This directory is created automatically to store cached API responses.
+- **`backend/`**: FastAPI server providing geographical crime data. Features a flexible caching layer (SQLite for local, Firestore for production).
+- **`frontend/`**: Modern React application built with Vite, TypeScript, and Tailwind CSS. Uses Leaflet for interactive maps and Recharts for analytics.
+- **`implementation_plans/`**: Detailed design documents and roadmaps.
+- **`GCP_DEPLOYMENT_GUIDE.md`**: Technical documentation for cloud setup and management.
 
-4.  **Running the Scripts**:
-    *   To generate the Hampshire crime map:
-        ```bash
-        python create_crime_map.py
-        ```
-    *   To generate the UK-wide crime map:
-        ```bash
-        python create_crime_map_UK.py
-        ```
-    *   To generate the UK crime heatmap:
-        ```bash
-        python create_heatmap.py
-        ```
-    *   To generate the Hampshire crime dashboard:
-        ```bash
-        python hampshire_crime_dashboard.py
-        ```
+---
 
-## Data Source
+## 🛠️ Installation & Local Development
 
-This project uses data from the [police.uk API](https://data.police.uk/docs/).
+### 1. Prerequisites
+- **Python 3.11+**: Managed via [`uv`](https://github.com/astral-sh/uv) (recommended).
+- **Node.js 20+**: Managed via `npm`.
+- **GCP Account**: Required for Firestore and Cloud Run features.
 
-## License
+### 2. Backend Setup (Local)
+The backend uses `uv` for lightning-fast dependency management.
+
+```bash
+cd backend
+uv venv
+source .venv/bin/activate.fish  # or your shell equivalent
+uv sync
+uv run uvicorn main:app --reload
+```
+*The local backend defaults to using `sqlite_cache.py` for API responses.*
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Open `http://localhost:5173` to view the dashboard.
+
+---
+
+## 🚀 Deployment
+
+The project is configured for one-command deployments once GCP is initialized.
+
+### Frontend (Firebase)
+```bash
+cd frontend
+npm run build
+firebase deploy --only hosting
+```
+
+### Backend (Cloud Run)
+```bash
+cd backend
+gcloud run deploy crime-dashboard-backend --source . --region europe-west2
+```
+
+---
+
+## 🤖 Automation (Local Batch Processing)
+
+The dashboard relies on a monthly `stats.json` file generated from raw Police.uk data. This is automated on a local Fedora machine using `systemd`.
+
+- **Script:** `backend/batch_processor.py`
+- **Timer:** `crime-data-batch.timer` (runs on the 28th of every month).
+- **Output:** Uploads to GCS bucket `crime-dashboard-stats-data-sdm-1`.
+
+**Monitor automation:**
+```bash
+systemctl --user status crime-data-batch.timer
+journalctl --user -u crime-data-batch.service -f
+```
+
+---
+
+## 💡 Useful Commands
+
+| Action | Command |
+| :--- | :--- |
+| **Start Backend** | `uv run uvicorn main:app` |
+| **Start Frontend** | `npm run dev` |
+| **Deploy All** | `firebase deploy && gcloud run deploy ...` |
+| **Check Logs** | `gcloud run services logs tail crime-dashboard-backend` |
+| **Artifact Cleanup** | See `GCP_DEPLOYMENT_GUIDE.md` section 5 |
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
